@@ -8,11 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --navy:         #0d1b2a;
@@ -26,8 +22,7 @@
   --muted:        #7f9ab3;
   --border-card:  rgba(255, 255, 255, 0.06);
   --shadow-sm:    0 2px 12px rgba(0, 0, 0, 0.35);
-  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.5),
-                  0 0 0 1px rgba(201, 168, 76, 0.2);
+  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 168, 76, 0.2);
   --good:         #0cce6b;
   --average:      #ffa400;
   --poor:         #ff4e42;
@@ -44,20 +39,10 @@ body {
   align-items: center;
   justify-content: center;
   padding: 48px 24px;
-  background-image:
-    radial-gradient(
-      ellipse 80% 45% at 50% -5%,
-      rgba(201, 168, 76, 0.05) 0%,
-      transparent 60%
-    );
+  background-image: radial-gradient(ellipse 80% 45% at 50% -5%, rgba(201, 168, 76, 0.05) 0%, transparent 60%);
 }
 
-.wrapper {
-  width: 100%;
-  max-width: 920px;
-}
-
-/* ── Header ── */
+.wrapper { width: 100%; max-width: 920px; }
 
 .header {
   text-align: center;
@@ -84,30 +69,18 @@ body {
   letter-spacing: -0.5px;
 }
 
-.header h1 em {
-  font-style: italic;
-  color: var(--gold-light);
-}
+.header h1 em { font-style: italic; color: var(--gold-light); }
 
 .header .sub {
   margin-top: 12px;
   font-size: 13px;
-  font-weight: 400;
   color: var(--muted);
   max-width: 460px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* ── Grid ── */
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-/* ── Card ── */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
 .card {
   background: var(--surface);
@@ -134,16 +107,9 @@ body {
 
 .card-accent {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--gold) 0%,
-    var(--gold-light) 60%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 60%, transparent 100%);
   border-radius: 16px 16px 0 0;
 }
 
@@ -167,19 +133,11 @@ body {
 
 .card-desc {
   font-size: 13px;
-  font-weight: 400;
   color: var(--muted);
   line-height: 1.65;
 }
 
-/* ── Tags ── */
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 18px;
-}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
 
 .tag {
   font-size: 11px;
@@ -192,14 +150,7 @@ body {
   letter-spacing: 0.2px;
 }
 
-/* ── Buttons ── */
-
-.btn-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
+.btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
 
 .btn {
   display: inline-flex;
@@ -218,20 +169,8 @@ body {
   transition: background 0.18s, border-color 0.18s, color 0.18s;
 }
 
-.btn:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--navy);
-}
-
-.btn svg {
-  width: 11px;
-  height: 11px;
-  flex-shrink: 0;
-  opacity: 0.8;
-}
-
-/* ── Footer ── */
+.btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+.btn svg { width: 11px; height: 11px; flex-shrink: 0; opacity: 0.8; }
 
 .footer {
   text-align: center;
@@ -245,8 +184,7 @@ body {
   animation: fadeUp 0.6s 0.4s ease both;
 }
 
-/* ── Overlay (shared) ── */
-
+/* Overlay */
 .overlay {
   position: fixed;
   inset: 0;
@@ -262,31 +200,25 @@ body {
   transition: opacity 0.22s ease;
 }
 
-.overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
+.overlay.open { opacity: 1; pointer-events: all; }
 
-/* ── Panel (shared) ── */
-
+/* Panel */
 .history-panel {
   background: var(--surface);
   border: 1px solid rgba(201, 168, 76, 0.18);
   border-radius: 20px;
   width: 100%;
-  max-width: 680px;
+  max-width: 700px;
   max-height: 82vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
   transform: translateY(18px);
   transition: transform 0.25s ease;
   overflow: hidden;
 }
 
-.overlay.open .history-panel {
-  transform: translateY(0);
-}
+.overlay.open .history-panel { transform: translateY(0); }
 
 .panel-header {
   display: flex;
@@ -306,48 +238,34 @@ body {
   opacity: 0.85;
 }
 
-.panel-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--text);
-}
+.panel-title { font-size: 20px; font-weight: 600; color: var(--text); }
 
 .panel-close {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 8px;
   color: var(--muted);
   font-size: 16px;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
   transition: background 0.15s, color 0.15s;
 }
 
-.panel-close:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--text);
-}
+.panel-close:hover { background: rgba(255,255,255,0.12); color: var(--text); }
 
 .panel-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 28px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
   flex-shrink: 0;
   gap: 12px;
 }
 
-.panel-domain {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--muted);
-}
+.panel-domain { font-size: 12px; color: var(--muted); }
 
 .btn-run {
   display: inline-flex;
@@ -368,13 +286,7 @@ body {
   flex-shrink: 0;
 }
 
-.btn-run:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--navy);
-}
-
-/* ── History List (shared) ── */
+.btn-run:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
 
 .history-body {
   overflow-y: auto;
@@ -384,180 +296,13 @@ body {
 
 .history-body::-webkit-scrollbar { width: 4px; }
 .history-body::-webkit-scrollbar-track { background: transparent; }
-.history-body::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 76, 0.2);
-  border-radius: 4px;
-}
+.history-body::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 4px; }
 
-/* ── PageSpeed columns ── */
-
-.psi-col-labels {
-  display: grid;
-  grid-template-columns: 1fr 72px 72px 80px;
-  gap: 8px;
-  padding: 10px 0 6px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--muted);
-  opacity: 0.6;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.psi-col-labels span:not(:first-child) { text-align: center; }
-
-.psi-row {
-  display: grid;
-  grid-template-columns: 1fr 72px 72px 80px;
-  gap: 8px;
-  align-items: center;
-  padding: 13px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.psi-row:last-child { border-bottom: none; }
-
-/* ── Clarity columns ── */
-
-.clarity-col-labels {
-  display: grid;
-  grid-template-columns: 1fr repeat(5, 56px);
-  gap: 6px;
-  padding: 10px 0 6px;
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--muted);
-  opacity: 0.6;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.clarity-col-labels span:not(:first-child) { text-align: center; }
-
-.clarity-row {
-  display: grid;
-  grid-template-columns: 1fr repeat(5, 56px);
-  gap: 6px;
-  align-items: center;
-  padding: 11px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.clarity-row:last-child { border-bottom: none; }
-
-/* ── Second row for more metrics ── */
-.clarity-row-meta {
-  display: grid;
-  grid-template-columns: 1fr repeat(4, 56px);
-  gap: 6px;
-  align-items: center;
-  padding: 0 0 11px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  margin-top: -8px;
-}
-
-/* ── Shared row bits ── */
-
-.row-date { font-size: 13px; font-weight: 500; color: var(--text); }
-.row-note { font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 2px; }
-
-.score-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 13px;
-  font-weight: 600;
-  margin: 0 auto;
-  border: 2px solid;
-}
-
-.score-badge.good    { color: var(--good);    border-color: var(--good);    background: rgba(12, 206, 107, 0.08); }
-.score-badge.average { color: var(--average); border-color: var(--average); background: rgba(255, 164, 0, 0.08); }
-.score-badge.poor    { color: var(--poor);    border-color: var(--poor);    background: rgba(255, 78, 66, 0.08); }
-
-/* Smaller badge for Clarity (more cols) */
-.score-badge.sm {
-  width: 34px;
-  height: 34px;
-  font-size: 11px;
-}
-
-.metric-val {
-  text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text);
-}
-
-.metric-label {
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  color: var(--muted);
-  text-align: center;
-  margin-top: 2px;
-  text-transform: uppercase;
-}
-
-.row-link { text-align: center; }
-.row-link a {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--gold);
-  text-decoration: none;
-  letter-spacing: 0.3px;
-  opacity: 0.85;
-  transition: opacity 0.15s;
-}
-.row-link a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
-
-/* ── Loading & states ── */
-
-.history-loading {
-  text-align: center;
-  padding: 48px 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.history-loading::after {
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(201, 168, 76, 0.2);
-  border-top-color: var(--gold);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  vertical-align: middle;
-  margin-left: 8px;
-}
-
-.history-error {
-  text-align: center; padding: 48px 0;
-  color: var(--poor); font-size: 13px;
-}
-
-.history-error strong { display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-
-.history-empty {
-  text-align: center; padding: 48px 0;
-  color: var(--muted); font-size: 13px;
-}
-
-.history-empty strong { display: block; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-
-/* ── Log Score Section ── */
-
+/* Log section */
 .log-section {
   padding: 16px 28px;
   flex-shrink: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .log-label {
@@ -590,19 +335,18 @@ body {
   padding: 7px 11px;
   outline: none;
   transition: border-color 0.15s;
-  width: 82px;
+  width: 90px;
 }
 
 .log-input-wide { width: 100%; }
 .log-input-note { flex: 1; width: auto; }
-
 .log-input::placeholder { color: var(--muted); opacity: 0.6; }
-.log-input:focus { border-color: rgba(201, 168, 76, 0.5); background: rgba(255,255,255,0.06); }
+.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255,255,255,0.06); }
 
 .log-save-btn {
   padding: 7px 16px;
   background: var(--gold-dim);
-  border: 1px solid rgba(201, 168, 76, 0.4);
+  border: 1px solid rgba(201,168,76,0.4);
   border-radius: 8px;
   color: var(--gold-light);
   font-family: 'Inter', sans-serif;
@@ -617,38 +361,86 @@ body {
 .log-save-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
 .log-save-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.log-feedback {
-  font-size: 11px;
-  min-height: 16px;
-  margin-top: 6px;
-  font-weight: 500;
-}
-
+.log-feedback { font-size: 11px; min-height: 16px; margin-top: 6px; font-weight: 500; }
 .log-feedback.ok   { color: var(--good); }
 .log-feedback.err  { color: var(--poor); }
 .log-feedback.info { color: var(--gold-light); }
 
-/* ── Animations ── */
+/* Col headers shared */
+.col-labels {
+  padding: 10px 0 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.6;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: grid;
+  gap: 8px;
+}
+
+.col-labels span:not(:first-child) { text-align: center; }
+
+/* Score badges */
+.score-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 auto;
+  border: 2px solid;
+}
+
+.score-badge.sm { width: 34px; height: 34px; font-size: 11px; }
+.score-badge.good    { color: var(--good);    border-color: var(--good);    background: rgba(12,206,107,0.08); }
+.score-badge.average { color: var(--average); border-color: var(--average); background: rgba(255,164,0,0.08); }
+.score-badge.poor    { color: var(--poor);    border-color: var(--poor);    background: rgba(255,78,66,0.08); }
+
+.metric-val { text-align: center; font-size: 12px; font-weight: 500; color: var(--text); }
+.row-date { font-size: 13px; font-weight: 500; color: var(--text); }
+.row-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.row-link { text-align: center; }
+.row-link a { font-size: 11px; font-weight: 600; color: var(--gold); text-decoration: none; opacity: 0.85; transition: opacity 0.15s; }
+.row-link a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+
+.history-loading {
+  text-align: center; padding: 48px 0;
+  color: var(--muted); font-size: 13px;
+}
+
+.history-loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(201,168,76,0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.history-error { text-align: center; padding: 48px 0; color: var(--poor); font-size: 13px; }
+.history-error strong { display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.history-empty { text-align: center; padding: 48px 0; color: var(--muted); font-size: 13px; }
+.history-empty strong { display: block; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 620px) {
   .grid { grid-template-columns: 1fr; }
   .header h1 { font-size: 30px; }
   .history-panel { max-height: 90vh; }
-  .panel-header,
-  .panel-toolbar,
-  .log-section,
-  .history-body { padding-left: 16px; padding-right: 16px; }
-  .psi-col-labels, .psi-row { grid-template-columns: 1fr 60px 60px 64px; }
-  .clarity-col-labels, .clarity-row { grid-template-columns: 1fr repeat(5, 46px); }
+  .panel-header, .panel-toolbar, .log-section, .history-body { padding-left: 16px; padding-right: 16px; }
 }
 
 </style>
@@ -659,166 +451,115 @@ body {
   <div class="header">
     <div class="eyebrow">3S Group of Companies</div>
     <h1>SEO Performance <em>Stack</em></h1>
-    <p class="sub">
-      Tools we use to track, measure, and grow digital presence across all three brands.
-    </p>
+    <p class="sub">Tools we use to track, measure, and grow digital presence across all three brands.</p>
   </div>
 
   <div class="grid">
 
-    <!-- PageSpeed Insights -->
+    <!-- 01 PageSpeed -->
     <div class="card">
       <div class="card-accent"></div>
       <div class="card-num">01</div>
       <div class="card-tool">PageSpeed Insights</div>
-      <div class="card-desc">
-        How fast each site loads on mobile and desktop.
-        Flags anything slowing visitors down before they leave.
-      </div>
+      <div class="card-desc">How fast each site loads on mobile and desktop. Flags anything slowing visitors down before they leave.</div>
       <div class="tags">
         <span class="tag">Speed</span>
         <span class="tag">Core Web Vitals</span>
         <span class="tag">Mobile Score</span>
       </div>
       <div class="btn-group">
-        <button class="btn" onclick="openPsiHistory('3S Business', '3sbusinessme.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openPsi('3S Business','3sbusinessme.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           3S Business
         </button>
-        <button class="btn" onclick="openPsiHistory('BizCity', 'bizcitygroup.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openPsi('BizCity','bizcitygroup.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           BizCity
         </button>
-        <button class="btn" onclick="openPsiHistory('3S HR', '3shrconsulting.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openPsi('3S HR','3shrconsulting.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           3S HR
         </button>
       </div>
     </div>
 
-    <!-- SEMrush -->
+    <!-- 02 SEMrush -->
     <div class="card">
       <div class="card-accent"></div>
       <div class="card-num">02</div>
       <div class="card-tool">SEMrush</div>
-      <div class="card-desc">
-        Where we rank on Google, what keywords we are missing,
-        and what competitors are doing better.
-      </div>
+      <div class="card-desc">Where we rank on Google, what keywords we are missing, and what competitors are doing better.</div>
       <div class="tags">
         <span class="tag">Rankings</span>
         <span class="tag">Keyword Gaps</span>
         <span class="tag">Site Audit</span>
       </div>
       <div class="btn-group">
-        <a class="btn" href="https://www.semrush.com/login/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
+        <button class="btn" onclick="openSemrush('3S Business','3sbusinessme.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           3S Business
-        </a>
-        <a class="btn" href="https://www.semrush.com/login/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
+        </button>
+        <button class="btn" onclick="openSemrush('BizCity','bizcitygroup.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           BizCity
-        </a>
-        <a class="btn" href="https://www.semrush.com/login/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
-          </svg>
+        </button>
+        <button class="btn" onclick="openSemrush('3S HR','3shrconsulting.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           3S HR
-        </a>
+        </button>
       </div>
     </div>
 
-    <!-- Microsoft Clarity -->
+    <!-- 03 Clarity -->
     <div class="card">
       <div class="card-accent"></div>
       <div class="card-num">03</div>
       <div class="card-tool">Microsoft Clarity</div>
-      <div class="card-desc">
-        Records how real visitors move through each site:
-        where they click, where they pause, and where they leave.
-      </div>
+      <div class="card-desc">Records how real visitors move through each site - where they click, where they pause, and where they leave.</div>
       <div class="tags">
+        <span class="tag">Sessions</span>
         <span class="tag">Clicks</span>
         <span class="tag">Page Views</span>
       </div>
       <div class="btn-group">
-        <button class="btn" onclick="openClarityHistory('3S Business', '3sbusinessme.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openClarity('3S Business','3sbusinessme.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           3S Business
         </button>
-        <button class="btn" onclick="openClarityHistory('BizCity', 'bizcitygroup.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openClarity('BizCity','bizcitygroup.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           BizCity
         </button>
-        <button class="btn" onclick="openClarityHistory('3S HR', '3shrconsulting.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openClarity('3S HR','3shrconsulting.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           3S HR
         </button>
       </div>
     </div>
 
-    <!-- Looker Studio -->
+    <!-- 04 Looker Studio -->
     <div class="card">
       <div class="card-accent"></div>
       <div class="card-num">04</div>
       <div class="card-tool">Looker Studio</div>
-      <div class="card-desc">
-        One live dashboard pulling data from Search Console,
-        Analytics, and Google Ads, all in one place.
-      </div>
+      <div class="card-desc">One live dashboard pulling data from Search Console, Analytics, and Google Ads - all in one place.</div>
       <div class="tags">
-        <span class="tag">GSC</span>
-        <span class="tag">GA4</span>
-        <span class="tag">Google Ads</span>
+        <span class="tag">GSC Clicks</span>
+        <span class="tag">Impressions</span>
+        <span class="tag">Avg Position</span>
+        <span class="tag">Conversions</span>
       </div>
       <div class="btn-group">
-        <button class="btn" onclick="openLookerHistory('3S Business', '3sbusinessme.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openLooker('3S Business','3sbusinessme.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           3S Business
         </button>
-        <button class="btn" onclick="openLookerHistory('BizCity', 'bizcitygroup.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openLooker('BizCity','bizcitygroup.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           BizCity
         </button>
-        <button class="btn" onclick="openLookerHistory('3S HR', '3shrconsulting.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <button class="btn" onclick="openLooker('3S HR','3shrconsulting.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           3S HR
         </button>
       </div>
@@ -826,549 +567,428 @@ body {
 
   </div>
 
-  <div class="footer">
-    Prepared by Mufeed &nbsp;&middot;&nbsp; SEO &amp; Digital Marketing &nbsp;&middot;&nbsp; 3S Group
-  </div>
+  <div class="footer">Prepared by Mufeed &nbsp;&middot;&nbsp; SEO &amp; Digital Marketing &nbsp;&middot;&nbsp; 3S Group</div>
 
 </div>
 
-<!-- ── PageSpeed History Panel ── -->
-<div id="psi-overlay" class="overlay" onclick="closePsiHistory(event)">
+<!-- PSI Panel -->
+<div id="psi-overlay" class="overlay" onclick="closePanel('psi',event)">
   <div class="history-panel">
     <div class="panel-header">
       <div>
         <div class="panel-brand">PageSpeed Insights</div>
-        <div class="panel-title" id="psi-panel-title">Loading...</div>
+        <div class="panel-title" id="psi-title"></div>
       </div>
-      <button class="panel-close" onclick="closePsiHistory()">&#x2715;</button>
+      <button class="panel-close" onclick="closePanel('psi')">&#x2715;</button>
     </div>
-
     <div class="panel-toolbar">
-      <span class="panel-domain" id="psi-panel-domain"></span>
-      <a id="psi-run-btn" class="btn-run" href="#" target="_blank">
-        Run New Test &#x2197;
-      </a>
+      <span class="panel-domain" id="psi-domain"></span>
+      <a id="psi-run" class="btn-run" href="#" target="_blank">Run New Test &#x2197;</a>
     </div>
-
     <div class="log-section">
       <div class="log-label">Log a new score</div>
       <div class="log-row">
-        <input id="psi-log-url" class="log-input log-input-wide" type="url"
-               placeholder="Paste PageSpeed report URL (optional)"
-               oninput="window.onPsiUrlInput(this.value)" />
+        <input id="psi-url" class="log-input log-input-wide" type="url" placeholder="Paste PageSpeed report URL (optional)" />
       </div>
       <div class="log-row">
-        <input id="psi-log-mobile"  class="log-input" type="number" min="0" max="100" placeholder="Mobile" />
-        <input id="psi-log-desktop" class="log-input" type="number" min="0" max="100" placeholder="Desktop" />
-        <input id="psi-log-note"    class="log-input log-input-note" type="text" placeholder="Note (optional)" />
-        <button class="log-save-btn" id="psi-save-btn" onclick="window.savePsiScore()">Save</button>
+        <input id="psi-mobile"  class="log-input" type="number" min="0" max="100" placeholder="Mobile" />
+        <input id="psi-desktop" class="log-input" type="number" min="0" max="100" placeholder="Desktop" />
+        <input id="psi-note"    class="log-input log-input-note" type="text" placeholder="Note (optional)" />
+        <button class="log-save-btn" id="psi-save" onclick="savePsi()">Save</button>
       </div>
-      <div id="psi-feedback" class="log-feedback"></div>
+      <div id="psi-fb" class="log-feedback"></div>
     </div>
-
     <div class="history-body">
-      <div class="psi-col-labels">
-        <span>Date</span>
-        <span>Mobile</span>
-        <span>Desktop</span>
-        <span>Report</span>
+      <div class="col-labels" style="grid-template-columns:1fr 72px 72px 80px;">
+        <span>Date</span><span>Mobile</span><span>Desktop</span><span>Report</span>
       </div>
-      <div id="psi-history-list"></div>
+      <div id="psi-list"></div>
     </div>
   </div>
 </div>
 
-<!-- ── Clarity History Panel ── -->
-<div id="clarity-overlay" class="overlay" onclick="closeClarityHistory(event)">
+<!-- SEMrush Panel -->
+<div id="semrush-overlay" class="overlay" onclick="closePanel('semrush',event)">
   <div class="history-panel" style="max-width:760px;">
+    <div class="panel-header">
+      <div>
+        <div class="panel-brand">SEMrush</div>
+        <div class="panel-title" id="semrush-title"></div>
+      </div>
+      <button class="panel-close" onclick="closePanel('semrush')">&#x2715;</button>
+    </div>
+    <div class="panel-toolbar">
+      <span class="panel-domain" id="semrush-domain"></span>
+      <a class="btn-run" href="https://www.semrush.com/login/" target="_blank">Open SEMrush &#x2197;</a>
+    </div>
+    <div class="log-section">
+      <div class="log-label">Log weekly snapshot from SEMrush</div>
+      <div class="log-row">
+        <input id="sr-keywords"    class="log-input" type="number" min="0" placeholder="Keywords" title="Total keywords tracked" />
+        <input id="sr-top-kw"      class="log-input" type="text" style="width:140px" placeholder="Top Keyword" title="Best performing keyword" />
+        <input id="sr-top-pos"     class="log-input" type="number" min="1" placeholder="Position" title="Position of top keyword" style="width:90px" />
+        <input id="sr-da"          class="log-input" type="number" min="0" max="100" placeholder="DA Score" title="Domain Authority score" />
+        <input id="sr-audit"       class="log-input" type="number" min="0" max="100" placeholder="Audit Score" title="Site Audit score" />
+        <input id="sr-note"        class="log-input log-input-note" type="text" placeholder="Note (optional)" />
+        <button class="log-save-btn" id="semrush-save" onclick="saveSemrush()">Save</button>
+      </div>
+      <div id="semrush-fb" class="log-feedback"></div>
+    </div>
+    <div class="history-body">
+      <div class="col-labels" style="grid-template-columns:1fr 80px 160px 64px 72px;">
+        <span>Date</span><span>Keywords</span><span>Top Keyword</span><span>DA</span><span>Audit</span>
+      </div>
+      <div id="semrush-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Clarity Panel -->
+<div id="clarity-overlay" class="overlay" onclick="closePanel('clarity',event)">
+  <div class="history-panel">
     <div class="panel-header">
       <div>
         <div class="panel-brand">Microsoft Clarity</div>
-        <div class="panel-title" id="clarity-panel-title">Loading...</div>
+        <div class="panel-title" id="clarity-title"></div>
       </div>
-      <button class="panel-close" onclick="closeClarityHistory()">&#x2715;</button>
+      <button class="panel-close" onclick="closePanel('clarity')">&#x2715;</button>
     </div>
-
     <div class="panel-toolbar">
-      <span class="panel-domain" id="clarity-panel-domain"></span>
-      <a id="clarity-run-btn" class="btn-run"
-         href="https://clarity.microsoft.com/" target="_blank">
-        Open Clarity &#x2197;
-      </a>
+      <span class="panel-domain" id="clarity-domain"></span>
+      <a class="btn-run" href="https://clarity.microsoft.com/" target="_blank">Open Clarity &#x2197;</a>
     </div>
-
-    <!-- Clarity log form -->
     <div class="log-section">
       <div class="log-label">Log metrics from Clarity</div>
-      <!-- Row 1: percentage metrics -->
       <div class="log-row">
-        <input id="cl-clicks"    class="log-input" type="number" min="0" placeholder="Clicks" title="Total clicks" style="width:110px" />
-        <input id="cl-pageviews" class="log-input" type="number" min="0" placeholder="Page Views" title="Total page views" style="width:110px" />
-        <input id="cl-sessions"  class="log-input" type="number" min="0" placeholder="Sessions" title="Session count" style="width:110px" />
+        <input id="cl-sessions"  class="log-input" type="number" min="0" placeholder="Sessions" />
+        <input id="cl-clicks"    class="log-input" type="number" min="0" placeholder="Clicks" />
+        <input id="cl-pageviews" class="log-input" type="number" min="0" placeholder="Page Views" />
+        <input id="cl-top-page"  class="log-input" type="text" style="width:160px" placeholder="Top Clicked Page" />
         <input id="cl-note"      class="log-input log-input-note" type="text" placeholder="Note (optional)" />
-        <button class="log-save-btn" id="clarity-save-btn" onclick="window.saveClarityScore()">Save</button>
+        <button class="log-save-btn" id="clarity-save" onclick="saveClarity()">Save</button>
       </div>
-      <div id="clarity-feedback" class="log-feedback"></div>
+      <div id="clarity-fb" class="log-feedback"></div>
     </div>
-
     <div class="history-body">
-      <div style="display:grid;grid-template-columns:1fr 80px 80px 80px;gap:8px;padding:10px 0 6px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:.6;border-bottom:1px solid rgba(255,255,255,0.05);">
-        <span>Date / Note</span>
-        <span style="text-align:center">Clicks</span>
-        <span style="text-align:center">Page Views</span>
-        <span style="text-align:center">Sessions</span>
+      <div class="col-labels" style="grid-template-columns:1fr 72px 72px 80px 140px;">
+        <span>Date</span><span>Sessions</span><span>Clicks</span><span>Page Views</span><span>Top Page</span>
       </div>
-      <div id="clarity-history-list"></div>
+      <div id="clarity-list"></div>
     </div>
   </div>
 </div>
 
-<!-- ── Looker Studio History Panel ── -->
-<div id="looker-overlay" class="overlay" onclick="closeLookerHistory(event)">
+<!-- Looker Studio Panel -->
+<div id="looker-overlay" class="overlay" onclick="closePanel('looker',event)">
   <div class="history-panel" style="max-width:760px;">
     <div class="panel-header">
       <div>
-        <div class="panel-brand">Looker Studio · GA4</div>
-        <div class="panel-title" id="looker-panel-title">Loading...</div>
+        <div class="panel-brand">Looker Studio</div>
+        <div class="panel-title" id="looker-title"></div>
       </div>
-      <button class="panel-close" onclick="closeLookerHistory()">&#x2715;</button>
+      <button class="panel-close" onclick="closePanel('looker')">&#x2715;</button>
     </div>
-
     <div class="panel-toolbar">
-      <span class="panel-domain" id="looker-panel-domain"></span>
-      <a id="looker-run-btn" class="btn-run"
-         href="https://lookerstudio.google.com/" target="_blank">
-        Open Looker Studio &#x2197;
-      </a>
+      <span class="panel-domain" id="looker-domain"></span>
+      <a class="btn-run" href="https://lookerstudio.google.com/" target="_blank">Open Looker Studio &#x2197;</a>
     </div>
-
     <div class="log-section">
-      <div class="log-label">Log metrics from GA4 / Looker Studio</div>
+      <div class="log-label">Log metrics from Looker Studio</div>
       <div class="log-row">
-        <input id="ls-sessions"  class="log-input" type="number" min="0" placeholder="Sessions" title="Total sessions" style="width:96px" />
-        <input id="ls-users"     class="log-input" type="number" min="0" placeholder="Users" title="Total users" style="width:86px" />
-        <input id="ls-bounce"    class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Bounce %" title="Bounce rate %" />
-        <input id="ls-engage"    class="log-input" type="number" step="0.01" min="0" placeholder="Engage (min)" title="Avg engagement time in minutes" style="width:110px" />
-        <input id="ls-note"      class="log-input log-input-note" type="text" placeholder="Note / period (e.g. May 2025)" />
-        <button class="log-save-btn" id="looker-save-btn" onclick="window.saveLookerScore()">Save</button>
+        <input id="ls-clicks"       class="log-input" type="number" min="0" placeholder="Clicks" />
+        <input id="ls-impressions"  class="log-input" type="number" min="0" placeholder="Impressions" style="width:110px" />
+        <input id="ls-position"     class="log-input" type="number" step="0.1" min="0" placeholder="Avg Position" style="width:110px" />
+        <input id="ls-adspend"      class="log-input" type="number" min="0" placeholder="Ad Spend (AED)" style="width:130px" />
+        <input id="ls-conversions"  class="log-input" type="number" min="0" placeholder="Conversions" style="width:110px" />
+        <input id="ls-note"         class="log-input log-input-note" type="text" placeholder="Period / Note" />
+        <button class="log-save-btn" id="looker-save" onclick="saveLooker()">Save</button>
       </div>
-      <!-- GSC row -->
-      <div class="log-row" style="margin-top:4px;">
-        <input id="ls-clicks"      class="log-input" type="number" min="0" placeholder="GSC Clicks" style="width:106px" />
-        <input id="ls-impressions" class="log-input" type="number" min="0" placeholder="Impressions" style="width:106px" />
-        <input id="ls-ctr"         class="log-input" type="number" step="0.01" min="0" max="100" placeholder="CTR %" style="width:86px" />
-        <input id="ls-position"    class="log-input" type="number" step="0.1" min="0" placeholder="Avg Pos." style="width:86px" />
-      </div>
-      <div id="looker-feedback" class="log-feedback"></div>
+      <div id="looker-fb" class="log-feedback"></div>
     </div>
-
     <div class="history-body">
-      <div style="display:grid;grid-template-columns:1fr repeat(7,56px);gap:6px;padding:10px 0 6px;font-size:9.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);opacity:.6;border-bottom:1px solid rgba(255,255,255,0.05);">
-        <span>Period / Note</span>
-        <span style="text-align:center">Sessions</span>
-        <span style="text-align:center">Users</span>
-        <span style="text-align:center">Bounce%</span>
-        <span style="text-align:center">Engage</span>
-        <span style="text-align:center">Clicks</span>
-        <span style="text-align:center">CTR%</span>
-        <span style="text-align:center">Avg Pos</span>
+      <div class="col-labels" style="grid-template-columns:1fr 64px 90px 80px 100px 90px;">
+        <span>Period</span><span>Clicks</span><span>Impressions</span><span>Avg Pos</span><span>Ad Spend</span><span>Conversions</span>
       </div>
-      <div id="looker-history-list"></div>
+      <div id="looker-list"></div>
     </div>
   </div>
 </div>
 
 <script>
-(function () {
+(function(){
 
-  // ── Supabase Config ─────────────────────────────────────────────────────
   const SUPABASE_URL  = 'https://zmoytkcuiofybqkqljtj.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inptb3l0a2N1aW9meWJxa3FsanRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTgwNDIsImV4cCI6MjA5MzUzNDA0Mn0.9lrZHkIF9fGdK7qsElLfFaV2aeuQh2sDOFID1MR543Q';
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  // ── Helpers ─────────────────────────────────────────────────────────────
+  // State
+  let _psiDomain = '', _semrushDomain = '', _clarityDomain = '', _lookerDomain = '';
 
-  function scoreClass(n) {
-    if (n >= 90) return 'good';
-    if (n >= 50) return 'average';
-    return 'poor';
-  }
-
-  // For "lower is better" metrics (dead clicks, rage clicks, bounce, etc.)
-  function scoreClassInv(n) {
-    if (n <= 10) return 'good';
-    if (n <= 30) return 'average';
-    return 'poor';
-  }
-
-  function scrollClass(n) {
-    // Higher scroll depth = better
-    if (n >= 60) return 'good';
-    if (n >= 35) return 'average';
-    return 'poor';
-  }
-
-  function fmt(iso) {
+  // Helpers
+  function sc(n){ return n>=90?'good':n>=50?'average':'poor'; }
+  function fmt(iso){
     const d = new Date(iso);
-    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-           + ', '
-           + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})
+      + ', ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  }
+  function psiUrl(domain){ return `https://pagespeed.web.dev/report?url=https://${domain}`; }
+  function val(id){ return document.getElementById(id).value.trim(); }
+  function numVal(id){ const v=val(id); return v===''?null:parseFloat(v); }
+  function intVal(id){ const v=val(id); return v===''?null:parseInt(v,10); }
+  function clear(...ids){ ids.forEach(id=>document.getElementById(id).value=''); }
+  function fb(id,msg,cls){ const el=document.getElementById(id); el.textContent=msg; el.className='log-feedback '+(cls||''); }
+  function rowLine(row){ return `<div class="row-date">${fmt(row.recorded_at||row.tested_at)}</div>${row.note?`<div class="row-note">${row.note}</div>`:''}`; }
+
+  // Panel open/close
+  window.closePanel = function(name, e){
+    if(e && e.target !== document.getElementById(name+'-overlay')) return;
+    document.getElementById(name+'-overlay').classList.remove('open');
+    document.body.style.overflow='';
+  };
+
+  function openOverlay(name){
+    document.getElementById(name+'-overlay').classList.add('open');
+    document.body.style.overflow='hidden';
   }
 
-  function psiUrl(domain) {
-    return `https://pagespeed.web.dev/report?url=https://${domain}`;
-  }
-
-  // ══════════════════════════════════════════════════════
-  // ── PAGE SPEED ────────────────────────────────────────
-  // ══════════════════════════════════════════════════════
-
-  let _psiDomain = '';
-
-  async function fetchPsiHistory(domain) {
-    const { data, error } = await sb
-      .from('pagespeed_history')
-      .select('id, tested_at, mobile_score, desktop_score, note, report_url')
-      .eq('domain', domain)
-      .order('tested_at', { ascending: false })
-      .limit(50);
-    if (error) throw error;
-    return data ?? [];
-  }
-
-  function renderPsiList(rows, domain) {
-    const list = document.getElementById('psi-history-list');
-    if (!rows.length) {
-      list.innerHTML = `<div class="history-empty"><strong>No records yet</strong>Run a test and save the results to start building history.</div>`;
-      return;
-    }
-    list.innerHTML = rows.map(r => `
-      <div class="psi-row">
-        <div>
-          <div class="row-date">${fmt(r.tested_at)}</div>
-          ${r.note ? `<div class="row-note">${r.note}</div>` : ''}
-        </div>
-        <div><div class="score-badge ${scoreClass(r.mobile_score)}">${r.mobile_score}</div></div>
-        <div><div class="score-badge ${scoreClass(r.desktop_score)}">${r.desktop_score}</div></div>
-        <div class="row-link">
-          ${r.report_url
-            ? `<a href="${r.report_url}" target="_blank">View &#x2197;</a>`
-            : `<a href="${psiUrl(domain)}" target="_blank">Run &#x2197;</a>`}
-        </div>
-      </div>`).join('');
-  }
-
-  window.onPsiUrlInput = function(val) {
-    const fb = document.getElementById('psi-feedback');
-    if (!val) { fb.textContent = ''; fb.className = 'log-feedback'; return; }
-    try {
-      const u = new URL(val);
-      const target = u.searchParams.get('url');
-      if (target) {
-        const domain = new URL(target).hostname.replace(/^www\./, '');
-        if (domain !== _psiDomain) {
-          fb.textContent = '⚠️ URL domain (' + domain + ') does not match (' + _psiDomain + ')';
-          fb.className = 'log-feedback err';
-        } else {
-          fb.textContent = '✓ Domain matches — enter scores below and save';
-          fb.className = 'log-feedback ok';
-        }
-      } else {
-        fb.textContent = 'URL accepted — enter scores below and save';
-        fb.className = 'log-feedback info';
-      }
-    } catch(e) { fb.textContent = ''; fb.className = 'log-feedback'; }
-  };
-
-  window.savePsiScore = async function() {
-    const mobile  = parseInt(document.getElementById('psi-log-mobile').value, 10);
-    const desktop = parseInt(document.getElementById('psi-log-desktop').value, 10);
-    const note    = document.getElementById('psi-log-note').value.trim();
-    const fb      = document.getElementById('psi-feedback');
-    const btn     = document.getElementById('psi-save-btn');
-
-    if (isNaN(mobile) || isNaN(desktop)) {
-      fb.textContent = 'Please enter both mobile and desktop scores.';
-      fb.className = 'log-feedback err'; return;
-    }
-    if (mobile < 0 || mobile > 100 || desktop < 0 || desktop > 100) {
-      fb.textContent = 'Scores must be between 0 and 100.';
-      fb.className = 'log-feedback err'; return;
-    }
-
-    btn.disabled = true;
-    fb.textContent = 'Saving…'; fb.className = 'log-feedback info';
-
-    try {
-      const reportUrl = document.getElementById('psi-log-url').value.trim() || null;
-      const { error } = await sb.from('pagespeed_history')
-        .insert({ domain: _psiDomain, mobile_score: mobile, desktop_score: desktop, note: note || null, report_url: reportUrl });
-      if (error) throw error;
-
-      ['psi-log-mobile','psi-log-desktop','psi-log-note','psi-log-url']
-        .forEach(id => document.getElementById(id).value = '');
-
-      fb.textContent = '✓ Saved! Refreshing…'; fb.className = 'log-feedback ok';
-      renderPsiList(await fetchPsiHistory(_psiDomain), _psiDomain);
-      setTimeout(() => { fb.textContent = ''; fb.className = 'log-feedback'; }, 3000);
-    } catch(err) {
-      fb.textContent = 'Error: ' + (err.message || 'Could not save.');
-      fb.className = 'log-feedback err';
-    } finally { btn.disabled = false; }
-  };
-
-  window.openPsiHistory = async function(brand, domain) {
-    _psiDomain = domain;
-    document.getElementById('psi-panel-title').textContent = brand;
-    document.getElementById('psi-panel-domain').textContent = domain;
-    document.getElementById('psi-run-btn').href = psiUrl(domain);
-    document.getElementById('psi-history-list').innerHTML = '<div class="history-loading">Fetching history</div>';
-    document.getElementById('psi-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    try {
-      renderPsiList(await fetchPsiHistory(domain), domain);
-    } catch(err) {
-      document.getElementById('psi-history-list').innerHTML =
-        `<div class="history-error"><strong>Could not load history</strong>${err.message}</div>`;
-    }
-  };
-
-  window.closePsiHistory = function(e) {
-    if (e && e.target !== document.getElementById('psi-overlay')) return;
-    document.getElementById('psi-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-
-  // ══════════════════════════════════════════════════════
-  // ── CLARITY ───────────────────────────────────────────
-  // ══════════════════════════════════════════════════════
-
-  let _clarityDomain = '';
-
-  async function fetchClarityHistory(domain) {
-    const { data, error } = await sb
-      .from('clarity_history')
-      .select('id, recorded_at, clicks, page_views, session_count, note')
-      .eq('domain', domain)
-      .order('recorded_at', { ascending: false })
-      .limit(50);
-    if (error) throw error;
-    return data ?? [];
-  }
-
-  function pct(v) {
-    if (v === null || v === undefined) return '—';
-    return v + '%';
-  }
-
-  function renderClarityList(rows) {
-    const list = document.getElementById('clarity-history-list');
-    if (!rows.length) {
-      list.innerHTML = `<div class="history-empty"><strong>No records yet</strong>Copy numbers from Clarity and hit Save to start tracking trends.</div>`;
-      return;
-    }
-
-    list.innerHTML = rows.map(r => `
-      <div style="display:grid;grid-template-columns:1fr 80px 80px 80px;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-        <div>
-          <div class="row-date">${fmt(r.recorded_at)}</div>
-          ${r.note ? `<div class="row-note">${r.note}</div>` : ''}
-        </div>
-        <div class="metric-val">${r.clicks ?? '—'}</div>
-        <div class="metric-val">${r.page_views ?? '—'}</div>
-        <div class="metric-val">${r.session_count ?? '—'}</div>
-      </div>`).join('');
-  }
-
-  window.saveClarityScore = async function() {
-    const fb  = document.getElementById('clarity-feedback');
-    const btn = document.getElementById('clarity-save-btn');
-
-    const parse = id => {
-      const v = document.getElementById(id).value;
-      return v === '' ? null : parseFloat(v);
-    };
-    const parseInt2 = id => {
-      const v = document.getElementById(id).value;
-      return v === '' ? null : parseInt(v, 10);
-    };
-
-    const row = {
-      domain:       _clarityDomain,
-      clicks:       parseInt2('cl-clicks'),
-      page_views:   parseInt2('cl-pageviews'),
-      session_count: parseInt2('cl-sessions'),
-      note:         document.getElementById('cl-note').value.trim() || null,
-    };
-
-    // At least one metric must be filled
-    const hasData = Object.entries(row)
-      .filter(([k]) => !['domain','note'].includes(k))
-      .some(([,v]) => v !== null);
-
-    if (!hasData) {
-      fb.textContent = 'Please enter at least one metric before saving.';
-      fb.className = 'log-feedback err'; return;
-    }
-
-    btn.disabled = true;
-    fb.textContent = 'Saving…'; fb.className = 'log-feedback info';
-
-    try {
-      const { error } = await sb.from('clarity_history').insert(row);
-      if (error) throw error;
-
-      ['cl-clicks','cl-pageviews','cl-sessions','cl-note']
-        .forEach(id => document.getElementById(id).value = '');
-
-      fb.textContent = '✓ Saved! Refreshing…'; fb.className = 'log-feedback ok';
-      renderClarityList(await fetchClarityHistory(_clarityDomain));
-      setTimeout(() => { fb.textContent = ''; fb.className = 'log-feedback'; }, 3000);
-    } catch(err) {
-      fb.textContent = 'Error: ' + (err.message || 'Could not save.');
-      fb.className = 'log-feedback err';
-    } finally { btn.disabled = false; }
-  };
-
-  window.openClarityHistory = async function(brand, domain) {
-    _clarityDomain = domain;
-    document.getElementById('clarity-panel-title').textContent = brand;
-    document.getElementById('clarity-panel-domain').textContent = domain;
-    document.getElementById('clarity-history-list').innerHTML = '<div class="history-loading">Fetching history</div>';
-    document.getElementById('clarity-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    try {
-      renderClarityList(await fetchClarityHistory(domain));
-    } catch(err) {
-      document.getElementById('clarity-history-list').innerHTML =
-        `<div class="history-error"><strong>Could not load history</strong>${err.message}</div>`;
-    }
-  };
-
-  window.closeClarityHistory = function(e) {
-    if (e && e.target !== document.getElementById('clarity-overlay')) return;
-    document.getElementById('clarity-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-
-  // ══════════════════════════════════════════════════════
-  // ── LOOKER STUDIO / GA4 ───────────────────────────────
-  // ══════════════════════════════════════════════════════
-
-  let _lookerDomain = '';
-
-  async function fetchLookerHistory(domain) {
-    const { data, error } = await sb
-      .from('looker_history')
-      .select('id, recorded_at, sessions, users, bounce_rate_pct, engagement_min, gsc_clicks, gsc_impressions, gsc_ctr, gsc_avg_position, note')
-      .eq('domain', domain)
-      .order('recorded_at', { ascending: false })
-      .limit(50);
-    if (error) throw error;
-    return data ?? [];
-  }
-
-  function renderLookerList(rows) {
-    const list = document.getElementById('looker-history-list');
-    if (!rows.length) {
-      list.innerHTML = `<div class="history-empty"><strong>No records yet</strong>Copy numbers from Looker Studio / GA4 and hit Save to start tracking.</div>`;
-      return;
-    }
-    list.innerHTML = rows.map(r => `
-      <div style="display:grid;grid-template-columns:1fr repeat(7,56px);gap:6px;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-        <div>
-          <div class="row-date">${fmt(r.recorded_at)}</div>
-          ${r.note ? `<div class="row-note">${r.note}</div>` : ''}
-        </div>
-        <div class="metric-val">${r.sessions ?? '—'}</div>
-        <div class="metric-val">${r.users ?? '—'}</div>
-        <div><div class="score-badge sm ${scoreClassInv(r.bounce_rate_pct)}">${r.bounce_rate_pct != null ? r.bounce_rate_pct + '%' : '—'}</div></div>
-        <div class="metric-val">${r.engagement_min != null ? r.engagement_min + 'm' : '—'}</div>
-        <div class="metric-val">${r.gsc_clicks ?? '—'}</div>
-        <div><div class="score-badge sm ${r.gsc_ctr >= 5 ? 'good' : r.gsc_ctr >= 2 ? 'average' : 'poor'}">${r.gsc_ctr != null ? r.gsc_ctr + '%' : '—'}</div></div>
-        <div class="metric-val">${r.gsc_avg_position ?? '—'}</div>
-      </div>`).join('');
-  }
-
-  window.saveLookerScore = async function() {
-    const fb  = document.getElementById('looker-feedback');
-    const btn = document.getElementById('looker-save-btn');
-
-    const parse = id => { const v = document.getElementById(id).value; return v === '' ? null : parseFloat(v); };
-    const parseInt2 = id => { const v = document.getElementById(id).value; return v === '' ? null : parseInt(v, 10); };
-
-    const row = {
-      domain:            _lookerDomain,
-      sessions:          parseInt2('ls-sessions'),
-      users:             parseInt2('ls-users'),
-      bounce_rate_pct:   parse('ls-bounce'),
-      engagement_min:    parse('ls-engage'),
-      gsc_clicks:        parseInt2('ls-clicks'),
-      gsc_impressions:   parseInt2('ls-impressions'),
-      gsc_ctr:           parse('ls-ctr'),
-      gsc_avg_position:  parse('ls-position'),
-      note:              document.getElementById('ls-note').value.trim() || null,
-    };
-
-    const hasData = Object.entries(row)
-      .filter(([k]) => !['domain','note'].includes(k))
-      .some(([,v]) => v !== null);
-
-    if (!hasData) {
-      fb.textContent = 'Please enter at least one metric before saving.';
-      fb.className = 'log-feedback err'; return;
-    }
-
-    btn.disabled = true;
-    fb.textContent = 'Saving…'; fb.className = 'log-feedback info';
-
-    try {
-      const { error } = await sb.from('looker_history').insert(row);
-      if (error) throw error;
-
-      ['ls-sessions','ls-users','ls-bounce','ls-engage','ls-clicks',
-       'ls-impressions','ls-ctr','ls-position','ls-note']
-        .forEach(id => document.getElementById(id).value = '');
-
-      fb.textContent = '✓ Saved! Refreshing…'; fb.className = 'log-feedback ok';
-      renderLookerList(await fetchLookerHistory(_lookerDomain));
-      setTimeout(() => { fb.textContent = ''; fb.className = 'log-feedback'; }, 3000);
-    } catch(err) {
-      fb.textContent = 'Error: ' + (err.message || 'Could not save.');
-      fb.className = 'log-feedback err';
-    } finally { btn.disabled = false; }
-  };
-
-  window.openLookerHistory = async function(brand, domain) {
-    _lookerDomain = domain;
-    document.getElementById('looker-panel-title').textContent = brand;
-    document.getElementById('looker-panel-domain').textContent = domain;
-    document.getElementById('looker-history-list').innerHTML = '<div class="history-loading">Fetching history</div>';
-    document.getElementById('looker-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    try {
-      renderLookerList(await fetchLookerHistory(domain));
-    } catch(err) {
-      document.getElementById('looker-history-list').innerHTML =
-        `<div class="history-error"><strong>Could not load history</strong>${err.message}</div>`;
-    }
-  };
-
-  window.closeLookerHistory = function(e) {
-    if (e && e.target !== document.getElementById('looker-overlay')) return;
-    document.getElementById('looker-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-
-  // ── Global escape key ───────────────────────────────────────────────────
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      ['psi-overlay','clarity-overlay','looker-overlay'].forEach(id => {
-        document.getElementById(id).classList.remove('open');
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){
+      ['psi','semrush','clarity','looker'].forEach(n=>{
+        document.getElementById(n+'-overlay').classList.remove('open');
       });
-      document.body.style.overflow = '';
+      document.body.style.overflow='';
     }
   });
+
+  // ── PSI ──────────────────────────────────────────────────────
+
+  window.openPsi = async function(brand, domain){
+    _psiDomain = domain;
+    document.getElementById('psi-title').textContent = brand;
+    document.getElementById('psi-domain').textContent = domain;
+    document.getElementById('psi-run').href = psiUrl(domain);
+    document.getElementById('psi-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    openOverlay('psi');
+    try { renderPsi(await fetchPsi(domain), domain); }
+    catch(err){ document.getElementById('psi-list').innerHTML=`<div class="history-error"><strong>Could not load</strong>${err.message}</div>`; }
+  };
+
+  async function fetchPsi(domain){
+    const {data,error} = await sb.from('pagespeed_history')
+      .select('id,tested_at,mobile_score,desktop_score,note,report_url')
+      .eq('domain',domain).order('tested_at',{ascending:false}).limit(50);
+    if(error) throw error;
+    return data??[];
+  }
+
+  function renderPsi(rows, domain){
+    const el = document.getElementById('psi-list');
+    if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Run a test and save scores to build history.</div>`; return; }
+    el.innerHTML = rows.map(r=>`
+      <div style="display:grid;grid-template-columns:1fr 72px 72px 80px;gap:8px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+        <div>${rowLine(r)}</div>
+        <div><div class="score-badge ${sc(r.mobile_score)}">${r.mobile_score}</div></div>
+        <div><div class="score-badge ${sc(r.desktop_score)}">${r.desktop_score}</div></div>
+        <div class="row-link"><a href="${r.report_url||psiUrl(domain)}" target="_blank">View &#x2197;</a></div>
+      </div>`).join('');
+  }
+
+  window.savePsi = async function(){
+    const mobile=intVal('psi-mobile'), desktop=intVal('psi-desktop');
+    if(mobile===null||desktop===null){ fb('psi-fb','Enter both mobile and desktop scores.','err'); return; }
+    if(mobile<0||mobile>100||desktop<0||desktop>100){ fb('psi-fb','Scores must be 0-100.','err'); return; }
+    const btn=document.getElementById('psi-save'); btn.disabled=true;
+    fb('psi-fb','Saving...','info');
+    try{
+      const {error} = await sb.from('pagespeed_history').insert({
+        domain:_psiDomain, mobile_score:mobile, desktop_score:desktop,
+        note:val('psi-note')||null, report_url:val('psi-url')||null
+      });
+      if(error) throw error;
+      clear('psi-mobile','psi-desktop','psi-note','psi-url');
+      fb('psi-fb','Saved! Refreshing...','ok');
+      renderPsi(await fetchPsi(_psiDomain), _psiDomain);
+      setTimeout(()=>fb('psi-fb','',''),3000);
+    }catch(err){ fb('psi-fb','Error: '+(err.message||'Could not save.'),'err'); }
+    finally{ btn.disabled=false; }
+  };
+
+  // ── SEMRUSH ──────────────────────────────────────────────────
+
+  window.openSemrush = async function(brand, domain){
+    _semrushDomain = domain;
+    document.getElementById('semrush-title').textContent = brand;
+    document.getElementById('semrush-domain').textContent = domain;
+    document.getElementById('semrush-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    openOverlay('semrush');
+    try { renderSemrush(await fetchSemrush(domain)); }
+    catch(err){ document.getElementById('semrush-list').innerHTML=`<div class="history-error"><strong>Could not load</strong>${err.message}</div>`; }
+  };
+
+  async function fetchSemrush(domain){
+    const {data,error} = await sb.from('semrush_history')
+      .select('id,recorded_at,keyword_count,top_keyword,top_position,da_score,audit_score,note')
+      .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
+    if(error) throw error;
+    return data??[];
+  }
+
+  function renderSemrush(rows){
+    const el = document.getElementById('semrush-list');
+    if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Log your first SEMrush snapshot to start tracking.</div>`; return; }
+    el.innerHTML = rows.map(r=>`
+      <div style="display:grid;grid-template-columns:1fr 80px 160px 64px 72px;gap:8px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+        <div>${rowLine(r)}</div>
+        <div class="metric-val">${r.keyword_count??'—'}</div>
+        <div style="text-align:center;">
+          <div style="font-size:12px;font-weight:500;color:var(--text)">${r.top_keyword??'—'}</div>
+          ${r.top_position!=null?`<div style="font-size:11px;color:var(--gold)">#${r.top_position}</div>`:''}
+        </div>
+        <div><div class="score-badge sm ${sc(r.da_score)}">${r.da_score??'—'}</div></div>
+        <div><div class="score-badge sm ${sc(r.audit_score)}">${r.audit_score??'—'}</div></div>
+      </div>`).join('');
+  }
+
+  window.saveSemrush = async function(){
+    const btn=document.getElementById('semrush-save'); btn.disabled=true;
+    fb('semrush-fb','Saving...','info');
+    const row={
+      domain:_semrushDomain,
+      keyword_count:intVal('sr-keywords'),
+      top_keyword:val('sr-top-kw')||null,
+      top_position:intVal('sr-top-pos'),
+      da_score:intVal('sr-da'),
+      audit_score:intVal('sr-audit'),
+      note:val('sr-note')||null
+    };
+    const hasData = ['keyword_count','top_keyword','top_position','da_score','audit_score'].some(k=>row[k]!==null&&row[k]!=='');
+    if(!hasData){ fb('semrush-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
+    try{
+      const {error} = await sb.from('semrush_history').insert(row);
+      if(error) throw error;
+      clear('sr-keywords','sr-top-kw','sr-top-pos','sr-da','sr-audit','sr-note');
+      fb('semrush-fb','Saved! Refreshing...','ok');
+      renderSemrush(await fetchSemrush(_semrushDomain));
+      setTimeout(()=>fb('semrush-fb','',''),3000);
+    }catch(err){ fb('semrush-fb','Error: '+(err.message||'Could not save.'),'err'); }
+    finally{ btn.disabled=false; }
+  };
+
+  // ── CLARITY ──────────────────────────────────────────────────
+
+  window.openClarity = async function(brand, domain){
+    _clarityDomain = domain;
+    document.getElementById('clarity-title').textContent = brand;
+    document.getElementById('clarity-domain').textContent = domain;
+    document.getElementById('clarity-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    openOverlay('clarity');
+    try { renderClarity(await fetchClarity(domain)); }
+    catch(err){ document.getElementById('clarity-list').innerHTML=`<div class="history-error"><strong>Could not load</strong>${err.message}</div>`; }
+  };
+
+  async function fetchClarity(domain){
+    const {data,error} = await sb.from('clarity_history')
+      .select('id,recorded_at,session_count,clicks,page_views,top_clicked_page,note')
+      .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
+    if(error) throw error;
+    return data??[];
+  }
+
+  function renderClarity(rows){
+    const el = document.getElementById('clarity-list');
+    if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Copy numbers from Clarity and hit Save to start tracking.</div>`; return; }
+    el.innerHTML = rows.map(r=>`
+      <div style="display:grid;grid-template-columns:1fr 72px 72px 80px 140px;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+        <div>${rowLine(r)}</div>
+        <div class="metric-val">${r.session_count??'—'}</div>
+        <div class="metric-val">${r.clicks??'—'}</div>
+        <div class="metric-val">${r.page_views??'—'}</div>
+        <div style="font-size:11px;color:var(--muted);text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${r.top_clicked_page??'—'}</div>
+      </div>`).join('');
+  }
+
+  window.saveClarity = async function(){
+    const btn=document.getElementById('clarity-save'); btn.disabled=true;
+    fb('clarity-fb','Saving...','info');
+    const row={
+      domain:_clarityDomain,
+      session_count:intVal('cl-sessions'),
+      clicks:intVal('cl-clicks'),
+      page_views:intVal('cl-pageviews'),
+      top_clicked_page:val('cl-top-page')||null,
+      note:val('cl-note')||null
+    };
+    const hasData = ['session_count','clicks','page_views','top_clicked_page'].some(k=>row[k]!==null&&row[k]!=='');
+    if(!hasData){ fb('clarity-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
+    try{
+      const {error} = await sb.from('clarity_history').insert(row);
+      if(error) throw error;
+      clear('cl-sessions','cl-clicks','cl-pageviews','cl-top-page','cl-note');
+      fb('clarity-fb','Saved! Refreshing...','ok');
+      renderClarity(await fetchClarity(_clarityDomain));
+      setTimeout(()=>fb('clarity-fb','',''),3000);
+    }catch(err){ fb('clarity-fb','Error: '+(err.message||'Could not save.'),'err'); }
+    finally{ btn.disabled=false; }
+  };
+
+  // ── LOOKER STUDIO ────────────────────────────────────────────
+
+  window.openLooker = async function(brand, domain){
+    _lookerDomain = domain;
+    document.getElementById('looker-title').textContent = brand;
+    document.getElementById('looker-domain').textContent = domain;
+    document.getElementById('looker-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    openOverlay('looker');
+    try { renderLooker(await fetchLooker(domain)); }
+    catch(err){ document.getElementById('looker-list').innerHTML=`<div class="history-error"><strong>Could not load</strong>${err.message}</div>`; }
+  };
+
+  async function fetchLooker(domain){
+    const {data,error} = await sb.from('looker_history')
+      .select('id,recorded_at,gsc_clicks,gsc_impressions,gsc_avg_position,ad_spend_aed,conversions,note')
+      .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
+    if(error) throw error;
+    return data??[];
+  }
+
+  function renderLooker(rows){
+    const el = document.getElementById('looker-list');
+    if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Copy numbers from Looker Studio and hit Save to start tracking.</div>`; return; }
+    el.innerHTML = rows.map(r=>`
+      <div style="display:grid;grid-template-columns:1fr 64px 90px 80px 100px 90px;gap:6px;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+        <div>${rowLine(r)}</div>
+        <div class="metric-val">${r.gsc_clicks??'—'}</div>
+        <div class="metric-val">${r.gsc_impressions??'—'}</div>
+        <div class="metric-val">${r.gsc_avg_position??'—'}</div>
+        <div class="metric-val">${r.ad_spend_aed!=null?'AED '+r.ad_spend_aed:'—'}</div>
+        <div class="metric-val">${r.conversions??'—'}</div>
+      </div>`).join('');
+  }
+
+  window.saveLooker = async function(){
+    const btn=document.getElementById('looker-save'); btn.disabled=true;
+    fb('looker-fb','Saving...','info');
+    const row={
+      domain:_lookerDomain,
+      gsc_clicks:intVal('ls-clicks'),
+      gsc_impressions:intVal('ls-impressions'),
+      gsc_avg_position:numVal('ls-position'),
+      ad_spend_aed:numVal('ls-adspend'),
+      conversions:intVal('ls-conversions'),
+      note:val('ls-note')||null
+    };
+    const hasData = ['gsc_clicks','gsc_impressions','gsc_avg_position','ad_spend_aed','conversions'].some(k=>row[k]!==null);
+    if(!hasData){ fb('looker-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
+    try{
+      const {error} = await sb.from('looker_history').insert(row);
+      if(error) throw error;
+      clear('ls-clicks','ls-impressions','ls-position','ls-adspend','ls-conversions','ls-note');
+      fb('looker-fb','Saved! Refreshing...','ok');
+      renderLooker(await fetchLooker(_lookerDomain));
+      setTimeout(()=>fb('looker-fb','',''),3000);
+    }catch(err){ fb('looker-fb','Error: '+(err.message||'Could not save.'),'err'); }
+    finally{ btn.disabled=false; }
+  };
 
 })();
 </script>
