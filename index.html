@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3S Group - SEO Performance Stack</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Supabase JS client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 
 *, *::before, *::after {
@@ -490,6 +492,42 @@ body {
   text-underline-offset: 3px;
 }
 
+/* ── Loading & States ── */
+
+.history-loading {
+  text-align: center;
+  padding: 48px 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.history-loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(201, 168, 76, 0.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.history-error {
+  text-align: center;
+  padding: 48px 0;
+  color: var(--poor);
+  font-size: 13px;
+}
+
+.history-error strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
 .history-empty {
   text-align: center;
   padding: 48px 0;
@@ -511,6 +549,10 @@ body {
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 620px) {
@@ -773,43 +815,29 @@ body {
 
 <script>
 
-  // ── Mock data ────────────────────────────────────────────────────────────
-  // Replace fetchHistory() below with a Supabase query when ready.
-  // Expected row shape:
-  //   { id, tested_at (ISO string), mobile_score, desktop_score, note }
+  // ── Supabase Config ──────────────────────────────────────────────────────
+  // Replace these two values with your project's URL and anon key.
+  // Find them in: Supabase Dashboard → Project Settings → API
 
-  const MOCK_DATA = {
-    '3sbusinessme.com': [
-      { id: 1, tested_at: '2026-05-04T09:15:00', mobile_score: 72, desktop_score: 91, note: 'Post image optimisation' },
-      { id: 2, tested_at: '2026-04-28T14:30:00', mobile_score: 68, desktop_score: 88, note: '' },
-      { id: 3, tested_at: '2026-04-15T11:00:00', mobile_score: 61, desktop_score: 84, note: 'Before caching plugin' },
-      { id: 4, tested_at: '2026-04-02T10:20:00', mobile_score: 55, desktop_score: 80, note: '' },
-      { id: 5, tested_at: '2026-03-18T16:45:00', mobile_score: 48, desktop_score: 76, note: 'Baseline' },
-    ],
-    'bizcitygroup.com': [
-      { id: 1, tested_at: '2026-05-03T10:00:00', mobile_score: 81, desktop_score: 95, note: 'After CDN setup' },
-      { id: 2, tested_at: '2026-04-20T09:30:00', mobile_score: 74, desktop_score: 90, note: '' },
-      { id: 3, tested_at: '2026-04-05T13:15:00', mobile_score: 69, desktop_score: 87, note: '' },
-    ],
-    '3shrconsulting.com': [
-      { id: 1, tested_at: '2026-05-01T08:45:00', mobile_score: 58, desktop_score: 78, note: 'Homepage rebuild' },
-      { id: 2, tested_at: '2026-04-10T15:00:00', mobile_score: 52, desktop_score: 73, note: '' },
-    ],
-  };
+  const SUPABASE_URL  = 'https://zmoytkcuiofybqkqljtj.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inptb3l0a2N1aW9meWJxa3FsanRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTgwNDIsImV4cCI6MjA5MzUzNDA0Mn0.9lrZHkIF9fGdK7qsElLfFaV2aeuQh2sDOFID1MR543Q';
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
   // ── Data layer ───────────────────────────────────────────────────────────
-  // Swap this function for a Supabase client call:
-  //
-  //   const { data } = await supabase
-  //     .from('pagespeed_history')
-  //     .select('*')
-  //     .eq('domain', domain)
-  //     .order('tested_at', { ascending: false })
-  //     .limit(50)
-  //   return data
+  // Queries the `pagespeed_history` table, filtered by domain,
+  // ordered newest-first, capped at 50 rows.
 
   async function fetchHistory(domain) {
-    return MOCK_DATA[domain] ?? [];
+    const { data, error } = await supabase
+      .from('pagespeed_history')
+      .select('id, tested_at, mobile_score, desktop_score, note')
+      .eq('domain', domain)
+      .order('tested_at', { ascending: false })
+      .limit(50);
+
+    if (error) throw error;
+    return data ?? [];
   }
 
   // ── Helpers ──────────────────────────────────────────────────────────────
@@ -880,13 +908,25 @@ body {
     document.getElementById('panel-title').textContent = brandName;
     document.getElementById('panel-domain').textContent = domain;
     document.getElementById('panel-run-btn').href = psiUrl(domain);
-    document.getElementById('history-list').innerHTML = '';
+
+    // Show loading state
+    document.getElementById('history-list').innerHTML =
+      '<div class="history-loading">Fetching history</div>';
 
     document.getElementById('history-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
 
-    const rows = await fetchHistory(domain);
-    renderList(rows, domain);
+    try {
+      const rows = await fetchHistory(domain);
+      renderList(rows, domain);
+    } catch (err) {
+      console.error('Supabase error:', err);
+      document.getElementById('history-list').innerHTML = `
+        <div class="history-error">
+          <strong>Could not load history</strong>
+          ${err.message || 'Check your Supabase config and table name.'}
+        </div>`;
+    }
   }
 
   function closeHistory(e) {
