@@ -567,6 +567,107 @@ body {
   .history-row { grid-template-columns: 1fr 60px 60px 64px; }
 }
 
+
+/* ── Log Score Section ── */
+
+.log-section {
+  padding: 16px 28px 0;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 16px;
+}
+
+.log-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.75;
+  margin-bottom: 10px;
+}
+
+.log-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.log-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.log-input {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  padding: 7px 11px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 90px;
+}
+
+.log-input-wide {
+  width: 100%;
+}
+
+.log-input-note {
+  flex: 1;
+  width: auto;
+}
+
+.log-input::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.log-input:focus {
+  border-color: rgba(201, 168, 76, 0.5);
+  background: rgba(255,255,255,0.06);
+}
+
+.log-save-btn {
+  padding: 7px 16px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 8px;
+  color: var(--gold-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.log-save-btn:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+.log-save-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.log-feedback {
+  font-size: 11px;
+  min-height: 16px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.log-feedback.ok   { color: var(--good); }
+.log-feedback.err  { color: var(--poor); }
+.log-feedback.info { color: var(--gold-light); }
+
+
 </style>
 </head>
 <body>
@@ -801,6 +902,25 @@ body {
       </a>
     </div>
 
+    <!-- ── Log Score Section ── -->
+    <div class="log-section">
+      <div class="log-label">Log a new score</div>
+      <div class="log-row">
+        <input id="log-url"
+               class="log-input log-input-wide"
+               type="url"
+               placeholder="Paste PageSpeed report URL (optional — auto-fills scores)"
+               oninput="window.onPsiUrlInput(this.value)" />
+      </div>
+      <div class="log-row">
+        <input id="log-mobile"  class="log-input" type="number" min="0" max="100" placeholder="Mobile" />
+        <input id="log-desktop" class="log-input" type="number" min="0" max="100" placeholder="Desktop" />
+        <input id="log-note"    class="log-input log-input-note" type="text" placeholder="Note (optional)" />
+        <button class="log-save-btn" id="log-save-btn" onclick="window.saveScore()">Save</button>
+      </div>
+      <div id="log-feedback" class="log-feedback"></div>
+    </div>
+
     <div class="history-body">
       <div class="history-col-labels">
         <span>Date</span>
@@ -903,9 +1023,103 @@ body {
     `).join('');
   }
 
+
+  // ── Current panel domain tracker ─────────────────────────────────────────
+  let _currentDomain = '';
+
+  // ── PSI URL input handler ─────────────────────────────────────────────────
+  // PSI report URLs look like:
+  //   https://pagespeed.web.dev/report?url=https://3sbusinessme.com
+  // Or the API result URL:
+  //   https://pagespeed.web.dev/analysis/3sbusinessme-com/...
+  // We also accept plain score URLs and just use them as-is for the note.
+
+  window.onPsiUrlInput = function(val) {
+    const fb = document.getElementById('log-feedback');
+    if (!val) { fb.textContent = ''; fb.className = 'log-feedback'; return; }
+
+    // Try to extract scores from URL params (PSI sometimes includes them)
+    // Mainly we just try to parse the domain from the URL for validation
+    try {
+      const u = new URL(val);
+      const target = u.searchParams.get('url');
+      if (target) {
+        const parsed = new URL(target);
+        const domain = parsed.hostname.replace(/^www\./, '');
+        if (domain !== _currentDomain) {
+          fb.textContent = '⚠️ URL domain (' + domain + ') does not match this panel (' + _currentDomain + ')';
+          fb.className = 'log-feedback err';
+        } else {
+          fb.textContent = '✓ Domain matches — enter scores below and save';
+          fb.className = 'log-feedback ok';
+        }
+      } else {
+        fb.textContent = 'URL accepted — enter scores below and save';
+        fb.className = 'log-feedback info';
+      }
+    } catch(e) {
+      fb.textContent = '';
+      fb.className = 'log-feedback';
+    }
+  };
+
+  // ── Save score ────────────────────────────────────────────────────────────
+
+  window.saveScore = async function() {
+    const mobile  = parseInt(document.getElementById('log-mobile').value, 10);
+    const desktop = parseInt(document.getElementById('log-desktop').value, 10);
+    const note    = document.getElementById('log-note').value.trim();
+    const fb      = document.getElementById('log-feedback');
+    const btn     = document.getElementById('log-save-btn');
+
+    if (isNaN(mobile) || isNaN(desktop)) {
+      fb.textContent = 'Please enter both mobile and desktop scores.';
+      fb.className = 'log-feedback err';
+      return;
+    }
+    if (mobile < 0 || mobile > 100 || desktop < 0 || desktop > 100) {
+      fb.textContent = 'Scores must be between 0 and 100.';
+      fb.className = 'log-feedback err';
+      return;
+    }
+
+    btn.disabled = true;
+    fb.textContent = 'Saving…';
+    fb.className = 'log-feedback info';
+
+    try {
+      const { error } = await sbClient
+        .from('pagespeed_history')
+        .insert({ domain: _currentDomain, mobile_score: mobile, desktop_score: desktop, note: note || null });
+
+      if (error) throw error;
+
+      // Clear inputs
+      document.getElementById('log-mobile').value  = '';
+      document.getElementById('log-desktop').value = '';
+      document.getElementById('log-note').value    = '';
+      document.getElementById('log-url').value     = '';
+
+      fb.textContent = '✓ Saved! Refreshing history…';
+      fb.className = 'log-feedback ok';
+
+      // Reload history list
+      const rows = await fetchHistory(_currentDomain);
+      renderList(rows, _currentDomain);
+
+      setTimeout(() => { fb.textContent = ''; fb.className = 'log-feedback'; }, 3000);
+    } catch(err) {
+      fb.textContent = 'Error: ' + (err.message || 'Could not save.');
+      fb.className = 'log-feedback err';
+    } finally {
+      btn.disabled = false;
+    }
+  };
+
   // ── Open / Close ─────────────────────────────────────────────────────────
 
   window.openHistory = async function openHistory(brandName, domain) {
+    _currentDomain = domain;
     document.getElementById('panel-brand').textContent = 'PageSpeed Insights';
     document.getElementById('panel-title').textContent = brandName;
     document.getElementById('panel-domain').textContent = domain;
