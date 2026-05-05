@@ -663,14 +663,14 @@ body {
         <input id="cl-sessions"  class="log-input" type="number" min="0" placeholder="Sessions" />
         <input id="cl-clicks"    class="log-input" type="number" min="0" placeholder="Clicks" />
         <input id="cl-pageviews" class="log-input" type="number" min="0" placeholder="Page Views" />
-        <input id="cl-top-page"  class="log-input" type="text" style="width:160px" placeholder="Top Clicked Page" />
+        
         <input id="cl-note"      class="log-input log-input-note" type="text" placeholder="Note (optional)" />
         <button class="log-save-btn" id="clarity-save" onclick="saveClarity()">Save</button>
       </div>
       <div id="clarity-fb" class="log-feedback"></div>
     </div>
     <div class="history-body">
-      <div class="col-labels" style="grid-template-columns:1fr 72px 72px 80px 140px;">
+      <div class="col-labels" style="grid-template-columns:1fr 72px 72px 80px;">
         <span>Date</span><span>Sessions</span><span>Clicks</span><span>Page Views</span><span>Top Page</span>
       </div>
       <div id="clarity-list"></div>
@@ -898,12 +898,12 @@ body {
     const el = document.getElementById('clarity-list');
     if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Copy numbers from Clarity and hit Save to start tracking.</div>`; return; }
     el.innerHTML = rows.map(r=>`
-      <div style="display:grid;grid-template-columns:1fr 72px 72px 80px 140px;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+      <div style="display:grid;grid-template-columns:1fr 72px 72px 80px;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
         <div>${rowLine(r)}</div>
         <div class="metric-val">${r.session_count??'—'}</div>
         <div class="metric-val">${r.clicks??'—'}</div>
         <div class="metric-val">${r.page_views??'—'}</div>
-        <div style="font-size:11px;color:var(--muted);text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${r.top_clicked_page??'—'}</div>
+        
       </div>`).join('');
   }
 
@@ -915,7 +915,7 @@ body {
       session_count:intVal('cl-sessions'),
       clicks:intVal('cl-clicks'),
       page_views:intVal('cl-pageviews'),
-      top_clicked_page:val('cl-top-page')||null,
+      
       note:val('cl-note')||null
     };
     const hasData = ['session_count','clicks','page_views','top_clicked_page'].some(k=>row[k]!==null&&row[k]!=='');
@@ -923,7 +923,7 @@ body {
     try{
       const {error} = await sb.from('clarity_history').insert(row);
       if(error) throw error;
-      clear('cl-sessions','cl-clicks','cl-pageviews','cl-top-page','cl-note');
+      clear('cl-sessions','cl-clicks','cl-pageviews','cl-note');
       fb('clarity-fb','Saved! Refreshing...','ok');
       renderClarity(await fetchClarity(_clarityDomain));
       setTimeout(()=>fb('clarity-fb','',''),3000);
