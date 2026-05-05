@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <!-- Supabase JS client -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</script>
 <style>
 
 *, *::before, *::after {
@@ -814,6 +815,7 @@ body {
 </div>
 
 <script>
+(function () { // isolated scope
 
   // ── Supabase Config ──────────────────────────────────────────────────────
   // Replace these two values with your project's URL and anon key.
@@ -822,14 +824,14 @@ body {
   const SUPABASE_URL  = 'https://zmoytkcuiofybqkqljtj.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inptb3l0a2N1aW9meWJxa3FsanRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTgwNDIsImV4cCI6MjA5MzUzNDA0Mn0.9lrZHkIF9fGdK7qsElLfFaV2aeuQh2sDOFID1MR543Q';
 
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
   // ── Data layer ───────────────────────────────────────────────────────────
   // Queries the `pagespeed_history` table, filtered by domain,
   // ordered newest-first, capped at 50 rows.
 
   async function fetchHistory(domain) {
-    const { data, error } = await supabase
+    const { data, error } = await sbClient
       .from('pagespeed_history')
       .select('id, tested_at, mobile_score, desktop_score, note')
       .eq('domain', domain)
@@ -942,6 +944,7 @@ body {
     }
   });
 
+})();
 </script>
 </body>
 </html>
