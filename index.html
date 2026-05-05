@@ -5,249 +5,250 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3S Group - SEO Performance Stack</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
---bg: #020d1a;
---surface: #061525;
---surface2: #0a1f35;
---blue: #1a4a7a;
---blue-mid: #1e5a96;
---blue-bright: #2d7dd2;
---gold: #c9a84c;
---gold-light: #e2c47a;
---gold-dim: rgba(201, 168, 76, 0.2);
---white: #f0ece4;
---muted: #6b849e;
---border: rgba(201, 168, 76, 0.12);
+  --bg: #f0f4f9;
+  --surface: #ffffff;
+  --surface2: #f8fafc;
+  --blue: #1e3a6e;
+  --blue-mid: #2563eb;
+  --blue-bright: #3b82f6;
+  --gold: #b45309;
+  --gold-light: #d97706;
+  --gold-dim: rgba(180, 83, 9, 0.1);
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.07);
+  --shadow-hover: 0 8px 32px rgba(37,99,235,0.12), 0 2px 8px rgba(0,0,0,0.08);
 }
 
 body {
-background: var(--bg);
-color: var(--white);
-font-family: ‘Inter’, sans-serif;
-min-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 48px 24px;
-background-image:
-radial-gradient(ellipse 80% 50% at 50% -10%, rgba(29, 78, 130, 0.25) 0%, transparent 70%);
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background-image:
+    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(37, 99, 235, 0.07) 0%, transparent 65%);
 }
 
 .wrapper {
-width: 100%;
-max-width: 900px;
+  width: 100%;
+  max-width: 920px;
 }
 
 /* Header */
 .header {
-text-align: center;
-margin-bottom: 56px;
-animation: fadeUp 0.7s ease both;
+  text-align: center;
+  margin-bottom: 52px;
+  animation: fadeUp 0.6s ease both;
 }
 
 .header .eyebrow {
-display: inline-flex;
-align-items: center;
-gap: 10px;
-font-size: 10.5px;
-letter-spacing: 4px;
-text-transform: uppercase;
-color: var(--gold);
-margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10.5px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-weight: 500;
 }
 
 .header .eyebrow::before,
 .header .eyebrow::after {
-content: ‘’;
-display: block;
-width: 32px;
-height: 1px;
-background: var(--gold);
-opacity: 0.5;
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold-light);
+  opacity: 0.6;
 }
 
 .header h1 {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(32px, 5vw, 52px);
-font-weight: 600;
-color: var(--white);
-line-height: 1.1;
-letter-spacing: -0.5px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 5vw, 50px);
+  font-weight: 600;
+  color: var(--blue);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
 }
 
 .header h1 em {
-font-style: italic;
-color: var(--gold);
+  font-style: italic;
+  color: var(--gold);
 }
 
 .header .sub {
-margin-top: 12px;
-font-size: 13px;
-color: var(--muted);
-font-weight: 300;
-letter-spacing: 0.3px;
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: var(--muted);
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 /* Grid */
 .grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 /* Card */
 .card {
-background: var(--surface);
-border: 1px solid var(--border);
-border-radius: 20px;
-padding: 34px 30px 30px;
-position: relative;
-animation: fadeUp 0.7s ease both;
-transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
-overflow: hidden;
-}
-
-.card::after {
-content: ‘’;
-position: absolute;
-inset: 0;
-border-radius: 20px;
-background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(45, 125, 210, 0.07) 0%, transparent 70%);
-pointer-events: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 28px 28px;
+  position: relative;
+  animation: fadeUp 0.6s ease both;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .card:hover {
-border-color: rgba(201, 168, 76, 0.35);
-box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.08);
-transform: translateY(-4px);
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
 }
 
-.card:nth-child(1) { animation-delay: 0.1s; }
-.card:nth-child(2) { animation-delay: 0.2s; }
-.card:nth-child(3) { animation-delay: 0.3s; }
-.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(1) { animation-delay: 0.08s; }
+.card:nth-child(2) { animation-delay: 0.16s; }
+.card:nth-child(3) { animation-delay: 0.24s; }
+.card:nth-child(4) { animation-delay: 0.32s; }
 
 .card-accent {
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 2px;
-background: linear-gradient(90deg, var(--blue-mid), var(--gold));
-border-radius: 20px 20px 0 0;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue-mid), var(--gold-light));
+  border-radius: 16px 16px 0 0;
 }
 
 .card-num {
-font-size: 10px;
-letter-spacing: 3.5px;
-color: var(--gold);
-text-transform: uppercase;
-margin-bottom: 14px;
-opacity: 0.8;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 500;
 }
 
 .card-tool {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 26px;
-font-weight: 600;
-color: var(--white);
-margin-bottom: 10px;
-letter-spacing: -0.3px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 10px;
+  letter-spacing: -0.2px;
 }
 
 .card-desc {
-font-size: 13px;
-color: var(--muted);
-line-height: 1.65;
-font-weight: 300;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 /* Tags */
 .tags {
-display: flex;
-flex-wrap: wrap;
-gap: 7px;
-margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 18px;
 }
 
 .tag {
-font-size: 10.5px;
-padding: 3px 11px;
-border-radius: 20px;
-background: rgba(29, 78, 130, 0.25);
-border: 1px solid rgba(45, 125, 210, 0.25);
-color: #7ab3e0;
-letter-spacing: 0.3px;
+  font-size: 10.5px;
+  padding: 3px 11px;
+  border-radius: 20px;
+  background: rgba(37, 99, 235, 0.07);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  color: var(--blue-mid);
+  letter-spacing: 0.2px;
+  font-weight: 500;
 }
 
 /* Buttons */
 .btn-group {
-display: flex;
-flex-wrap: wrap;
-gap: 8px;
-margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
 }
 
 .btn {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-padding: 7px 14px;
-background: transparent;
-border: 1px solid rgba(201, 168, 76, 0.4);
-border-radius: 8px;
-color: var(--gold-light);
-font-family: ‘Inter’, sans-serif;
-font-size: 11px;
-font-weight: 500;
-letter-spacing: 0.2px;
-text-decoration: none;
-transition: background 0.2s, border-color 0.2s, color 0.2s;
-cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  background: transparent;
+  border: 1px solid rgba(180, 83, 9, 0.35);
+  border-radius: 8px;
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  text-decoration: none;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  cursor: pointer;
 }
 
 .btn:hover {
-background: var(--gold);
-border-color: var(--gold);
-color: #020d1a;
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #ffffff;
 }
 
 .btn svg {
-width: 11px;
-height: 11px;
-flex-shrink: 0;
-opacity: 0.8;
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  opacity: 0.85;
 }
 
 /* Divider */
 .divider {
-width: 100%;
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
-margin: 48px 0 32px;
-animation: fadeUp 0.7s 0.45s ease both;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 44px 0 28px;
+  animation: fadeUp 0.6s 0.4s ease both;
 }
 
 /* Footer */
 .footer {
-text-align: center;
-font-size: 10.5px;
-letter-spacing: 2.5px;
-text-transform: uppercase;
-color: rgba(107, 132, 158, 0.45);
-animation: fadeUp 0.7s 0.5s ease both;
+  text-align: center;
+  font-size: 10.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.6;
+  animation: fadeUp 0.6s 0.45s ease both;
 }
 
 @keyframes fadeUp {
-from { opacity: 0; transform: translateY(18px); }
-to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 620px) {
-.grid { grid-template-columns: 1fr; }
-.header h1 { font-size: 32px; }
+  .grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 30px; }
 }
 </style>
 
@@ -374,7 +375,7 @@ to { opacity: 1; transform: translateY(0); }
   </div>
 
   <div class="divider"></div>
-  <div class="footer">Prepared by Mufeed - SEO & Digital Marketing - 3S Group</div>
+  <div class="footer">Prepared by Mufeed &mdash; SEO &amp; Digital Marketing &mdash; 3S Group</div>
 
 </div>
 </body>
