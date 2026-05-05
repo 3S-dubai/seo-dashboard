@@ -953,7 +953,7 @@ body {
   async function fetchHistory(domain) {
     const { data, error } = await sbClient
       .from('pagespeed_history')
-      .select('id, tested_at, mobile_score, desktop_score, note')
+      .select('id, tested_at, mobile_score, desktop_score, note, report_url')
       .eq('domain', domain)
       .order('tested_at', { ascending: false })
       .limit(50);
@@ -1017,7 +1017,10 @@ body {
           </div>
         </div>
         <div class="row-link">
-          <a href="${psiUrl(domain)}" target="_blank">View &#x2197;</a>
+          ${row.report_url
+            ? `<a href="${row.report_url}" target="_blank">View &#x2197;</a>`
+            : `<a href="${psiUrl(domain)}" target="_blank">Run &#x2197;</a>`
+          }
         </div>
       </div>
     `).join('');
@@ -1088,9 +1091,10 @@ body {
     fb.className = 'log-feedback info';
 
     try {
+      const reportUrl = document.getElementById('log-url').value.trim() || null;
       const { error } = await sbClient
         .from('pagespeed_history')
-        .insert({ domain: _currentDomain, mobile_score: mobile, desktop_score: desktop, note: note || null });
+        .insert({ domain: _currentDomain, mobile_score: mobile, desktop_score: desktop, note: note || null, report_url: reportUrl });
 
       if (error) throw error;
 
