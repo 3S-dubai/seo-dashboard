@@ -663,7 +663,6 @@ body {
         <input id="cl-sessions"  class="log-input" type="number" min="0" placeholder="Sessions" />
         <input id="cl-clicks"    class="log-input" type="number" min="0" placeholder="Clicks" />
         <input id="cl-pageviews" class="log-input" type="number" min="0" placeholder="Page Views" />
-        
         <input id="cl-note"      class="log-input log-input-note" type="text" placeholder="Note (optional)" />
         <button class="log-save-btn" id="clarity-save" onclick="saveClarity()">Save</button>
       </div>
@@ -671,7 +670,7 @@ body {
     </div>
     <div class="history-body">
       <div class="col-labels" style="grid-template-columns:1fr 72px 72px 80px;">
-        <span>Date</span><span>Sessions</span><span>Clicks</span><span>Page Views</span><span>Top Page</span>
+        <span>Date</span><span>Sessions</span><span>Clicks</span><span>Page Views</span>
       </div>
       <div id="clarity-list"></div>
     </div>
@@ -903,7 +902,6 @@ body {
         <div class="metric-val">${r.session_count??'—'}</div>
         <div class="metric-val">${r.clicks??'—'}</div>
         <div class="metric-val">${r.page_views??'—'}</div>
-        
       </div>`).join('');
   }
 
@@ -915,7 +913,6 @@ body {
       session_count:intVal('cl-sessions'),
       clicks:intVal('cl-clicks'),
       page_views:intVal('cl-pageviews'),
-      
       note:val('cl-note')||null
     };
     const hasData = ['session_count','clicks','page_views'].some(k=>row[k]!==null&&row[k]!=='');
