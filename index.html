@@ -10,23 +10,23 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-–bg: #020d1a;
-–surface: #061525;
-–surface2: #0a1f35;
-–blue: #1a4a7a;
-–blue-mid: #1e5a96;
-–blue-bright: #2d7dd2;
-–gold: #c9a84c;
-–gold-light: #e2c47a;
-–gold-dim: rgba(201, 168, 76, 0.2);
-–white: #f0ece4;
-–muted: #6b849e;
-–border: rgba(201, 168, 76, 0.12);
+--bg: #020d1a;
+--surface: #061525;
+--surface2: #0a1f35;
+--blue: #1a4a7a;
+--blue-mid: #1e5a96;
+--blue-bright: #2d7dd2;
+--gold: #c9a84c;
+--gold-light: #e2c47a;
+--gold-dim: rgba(201, 168, 76, 0.2);
+--white: #f0ece4;
+--muted: #6b849e;
+--border: rgba(201, 168, 76, 0.12);
 }
 
 body {
-background: var(–bg);
-color: var(–white);
+background: var(--bg);
+color: var(--white);
 font-family: ‘Inter’, sans-serif;
 min-height: 100vh;
 display: flex;
@@ -56,7 +56,7 @@ gap: 10px;
 font-size: 10.5px;
 letter-spacing: 4px;
 text-transform: uppercase;
-color: var(–gold);
+color: var(--gold);
 margin-bottom: 18px;
 }
 
@@ -66,7 +66,7 @@ content: ‘’;
 display: block;
 width: 32px;
 height: 1px;
-background: var(–gold);
+background: var(--gold);
 opacity: 0.5;
 }
 
@@ -74,20 +74,20 @@ opacity: 0.5;
 font-family: ‘Cormorant Garamond’, serif;
 font-size: clamp(32px, 5vw, 52px);
 font-weight: 600;
-color: var(–white);
+color: var(--white);
 line-height: 1.1;
 letter-spacing: -0.5px;
 }
 
 .header h1 em {
 font-style: italic;
-color: var(–gold);
+color: var(--gold);
 }
 
 .header .sub {
 margin-top: 12px;
 font-size: 13px;
-color: var(–muted);
+color: var(--muted);
 font-weight: 300;
 letter-spacing: 0.3px;
 }
@@ -101,8 +101,8 @@ gap: 18px;
 
 /* Card */
 .card {
-background: var(–surface);
-border: 1px solid var(–border);
+background: var(--surface);
+border: 1px solid var(--border);
 border-radius: 20px;
 padding: 34px 30px 30px;
 position: relative;
@@ -135,14 +135,14 @@ transform: translateY(-4px);
 position: absolute;
 top: 0; left: 0; right: 0;
 height: 2px;
-background: linear-gradient(90deg, var(–blue-mid), var(–gold));
+background: linear-gradient(90deg, var(--blue-mid), var(--gold));
 border-radius: 20px 20px 0 0;
 }
 
 .card-num {
 font-size: 10px;
 letter-spacing: 3.5px;
-color: var(–gold);
+color: var(--gold);
 text-transform: uppercase;
 margin-bottom: 14px;
 opacity: 0.8;
@@ -152,14 +152,14 @@ opacity: 0.8;
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 26px;
 font-weight: 600;
-color: var(–white);
+color: var(--white);
 margin-bottom: 10px;
 letter-spacing: -0.3px;
 }
 
 .card-desc {
 font-size: 13px;
-color: var(–muted);
+color: var(--muted);
 line-height: 1.65;
 font-weight: 300;
 }
@@ -198,7 +198,7 @@ padding: 7px 14px;
 background: transparent;
 border: 1px solid rgba(201, 168, 76, 0.4);
 border-radius: 8px;
-color: var(–gold-light);
+color: var(--gold-light);
 font-family: ‘Inter’, sans-serif;
 font-size: 11px;
 font-weight: 500;
@@ -209,8 +209,8 @@ cursor: pointer;
 }
 
 .btn:hover {
-background: var(–gold);
-border-color: var(–gold);
+background: var(--gold);
+border-color: var(--gold);
 color: #020d1a;
 }
 
@@ -263,7 +263,6 @@ to { opacity: 1; transform: translateY(0); }
 
   <div class="grid">
 
-```
 <!-- PageSpeed -->
 <div class="card">
   <div class="card-accent"></div>
@@ -371,7 +370,6 @@ to { opacity: 1; transform: translateY(0); }
     </a>
   </div>
 </div>
-```
 
   </div>
 
