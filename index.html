@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3S Group - SEO Performance Stack</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<!-- Supabase JS client -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</script>
 <style>
 
 *, *::before, *::after {
@@ -247,7 +245,7 @@ body {
   animation: fadeUp 0.6s 0.4s ease both;
 }
 
-/* ── History Overlay ── */
+/* ── Overlay (shared) ── */
 
 .overlay {
   position: fixed;
@@ -269,7 +267,7 @@ body {
   pointer-events: all;
 }
 
-/* ── History Panel ── */
+/* ── Panel (shared) ── */
 
 .history-panel {
   background: var(--surface);
@@ -376,7 +374,7 @@ body {
   color: var(--navy);
 }
 
-/* ── History List ── */
+/* ── History List (shared) ── */
 
 .history-body {
   overflow-y: auto;
@@ -384,20 +382,16 @@ body {
   padding: 12px 28px 24px;
 }
 
-.history-body::-webkit-scrollbar {
-  width: 4px;
-}
-
-.history-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+.history-body::-webkit-scrollbar { width: 4px; }
+.history-body::-webkit-scrollbar-track { background: transparent; }
 .history-body::-webkit-scrollbar-thumb {
   background: rgba(201, 168, 76, 0.2);
   border-radius: 4px;
 }
 
-.history-col-labels {
+/* ── PageSpeed columns ── */
+
+.psi-col-labels {
   display: grid;
   grid-template-columns: 1fr 72px 72px 80px;
   gap: 8px;
@@ -411,36 +405,63 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.history-col-labels span:not(:first-child) {
-  text-align: center;
-}
+.psi-col-labels span:not(:first-child) { text-align: center; }
 
-.history-row {
+.psi-row {
   display: grid;
   grid-template-columns: 1fr 72px 72px 80px;
   gap: 8px;
   align-items: center;
   padding: 13px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  transition: background 0.15s;
 }
 
-.history-row:last-child {
-  border-bottom: none;
-}
+.psi-row:last-child { border-bottom: none; }
 
-.row-date {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-}
+/* ── Clarity columns ── */
 
-.row-note {
-  font-size: 11px;
-  font-weight: 400;
+.clarity-col-labels {
+  display: grid;
+  grid-template-columns: 1fr repeat(5, 56px);
+  gap: 6px;
+  padding: 10px 0 6px;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
   color: var(--muted);
-  margin-top: 2px;
+  opacity: 0.6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+.clarity-col-labels span:not(:first-child) { text-align: center; }
+
+.clarity-row {
+  display: grid;
+  grid-template-columns: 1fr repeat(5, 56px);
+  gap: 6px;
+  align-items: center;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.clarity-row:last-child { border-bottom: none; }
+
+/* ── Second row for more metrics ── */
+.clarity-row-meta {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 56px);
+  gap: 6px;
+  align-items: center;
+  padding: 0 0 11px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  margin-top: -8px;
+}
+
+/* ── Shared row bits ── */
+
+.row-date { font-size: 13px; font-weight: 500; color: var(--text); }
+.row-note { font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 2px; }
 
 .score-badge {
   display: flex;
@@ -455,28 +476,35 @@ body {
   border: 2px solid;
 }
 
-.score-badge.good {
-  color: var(--good);
-  border-color: var(--good);
-  background: rgba(12, 206, 107, 0.08);
+.score-badge.good    { color: var(--good);    border-color: var(--good);    background: rgba(12, 206, 107, 0.08); }
+.score-badge.average { color: var(--average); border-color: var(--average); background: rgba(255, 164, 0, 0.08); }
+.score-badge.poor    { color: var(--poor);    border-color: var(--poor);    background: rgba(255, 78, 66, 0.08); }
+
+/* Smaller badge for Clarity (more cols) */
+.score-badge.sm {
+  width: 34px;
+  height: 34px;
+  font-size: 11px;
 }
 
-.score-badge.average {
-  color: var(--average);
-  border-color: var(--average);
-  background: rgba(255, 164, 0, 0.08);
-}
-
-.score-badge.poor {
-  color: var(--poor);
-  border-color: var(--poor);
-  background: rgba(255, 78, 66, 0.08);
-}
-
-.row-link {
+.metric-val {
   text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
 }
 
+.metric-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.row-link { text-align: center; }
 .row-link a {
   font-size: 11px;
   font-weight: 600;
@@ -486,14 +514,9 @@ body {
   opacity: 0.85;
   transition: opacity 0.15s;
 }
+.row-link a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
 
-.row-link a:hover {
-  opacity: 1;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-/* ── Loading & States ── */
+/* ── Loading & states ── */
 
 .history-loading {
   text-align: center;
@@ -516,34 +539,94 @@ body {
 }
 
 .history-error {
-  text-align: center;
-  padding: 48px 0;
-  color: var(--poor);
-  font-size: 13px;
+  text-align: center; padding: 48px 0;
+  color: var(--poor); font-size: 13px;
 }
 
-.history-error strong {
-  display: block;
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
+.history-error strong { display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px; }
 
 .history-empty {
-  text-align: center;
-  padding: 48px 0;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 400;
+  text-align: center; padding: 48px 0;
+  color: var(--muted); font-size: 13px;
 }
 
-.history-empty strong {
-  display: block;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 6px;
+.history-empty strong { display: block; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+
+/* ── Log Score Section ── */
+
+.log-section {
+  padding: 16px 28px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
+
+.log-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.75;
+  margin-bottom: 10px;
+}
+
+.log-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.log-row:last-of-type { margin-bottom: 0; }
+
+.log-input {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  padding: 7px 11px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 82px;
+}
+
+.log-input-wide { width: 100%; }
+.log-input-note { flex: 1; width: auto; }
+
+.log-input::placeholder { color: var(--muted); opacity: 0.6; }
+.log-input:focus { border-color: rgba(201, 168, 76, 0.5); background: rgba(255,255,255,0.06); }
+
+.log-save-btn {
+  padding: 7px 16px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 8px;
+  color: var(--gold-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.log-save-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+.log-save-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.log-feedback {
+  font-size: 11px;
+  min-height: 16px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.log-feedback.ok   { color: var(--good); }
+.log-feedback.err  { color: var(--poor); }
+.log-feedback.info { color: var(--gold-light); }
 
 /* ── Animations ── */
 
@@ -562,111 +645,11 @@ body {
   .history-panel { max-height: 90vh; }
   .panel-header,
   .panel-toolbar,
-  .history-body { padding-left: 20px; padding-right: 20px; }
-  .history-col-labels,
-  .history-row { grid-template-columns: 1fr 60px 60px 64px; }
+  .log-section,
+  .history-body { padding-left: 16px; padding-right: 16px; }
+  .psi-col-labels, .psi-row { grid-template-columns: 1fr 60px 60px 64px; }
+  .clarity-col-labels, .clarity-row { grid-template-columns: 1fr repeat(5, 46px); }
 }
-
-
-/* ── Log Score Section ── */
-
-.log-section {
-  padding: 16px 28px 0;
-  flex-shrink: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding-bottom: 16px;
-}
-
-.log-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.75;
-  margin-bottom: 10px;
-}
-
-.log-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.log-row:last-of-type {
-  margin-bottom: 0;
-}
-
-.log-input {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  padding: 7px 11px;
-  outline: none;
-  transition: border-color 0.15s;
-  width: 90px;
-}
-
-.log-input-wide {
-  width: 100%;
-}
-
-.log-input-note {
-  flex: 1;
-  width: auto;
-}
-
-.log-input::placeholder {
-  color: var(--muted);
-  opacity: 0.6;
-}
-
-.log-input:focus {
-  border-color: rgba(201, 168, 76, 0.5);
-  background: rgba(255,255,255,0.06);
-}
-
-.log-save-btn {
-  padding: 7px 16px;
-  background: var(--gold-dim);
-  border: 1px solid rgba(201, 168, 76, 0.4);
-  border-radius: 8px;
-  color: var(--gold-light);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s, color 0.15s;
-  flex-shrink: 0;
-}
-
-.log-save-btn:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--navy);
-}
-
-.log-save-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.log-feedback {
-  font-size: 11px;
-  min-height: 16px;
-  margin-top: 6px;
-  font-weight: 500;
-}
-
-.log-feedback.ok   { color: var(--good); }
-.log-feedback.err  { color: var(--poor); }
-.log-feedback.info { color: var(--gold-light); }
-
 
 </style>
 </head>
@@ -698,28 +681,22 @@ body {
         <span class="tag">Mobile Score</span>
       </div>
       <div class="btn-group">
-        <button class="btn"
-                onclick="openHistory('3S Business', '3sbusinessme.com')">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
+        <button class="btn" onclick="openPsiHistory('3S Business', '3sbusinessme.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
           </svg>
           3S Business
         </button>
-        <button class="btn"
-                onclick="openHistory('BizCity', 'bizcitygroup.com')">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
+        <button class="btn" onclick="openPsiHistory('BizCity', 'bizcitygroup.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
           </svg>
           BizCity
         </button>
-        <button class="btn"
-                onclick="openHistory('3S HR', '3shrconsulting.com')">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
+        <button class="btn" onclick="openPsiHistory('3S HR', '3shrconsulting.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
           </svg>
@@ -744,30 +721,24 @@ body {
       </div>
       <div class="btn-group">
         <a class="btn" href="https://www.semrush.com/login/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
           3S Business
         </a>
         <a class="btn" href="https://www.semrush.com/login/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
           BizCity
         </a>
         <a class="btn" href="https://www.semrush.com/login/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
@@ -791,36 +762,27 @@ body {
         <span class="tag">Behaviour</span>
       </div>
       <div class="btn-group">
-        <a class="btn" href="https://clarity.microsoft.com/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+        <button class="btn" onclick="openClarityHistory('3S Business', '3sbusinessme.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
           </svg>
           3S Business
-        </a>
-        <a class="btn" href="https://clarity.microsoft.com/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+        </button>
+        <button class="btn" onclick="openClarityHistory('BizCity', 'bizcitygroup.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
           </svg>
           BizCity
-        </a>
-        <a class="btn" href="https://clarity.microsoft.com/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+        </button>
+        <button class="btn" onclick="openClarityHistory('3S HR', '3shrconsulting.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
           </svg>
           3S HR
-        </a>
+        </button>
       </div>
     </div>
 
@@ -840,30 +802,24 @@ body {
       </div>
       <div class="btn-group">
         <a class="btn" href="https://lookerstudio.google.com/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
           3S Business
         </a>
         <a class="btn" href="https://lookerstudio.google.com/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
           BizCity
         </a>
         <a class="btn" href="https://lookerstudio.google.com/" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
             <polyline points="15 3 21 3 21 9"/>
             <line x1="10" y1="14" x2="21" y2="3"/>
           </svg>
@@ -881,88 +837,116 @@ body {
 </div>
 
 <!-- ── PageSpeed History Panel ── -->
-<div id="history-overlay" class="overlay" onclick="closeHistory(event)">
+<div id="psi-overlay" class="overlay" onclick="closePsiHistory(event)">
   <div class="history-panel">
-
     <div class="panel-header">
       <div>
-        <div class="panel-brand" id="panel-brand">PageSpeed Insights</div>
-        <div class="panel-title" id="panel-title">Loading...</div>
+        <div class="panel-brand">PageSpeed Insights</div>
+        <div class="panel-title" id="psi-panel-title">Loading...</div>
       </div>
-      <button class="panel-close" onclick="closeHistory()">&#x2715;</button>
+      <button class="panel-close" onclick="closePsiHistory()">&#x2715;</button>
     </div>
 
     <div class="panel-toolbar">
-      <span class="panel-domain" id="panel-domain"></span>
-      <a id="panel-run-btn"
-         class="btn-run"
-         href="#"
-         target="_blank">
+      <span class="panel-domain" id="psi-panel-domain"></span>
+      <a id="psi-run-btn" class="btn-run" href="#" target="_blank">
         Run New Test &#x2197;
       </a>
     </div>
 
-    <!-- ── Log Score Section ── -->
     <div class="log-section">
       <div class="log-label">Log a new score</div>
       <div class="log-row">
-        <input id="log-url"
-               class="log-input log-input-wide"
-               type="url"
-               placeholder="Paste PageSpeed report URL (optional — auto-fills scores)"
+        <input id="psi-log-url" class="log-input log-input-wide" type="url"
+               placeholder="Paste PageSpeed report URL (optional)"
                oninput="window.onPsiUrlInput(this.value)" />
       </div>
       <div class="log-row">
-        <input id="log-mobile"  class="log-input" type="number" min="0" max="100" placeholder="Mobile" />
-        <input id="log-desktop" class="log-input" type="number" min="0" max="100" placeholder="Desktop" />
-        <input id="log-note"    class="log-input log-input-note" type="text" placeholder="Note (optional)" />
-        <button class="log-save-btn" id="log-save-btn" onclick="window.saveScore()">Save</button>
+        <input id="psi-log-mobile"  class="log-input" type="number" min="0" max="100" placeholder="Mobile" />
+        <input id="psi-log-desktop" class="log-input" type="number" min="0" max="100" placeholder="Desktop" />
+        <input id="psi-log-note"    class="log-input log-input-note" type="text" placeholder="Note (optional)" />
+        <button class="log-save-btn" id="psi-save-btn" onclick="window.savePsiScore()">Save</button>
       </div>
-      <div id="log-feedback" class="log-feedback"></div>
+      <div id="psi-feedback" class="log-feedback"></div>
     </div>
 
     <div class="history-body">
-      <div class="history-col-labels">
+      <div class="psi-col-labels">
         <span>Date</span>
         <span>Mobile</span>
         <span>Desktop</span>
         <span>Report</span>
       </div>
-      <div id="history-list"></div>
+      <div id="psi-history-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Clarity History Panel ── -->
+<div id="clarity-overlay" class="overlay" onclick="closeClarityHistory(event)">
+  <div class="history-panel" style="max-width:760px;">
+    <div class="panel-header">
+      <div>
+        <div class="panel-brand">Microsoft Clarity</div>
+        <div class="panel-title" id="clarity-panel-title">Loading...</div>
+      </div>
+      <button class="panel-close" onclick="closeClarityHistory()">&#x2715;</button>
     </div>
 
+    <div class="panel-toolbar">
+      <span class="panel-domain" id="clarity-panel-domain"></span>
+      <a id="clarity-run-btn" class="btn-run"
+         href="https://clarity.microsoft.com/" target="_blank">
+        Open Clarity &#x2197;
+      </a>
+    </div>
+
+    <!-- Clarity log form -->
+    <div class="log-section">
+      <div class="log-label">Log metrics from Clarity</div>
+      <!-- Row 1: percentage metrics -->
+      <div class="log-row">
+        <input id="cl-dead"       class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Dead %" title="Dead clicks %" />
+        <input id="cl-rage"       class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Rage %" title="Rage clicks %" />
+        <input id="cl-scroll"     class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Scroll %" title="Avg scroll depth %" />
+        <input id="cl-bounce"     class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Bounce %" title="Bounce rate %" />
+        <input id="cl-quickback"  class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Quick back %" title="Quick backs %" />
+      </div>
+      <!-- Row 2: other metrics -->
+      <div class="log-row">
+        <input id="cl-sessions"   class="log-input" type="number" min="0" placeholder="Sessions" title="Session count" style="width:96px" />
+        <input id="cl-engage"     class="log-input" type="number" step="0.01" min="0" placeholder="Engage (min)" title="Avg engagement time in minutes" style="width:110px" />
+        <input id="cl-jserrors"   class="log-input" type="number" step="0.1" min="0" max="100" placeholder="JS err %" title="JS errors %" />
+        <input id="cl-excessive"  class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Excess scroll %" title="Excessive scrolling %" />
+        <input id="cl-note"       class="log-input log-input-note" type="text" placeholder="Note (optional)" />
+        <button class="log-save-btn" id="clarity-save-btn" onclick="window.saveClarityScore()">Save</button>
+      </div>
+      <div id="clarity-feedback" class="log-feedback"></div>
+    </div>
+
+    <div class="history-body">
+      <div class="clarity-col-labels">
+        <span>Date / Note</span>
+        <span>Dead%</span>
+        <span>Rage%</span>
+        <span>Scroll%</span>
+        <span>Bounce%</span>
+        <span>Q.Back%</span>
+      </div>
+      <div id="clarity-history-list"></div>
+    </div>
   </div>
 </div>
 
 <script>
-(function () { // isolated scope
+(function () {
 
-  // ── Supabase Config ──────────────────────────────────────────────────────
-  // Replace these two values with your project's URL and anon key.
-  // Find them in: Supabase Dashboard → Project Settings → API
-
+  // ── Supabase Config ─────────────────────────────────────────────────────
   const SUPABASE_URL  = 'https://zmoytkcuiofybqkqljtj.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inptb3l0a2N1aW9meWJxa3FsanRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTgwNDIsImV4cCI6MjA5MzUzNDA0Mn0.9lrZHkIF9fGdK7qsElLfFaV2aeuQh2sDOFID1MR543Q';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-
-  // ── Data layer ───────────────────────────────────────────────────────────
-  // Queries the `pagespeed_history` table, filtered by domain,
-  // ordered newest-first, capped at 50 rows.
-
-  async function fetchHistory(domain) {
-    const { data, error } = await sbClient
-      .from('pagespeed_history')
-      .select('id, tested_at, mobile_score, desktop_score, note, report_url')
-      .eq('domain', domain)
-      .order('tested_at', { ascending: false })
-      .limit(50);
-
-    if (error) throw error;
-    return data ?? [];
-  }
-
-  // ── Helpers ──────────────────────────────────────────────────────────────
+  // ── Helpers ─────────────────────────────────────────────────────────────
 
   function scoreClass(n) {
     if (n >= 90) return 'good';
@@ -970,87 +954,80 @@ body {
     return 'poor';
   }
 
-  function formatDate(iso) {
-    const d = new Date(iso);
-    return d.toLocaleDateString('en-GB', {
-      day: 'numeric', month: 'short', year: 'numeric'
-    });
+  // For "lower is better" metrics (dead clicks, rage clicks, bounce, etc.)
+  function scoreClassInv(n) {
+    if (n <= 10) return 'good';
+    if (n <= 30) return 'average';
+    return 'poor';
   }
 
-  function formatTime(iso) {
+  function scrollClass(n) {
+    // Higher scroll depth = better
+    if (n >= 60) return 'good';
+    if (n >= 35) return 'average';
+    return 'poor';
+  }
+
+  function fmt(iso) {
     const d = new Date(iso);
-    return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+           + ', '
+           + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
   }
 
   function psiUrl(domain) {
     return `https://pagespeed.web.dev/report?url=https://${domain}`;
   }
 
-  // ── Render ───────────────────────────────────────────────────────────────
+  // ══════════════════════════════════════════════════════
+  // ── PAGE SPEED ────────────────────────────────────────
+  // ══════════════════════════════════════════════════════
 
-  function renderList(rows, domain) {
-    const list = document.getElementById('history-list');
+  let _psiDomain = '';
 
-    if (!rows.length) {
-      list.innerHTML = `
-        <div class="history-empty">
-          <strong>No records yet</strong>
-          Run a test and save the results to start building history.
-        </div>`;
-      return;
-    }
-
-    list.innerHTML = rows.map(row => `
-      <div class="history-row">
-        <div>
-          <div class="row-date">${formatDate(row.tested_at)}, ${formatTime(row.tested_at)}</div>
-          ${row.note ? `<div class="row-note">${row.note}</div>` : ''}
-        </div>
-        <div>
-          <div class="score-badge ${scoreClass(row.mobile_score)}">
-            ${row.mobile_score}
-          </div>
-        </div>
-        <div>
-          <div class="score-badge ${scoreClass(row.desktop_score)}">
-            ${row.desktop_score}
-          </div>
-        </div>
-        <div class="row-link">
-          ${row.report_url
-            ? `<a href="${row.report_url}" target="_blank">View &#x2197;</a>`
-            : `<a href="${psiUrl(domain)}" target="_blank">Run &#x2197;</a>`
-          }
-        </div>
-      </div>
-    `).join('');
+  async function fetchPsiHistory(domain) {
+    const { data, error } = await sb
+      .from('pagespeed_history')
+      .select('id, tested_at, mobile_score, desktop_score, note, report_url')
+      .eq('domain', domain)
+      .order('tested_at', { ascending: false })
+      .limit(50);
+    if (error) throw error;
+    return data ?? [];
   }
 
-
-  // ── Current panel domain tracker ─────────────────────────────────────────
-  let _currentDomain = '';
-
-  // ── PSI URL input handler ─────────────────────────────────────────────────
-  // PSI report URLs look like:
-  //   https://pagespeed.web.dev/report?url=https://3sbusinessme.com
-  // Or the API result URL:
-  //   https://pagespeed.web.dev/analysis/3sbusinessme-com/...
-  // We also accept plain score URLs and just use them as-is for the note.
+  function renderPsiList(rows, domain) {
+    const list = document.getElementById('psi-history-list');
+    if (!rows.length) {
+      list.innerHTML = `<div class="history-empty"><strong>No records yet</strong>Run a test and save the results to start building history.</div>`;
+      return;
+    }
+    list.innerHTML = rows.map(r => `
+      <div class="psi-row">
+        <div>
+          <div class="row-date">${fmt(r.tested_at)}</div>
+          ${r.note ? `<div class="row-note">${r.note}</div>` : ''}
+        </div>
+        <div><div class="score-badge ${scoreClass(r.mobile_score)}">${r.mobile_score}</div></div>
+        <div><div class="score-badge ${scoreClass(r.desktop_score)}">${r.desktop_score}</div></div>
+        <div class="row-link">
+          ${r.report_url
+            ? `<a href="${r.report_url}" target="_blank">View &#x2197;</a>`
+            : `<a href="${psiUrl(domain)}" target="_blank">Run &#x2197;</a>`}
+        </div>
+      </div>`).join('');
+  }
 
   window.onPsiUrlInput = function(val) {
-    const fb = document.getElementById('log-feedback');
+    const fb = document.getElementById('psi-feedback');
     if (!val) { fb.textContent = ''; fb.className = 'log-feedback'; return; }
-
-    // Try to extract scores from URL params (PSI sometimes includes them)
-    // Mainly we just try to parse the domain from the URL for validation
     try {
       const u = new URL(val);
       const target = u.searchParams.get('url');
       if (target) {
-        const parsed = new URL(target);
-        const domain = parsed.hostname.replace(/^www\./, '');
-        if (domain !== _currentDomain) {
-          fb.textContent = '⚠️ URL domain (' + domain + ') does not match this panel (' + _currentDomain + ')';
+        const domain = new URL(target).hostname.replace(/^www\./, '');
+        if (domain !== _psiDomain) {
+          fb.textContent = '⚠️ URL domain (' + domain + ') does not match (' + _psiDomain + ')';
           fb.className = 'log-feedback err';
         } else {
           fb.textContent = '✓ Domain matches — enter scores below and save';
@@ -1060,104 +1037,217 @@ body {
         fb.textContent = 'URL accepted — enter scores below and save';
         fb.className = 'log-feedback info';
       }
-    } catch(e) {
-      fb.textContent = '';
-      fb.className = 'log-feedback';
-    }
+    } catch(e) { fb.textContent = ''; fb.className = 'log-feedback'; }
   };
 
-  // ── Save score ────────────────────────────────────────────────────────────
-
-  window.saveScore = async function() {
-    const mobile  = parseInt(document.getElementById('log-mobile').value, 10);
-    const desktop = parseInt(document.getElementById('log-desktop').value, 10);
-    const note    = document.getElementById('log-note').value.trim();
-    const fb      = document.getElementById('log-feedback');
-    const btn     = document.getElementById('log-save-btn');
+  window.savePsiScore = async function() {
+    const mobile  = parseInt(document.getElementById('psi-log-mobile').value, 10);
+    const desktop = parseInt(document.getElementById('psi-log-desktop').value, 10);
+    const note    = document.getElementById('psi-log-note').value.trim();
+    const fb      = document.getElementById('psi-feedback');
+    const btn     = document.getElementById('psi-save-btn');
 
     if (isNaN(mobile) || isNaN(desktop)) {
       fb.textContent = 'Please enter both mobile and desktop scores.';
-      fb.className = 'log-feedback err';
-      return;
+      fb.className = 'log-feedback err'; return;
     }
     if (mobile < 0 || mobile > 100 || desktop < 0 || desktop > 100) {
       fb.textContent = 'Scores must be between 0 and 100.';
-      fb.className = 'log-feedback err';
-      return;
+      fb.className = 'log-feedback err'; return;
     }
 
     btn.disabled = true;
-    fb.textContent = 'Saving…';
-    fb.className = 'log-feedback info';
+    fb.textContent = 'Saving…'; fb.className = 'log-feedback info';
 
     try {
-      const reportUrl = document.getElementById('log-url').value.trim() || null;
-      const { error } = await sbClient
-        .from('pagespeed_history')
-        .insert({ domain: _currentDomain, mobile_score: mobile, desktop_score: desktop, note: note || null, report_url: reportUrl });
-
+      const reportUrl = document.getElementById('psi-log-url').value.trim() || null;
+      const { error } = await sb.from('pagespeed_history')
+        .insert({ domain: _psiDomain, mobile_score: mobile, desktop_score: desktop, note: note || null, report_url: reportUrl });
       if (error) throw error;
 
-      // Clear inputs
-      document.getElementById('log-mobile').value  = '';
-      document.getElementById('log-desktop').value = '';
-      document.getElementById('log-note').value    = '';
-      document.getElementById('log-url').value     = '';
+      ['psi-log-mobile','psi-log-desktop','psi-log-note','psi-log-url']
+        .forEach(id => document.getElementById(id).value = '');
 
-      fb.textContent = '✓ Saved! Refreshing history…';
-      fb.className = 'log-feedback ok';
-
-      // Reload history list
-      const rows = await fetchHistory(_currentDomain);
-      renderList(rows, _currentDomain);
-
+      fb.textContent = '✓ Saved! Refreshing…'; fb.className = 'log-feedback ok';
+      renderPsiList(await fetchPsiHistory(_psiDomain), _psiDomain);
       setTimeout(() => { fb.textContent = ''; fb.className = 'log-feedback'; }, 3000);
     } catch(err) {
       fb.textContent = 'Error: ' + (err.message || 'Could not save.');
       fb.className = 'log-feedback err';
-    } finally {
-      btn.disabled = false;
+    } finally { btn.disabled = false; }
+  };
+
+  window.openPsiHistory = async function(brand, domain) {
+    _psiDomain = domain;
+    document.getElementById('psi-panel-title').textContent = brand;
+    document.getElementById('psi-panel-domain').textContent = domain;
+    document.getElementById('psi-run-btn').href = psiUrl(domain);
+    document.getElementById('psi-history-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    document.getElementById('psi-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    try {
+      renderPsiList(await fetchPsiHistory(domain), domain);
+    } catch(err) {
+      document.getElementById('psi-history-list').innerHTML =
+        `<div class="history-error"><strong>Could not load history</strong>${err.message}</div>`;
     }
   };
 
-  // ── Open / Close ─────────────────────────────────────────────────────────
+  window.closePsiHistory = function(e) {
+    if (e && e.target !== document.getElementById('psi-overlay')) return;
+    document.getElementById('psi-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
 
-  window.openHistory = async function openHistory(brandName, domain) {
-    _currentDomain = domain;
-    document.getElementById('panel-brand').textContent = 'PageSpeed Insights';
-    document.getElementById('panel-title').textContent = brandName;
-    document.getElementById('panel-domain').textContent = domain;
-    document.getElementById('panel-run-btn').href = psiUrl(domain);
+  // ══════════════════════════════════════════════════════
+  // ── CLARITY ───────────────────────────────────────────
+  // ══════════════════════════════════════════════════════
 
-    // Show loading state
-    document.getElementById('history-list').innerHTML =
-      '<div class="history-loading">Fetching history</div>';
+  let _clarityDomain = '';
 
-    document.getElementById('history-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
+  async function fetchClarityHistory(domain) {
+    const { data, error } = await sb
+      .from('clarity_history')
+      .select('id, recorded_at, dead_clicks_pct, rage_clicks_pct, scroll_depth_pct, bounce_rate_pct, quick_backs_pct, session_count, engagement_min, js_errors_pct, excessive_scroll_pct, note')
+      .eq('domain', domain)
+      .order('recorded_at', { ascending: false })
+      .limit(50);
+    if (error) throw error;
+    return data ?? [];
+  }
+
+  function pct(v) {
+    if (v === null || v === undefined) return '—';
+    return v + '%';
+  }
+
+  function renderClarityList(rows) {
+    const list = document.getElementById('clarity-history-list');
+    if (!rows.length) {
+      list.innerHTML = `<div class="history-empty"><strong>No records yet</strong>Copy numbers from Clarity and hit Save to start tracking trends.</div>`;
+      return;
+    }
+
+    list.innerHTML = rows.map(r => `
+      <div>
+        <!-- Row A: main cols -->
+        <div class="clarity-row" style="padding-bottom:4px;">
+          <div>
+            <div class="row-date">${fmt(r.recorded_at)}</div>
+            ${r.note ? `<div class="row-note">${r.note}</div>` : ''}
+          </div>
+          <div><div class="score-badge sm ${scoreClassInv(r.dead_clicks_pct)}">${pct(r.dead_clicks_pct)}</div></div>
+          <div><div class="score-badge sm ${scoreClassInv(r.rage_clicks_pct)}">${pct(r.rage_clicks_pct)}</div></div>
+          <div><div class="score-badge sm ${scrollClass(r.scroll_depth_pct)}">${pct(r.scroll_depth_pct)}</div></div>
+          <div><div class="score-badge sm ${scoreClassInv(r.bounce_rate_pct)}">${pct(r.bounce_rate_pct)}</div></div>
+          <div><div class="score-badge sm ${scoreClassInv(r.quick_backs_pct)}">${pct(r.quick_backs_pct)}</div></div>
+        </div>
+        <!-- Row B: secondary metrics -->
+        <div style="display:grid;grid-template-columns:1fr repeat(4,56px);gap:6px;padding:0 0 10px;border-bottom:1px solid rgba(255,255,255,0.04);">
+          <div style="padding-left:2px;">
+            <span style="font-size:10px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;">
+              Sessions: <strong style="color:var(--text)">${r.session_count ?? '—'}</strong>
+              &nbsp;·&nbsp; Engage: <strong style="color:var(--text)">${r.engagement_min != null ? r.engagement_min + ' min' : '—'}</strong>
+            </span>
+          </div>
+          <div style="text-align:center;">
+            <div class="score-badge sm ${scoreClassInv(r.js_errors_pct)}">${pct(r.js_errors_pct)}</div>
+            <div class="metric-label">JS err</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="score-badge sm ${scoreClassInv(r.excessive_scroll_pct)}">${pct(r.excessive_scroll_pct)}</div>
+            <div class="metric-label">Excess scroll</div>
+          </div>
+          <div></div><div></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.saveClarityScore = async function() {
+    const fb  = document.getElementById('clarity-feedback');
+    const btn = document.getElementById('clarity-save-btn');
+
+    const parse = id => {
+      const v = document.getElementById(id).value;
+      return v === '' ? null : parseFloat(v);
+    };
+    const parseInt2 = id => {
+      const v = document.getElementById(id).value;
+      return v === '' ? null : parseInt(v, 10);
+    };
+
+    const row = {
+      domain:               _clarityDomain,
+      dead_clicks_pct:      parse('cl-dead'),
+      rage_clicks_pct:      parse('cl-rage'),
+      scroll_depth_pct:     parse('cl-scroll'),
+      bounce_rate_pct:      parse('cl-bounce'),
+      quick_backs_pct:      parse('cl-quickback'),
+      session_count:        parseInt2('cl-sessions'),
+      engagement_min:       parse('cl-engage'),
+      js_errors_pct:        parse('cl-jserrors'),
+      excessive_scroll_pct: parse('cl-excessive'),
+      note:                 document.getElementById('cl-note').value.trim() || null,
+    };
+
+    // At least one metric must be filled
+    const hasData = Object.entries(row)
+      .filter(([k]) => !['domain','note'].includes(k))
+      .some(([,v]) => v !== null);
+
+    if (!hasData) {
+      fb.textContent = 'Please enter at least one metric before saving.';
+      fb.className = 'log-feedback err'; return;
+    }
+
+    btn.disabled = true;
+    fb.textContent = 'Saving…'; fb.className = 'log-feedback info';
 
     try {
-      const rows = await fetchHistory(domain);
-      renderList(rows, domain);
-    } catch (err) {
-      console.error('Supabase error:', err);
-      document.getElementById('history-list').innerHTML = `
-        <div class="history-error">
-          <strong>Could not load history</strong>
-          ${err.message || 'Check your Supabase config and table name.'}
-        </div>`;
+      const { error } = await sb.from('clarity_history').insert(row);
+      if (error) throw error;
+
+      ['cl-dead','cl-rage','cl-scroll','cl-bounce','cl-quickback',
+       'cl-sessions','cl-engage','cl-jserrors','cl-excessive','cl-note']
+        .forEach(id => document.getElementById(id).value = '');
+
+      fb.textContent = '✓ Saved! Refreshing…'; fb.className = 'log-feedback ok';
+      renderClarityList(await fetchClarityHistory(_clarityDomain));
+      setTimeout(() => { fb.textContent = ''; fb.className = 'log-feedback'; }, 3000);
+    } catch(err) {
+      fb.textContent = 'Error: ' + (err.message || 'Could not save.');
+      fb.className = 'log-feedback err';
+    } finally { btn.disabled = false; }
+  };
+
+  window.openClarityHistory = async function(brand, domain) {
+    _clarityDomain = domain;
+    document.getElementById('clarity-panel-title').textContent = brand;
+    document.getElementById('clarity-panel-domain').textContent = domain;
+    document.getElementById('clarity-history-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    document.getElementById('clarity-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    try {
+      renderClarityList(await fetchClarityHistory(domain));
+    } catch(err) {
+      document.getElementById('clarity-history-list').innerHTML =
+        `<div class="history-error"><strong>Could not load history</strong>${err.message}</div>`;
     }
-  }
+  };
 
-  window.closeHistory = function closeHistory(e) {
-    if (e && e.target !== document.getElementById('history-overlay')) return;
-    document.getElementById('history-overlay').classList.remove('open');
+  window.closeClarityHistory = function(e) {
+    if (e && e.target !== document.getElementById('clarity-overlay')) return;
+    document.getElementById('clarity-overlay').classList.remove('open');
     document.body.style.overflow = '';
-  }
+  };
 
+  // ── Global escape key ───────────────────────────────────────────────────
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      document.getElementById('history-overlay').classList.remove('open');
+      ['psi-overlay','clarity-overlay'].forEach(id => {
+        document.getElementById(id).classList.remove('open');
+      });
       document.body.style.overflow = '';
     }
   });
