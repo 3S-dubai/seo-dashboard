@@ -905,7 +905,7 @@ body {
 
   // ── Open / Close ─────────────────────────────────────────────────────────
 
-  async function openHistory(brandName, domain) {
+  window.openHistory = async function openHistory(brandName, domain) {
     document.getElementById('panel-brand').textContent = 'PageSpeed Insights';
     document.getElementById('panel-title').textContent = brandName;
     document.getElementById('panel-domain').textContent = domain;
@@ -931,7 +931,7 @@ body {
     }
   }
 
-  function closeHistory(e) {
+  window.closeHistory = function closeHistory(e) {
     if (e && e.target !== document.getElementById('history-overlay')) return;
     document.getElementById('history-overlay').classList.remove('open');
     document.body.style.overflow = '';
