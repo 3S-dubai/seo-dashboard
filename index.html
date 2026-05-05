@@ -888,7 +888,7 @@ body {
 
   async function fetchClarity(domain){
     const {data,error} = await sb.from('clarity_history')
-      .select('id,recorded_at,session_count,clicks,page_views,top_clicked_page,note')
+      .select('id,recorded_at,session_count,clicks,page_views,note')
       .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
     if(error) throw error;
     return data??[];
@@ -918,7 +918,7 @@ body {
       
       note:val('cl-note')||null
     };
-    const hasData = ['session_count','clicks','page_views','top_clicked_page'].some(k=>row[k]!==null&&row[k]!=='');
+    const hasData = ['session_count','clicks','page_views'].some(k=>row[k]!==null&&row[k]!=='');
     if(!hasData){ fb('clarity-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
     try{
       const {error} = await sb.from('clarity_history').insert(row);
