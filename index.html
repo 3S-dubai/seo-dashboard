@@ -27,6 +27,9 @@
   --shadow-sm:    0 2px 12px rgba(0, 0, 0, 0.35);
   --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.5),
                   0 0 0 1px rgba(201, 168, 76, 0.2);
+  --good:         #0cce6b;
+  --average:      #ffa400;
+  --poor:         #ff4e42;
 }
 
 body {
@@ -210,8 +213,8 @@ body {
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
-  transition: background 0.18s, border-color 0.18s, color 0.18s;
   cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
 }
 
 .btn:hover {
@@ -241,6 +244,270 @@ body {
   animation: fadeUp 0.6s 0.4s ease both;
 }
 
+/* ── History Overlay ── */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 18, 30, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── History Panel ── */
+
+.history-panel {
+  background: var(--surface);
+  border: 1px solid rgba(201, 168, 76, 0.18);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  transform: translateY(18px);
+  transition: transform 0.25s ease;
+  overflow: hidden;
+}
+
+.overlay.open .history-panel {
+  transform: translateY(0);
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 28px 28px 0;
+  flex-shrink: 0;
+}
+
+.panel-brand {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+.panel-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.panel-close {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 16px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.panel-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text);
+}
+
+.panel-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.panel-domain {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.btn-run {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 8px;
+  color: var(--gold-light);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  flex-shrink: 0;
+}
+
+.btn-run:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+/* ── History List ── */
+
+.history-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 12px 28px 24px;
+}
+
+.history-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.history-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.history-body::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.2);
+  border-radius: 4px;
+}
+
+.history-col-labels {
+  display: grid;
+  grid-template-columns: 1fr 72px 72px 80px;
+  gap: 8px;
+  padding: 10px 0 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.history-col-labels span:not(:first-child) {
+  text-align: center;
+}
+
+.history-row {
+  display: grid;
+  grid-template-columns: 1fr 72px 72px 80px;
+  gap: 8px;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.15s;
+}
+
+.history-row:last-child {
+  border-bottom: none;
+}
+
+.row-date {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.row-note {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.score-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 auto;
+  border: 2px solid;
+}
+
+.score-badge.good {
+  color: var(--good);
+  border-color: var(--good);
+  background: rgba(12, 206, 107, 0.08);
+}
+
+.score-badge.average {
+  color: var(--average);
+  border-color: var(--average);
+  background: rgba(255, 164, 0, 0.08);
+}
+
+.score-badge.poor {
+  color: var(--poor);
+  border-color: var(--poor);
+  background: rgba(255, 78, 66, 0.08);
+}
+
+.row-link {
+  text-align: center;
+}
+
+.row-link a {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.row-link a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.history-empty {
+  text-align: center;
+  padding: 48px 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.history-empty strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+/* ── Animations ── */
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -249,6 +516,12 @@ body {
 @media (max-width: 620px) {
   .grid { grid-template-columns: 1fr; }
   .header h1 { font-size: 30px; }
+  .history-panel { max-height: 90vh; }
+  .panel-header,
+  .panel-toolbar,
+  .history-body { padding-left: 20px; padding-right: 20px; }
+  .history-col-labels,
+  .history-row { grid-template-columns: 1fr 60px 60px 64px; }
 }
 
 </style>
@@ -281,42 +554,33 @@ body {
         <span class="tag">Mobile Score</span>
       </div>
       <div class="btn-group">
-        <a class="btn"
-           href="https://pagespeed.web.dev/report?url=https://3sbusinessme.com"
-           target="_blank">
+        <button class="btn"
+                onclick="openHistory('3S Business', '3sbusinessme.com')">
           <svg viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
           </svg>
           3S Business
-        </a>
-        <a class="btn"
-           href="https://pagespeed.web.dev/report?url=https://bizcitygroup.com"
-           target="_blank">
+        </button>
+        <button class="btn"
+                onclick="openHistory('BizCity', 'bizcitygroup.com')">
           <svg viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
           </svg>
           BizCity
-        </a>
-        <a class="btn"
-           href="https://pagespeed.web.dev/report?url=https://3shrconsulting.com"
-           target="_blank">
+        </button>
+        <button class="btn"
+                onclick="openHistory('3S HR', '3shrconsulting.com')">
           <svg viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0
-                     01-2-2V8a2 2 0 012-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
           </svg>
           3S HR
-        </a>
+        </button>
       </div>
     </div>
 
@@ -471,5 +735,173 @@ body {
   </div>
 
 </div>
+
+<!-- ── PageSpeed History Panel ── -->
+<div id="history-overlay" class="overlay" onclick="closeHistory(event)">
+  <div class="history-panel">
+
+    <div class="panel-header">
+      <div>
+        <div class="panel-brand" id="panel-brand">PageSpeed Insights</div>
+        <div class="panel-title" id="panel-title">Loading...</div>
+      </div>
+      <button class="panel-close" onclick="closeHistory()">&#x2715;</button>
+    </div>
+
+    <div class="panel-toolbar">
+      <span class="panel-domain" id="panel-domain"></span>
+      <a id="panel-run-btn"
+         class="btn-run"
+         href="#"
+         target="_blank">
+        Run New Test &#x2197;
+      </a>
+    </div>
+
+    <div class="history-body">
+      <div class="history-col-labels">
+        <span>Date</span>
+        <span>Mobile</span>
+        <span>Desktop</span>
+        <span>Report</span>
+      </div>
+      <div id="history-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+  // ── Mock data ────────────────────────────────────────────────────────────
+  // Replace fetchHistory() below with a Supabase query when ready.
+  // Expected row shape:
+  //   { id, tested_at (ISO string), mobile_score, desktop_score, note }
+
+  const MOCK_DATA = {
+    '3sbusinessme.com': [
+      { id: 1, tested_at: '2026-05-04T09:15:00', mobile_score: 72, desktop_score: 91, note: 'Post image optimisation' },
+      { id: 2, tested_at: '2026-04-28T14:30:00', mobile_score: 68, desktop_score: 88, note: '' },
+      { id: 3, tested_at: '2026-04-15T11:00:00', mobile_score: 61, desktop_score: 84, note: 'Before caching plugin' },
+      { id: 4, tested_at: '2026-04-02T10:20:00', mobile_score: 55, desktop_score: 80, note: '' },
+      { id: 5, tested_at: '2026-03-18T16:45:00', mobile_score: 48, desktop_score: 76, note: 'Baseline' },
+    ],
+    'bizcitygroup.com': [
+      { id: 1, tested_at: '2026-05-03T10:00:00', mobile_score: 81, desktop_score: 95, note: 'After CDN setup' },
+      { id: 2, tested_at: '2026-04-20T09:30:00', mobile_score: 74, desktop_score: 90, note: '' },
+      { id: 3, tested_at: '2026-04-05T13:15:00', mobile_score: 69, desktop_score: 87, note: '' },
+    ],
+    '3shrconsulting.com': [
+      { id: 1, tested_at: '2026-05-01T08:45:00', mobile_score: 58, desktop_score: 78, note: 'Homepage rebuild' },
+      { id: 2, tested_at: '2026-04-10T15:00:00', mobile_score: 52, desktop_score: 73, note: '' },
+    ],
+  };
+
+  // ── Data layer ───────────────────────────────────────────────────────────
+  // Swap this function for a Supabase client call:
+  //
+  //   const { data } = await supabase
+  //     .from('pagespeed_history')
+  //     .select('*')
+  //     .eq('domain', domain)
+  //     .order('tested_at', { ascending: false })
+  //     .limit(50)
+  //   return data
+
+  async function fetchHistory(domain) {
+    return MOCK_DATA[domain] ?? [];
+  }
+
+  // ── Helpers ──────────────────────────────────────────────────────────────
+
+  function scoreClass(n) {
+    if (n >= 90) return 'good';
+    if (n >= 50) return 'average';
+    return 'poor';
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', {
+      day: 'numeric', month: 'short', year: 'numeric'
+    });
+  }
+
+  function formatTime(iso) {
+    const d = new Date(iso);
+    return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function psiUrl(domain) {
+    return `https://pagespeed.web.dev/report?url=https://${domain}`;
+  }
+
+  // ── Render ───────────────────────────────────────────────────────────────
+
+  function renderList(rows, domain) {
+    const list = document.getElementById('history-list');
+
+    if (!rows.length) {
+      list.innerHTML = `
+        <div class="history-empty">
+          <strong>No records yet</strong>
+          Run a test and save the results to start building history.
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = rows.map(row => `
+      <div class="history-row">
+        <div>
+          <div class="row-date">${formatDate(row.tested_at)}, ${formatTime(row.tested_at)}</div>
+          ${row.note ? `<div class="row-note">${row.note}</div>` : ''}
+        </div>
+        <div>
+          <div class="score-badge ${scoreClass(row.mobile_score)}">
+            ${row.mobile_score}
+          </div>
+        </div>
+        <div>
+          <div class="score-badge ${scoreClass(row.desktop_score)}">
+            ${row.desktop_score}
+          </div>
+        </div>
+        <div class="row-link">
+          <a href="${psiUrl(domain)}" target="_blank">View &#x2197;</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ── Open / Close ─────────────────────────────────────────────────────────
+
+  async function openHistory(brandName, domain) {
+    document.getElementById('panel-brand').textContent = 'PageSpeed Insights';
+    document.getElementById('panel-title').textContent = brandName;
+    document.getElementById('panel-domain').textContent = domain;
+    document.getElementById('panel-run-btn').href = psiUrl(domain);
+    document.getElementById('history-list').innerHTML = '';
+
+    document.getElementById('history-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    const rows = await fetchHistory(domain);
+    renderList(rows, domain);
+  }
+
+  function closeHistory(e) {
+    if (e && e.target !== document.getElementById('history-overlay')) return;
+    document.getElementById('history-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.getElementById('history-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+</script>
 </body>
 </html>
