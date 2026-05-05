@@ -904,6 +904,7 @@ body {
       <div class="log-row">
         <input id="cl-clicks"    class="log-input" type="number" min="0" placeholder="Clicks" title="Total clicks" style="width:110px" />
         <input id="cl-pageviews" class="log-input" type="number" min="0" placeholder="Page Views" title="Total page views" style="width:110px" />
+        <input id="cl-sessions"  class="log-input" type="number" min="0" placeholder="Sessions" title="Session count" style="width:110px" />
         <input id="cl-note"      class="log-input log-input-note" type="text" placeholder="Note (optional)" />
         <button class="log-save-btn" id="clarity-save-btn" onclick="window.saveClarityScore()">Save</button>
       </div>
@@ -911,10 +912,11 @@ body {
     </div>
 
     <div class="history-body">
-      <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:8px;padding:10px 0 6px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:.6;border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div style="display:grid;grid-template-columns:1fr 80px 80px 80px;gap:8px;padding:10px 0 6px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:.6;border-bottom:1px solid rgba(255,255,255,0.05);">
         <span>Date / Note</span>
         <span style="text-align:center">Clicks</span>
         <span style="text-align:center">Page Views</span>
+        <span style="text-align:center">Sessions</span>
       </div>
       <div id="clarity-history-list"></div>
     </div>
@@ -1146,7 +1148,7 @@ body {
   async function fetchClarityHistory(domain) {
     const { data, error } = await sb
       .from('clarity_history')
-      .select('id, recorded_at, clicks, page_views, note')
+      .select('id, recorded_at, clicks, page_views, session_count, note')
       .eq('domain', domain)
       .order('recorded_at', { ascending: false })
       .limit(50);
@@ -1167,13 +1169,14 @@ body {
     }
 
     list.innerHTML = rows.map(r => `
-      <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+      <div style="display:grid;grid-template-columns:1fr 80px 80px 80px;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
         <div>
           <div class="row-date">${fmt(r.recorded_at)}</div>
           ${r.note ? `<div class="row-note">${r.note}</div>` : ''}
         </div>
         <div class="metric-val">${r.clicks ?? '—'}</div>
         <div class="metric-val">${r.page_views ?? '—'}</div>
+        <div class="metric-val">${r.session_count ?? '—'}</div>
       </div>`).join('');
   }
 
@@ -1191,10 +1194,11 @@ body {
     };
 
     const row = {
-      domain:     _clarityDomain,
-      clicks:     parseInt2('cl-clicks'),
-      page_views: parseInt2('cl-pageviews'),
-      note:       document.getElementById('cl-note').value.trim() || null,
+      domain:       _clarityDomain,
+      clicks:       parseInt2('cl-clicks'),
+      page_views:   parseInt2('cl-pageviews'),
+      session_count: parseInt2('cl-sessions'),
+      note:         document.getElementById('cl-note').value.trim() || null,
     };
 
     // At least one metric must be filled
@@ -1214,7 +1218,7 @@ body {
       const { error } = await sb.from('clarity_history').insert(row);
       if (error) throw error;
 
-      ['cl-clicks','cl-pageviews','cl-note']
+      ['cl-clicks','cl-pageviews','cl-sessions','cl-note']
         .forEach(id => document.getElementById(id).value = '');
 
       fb.textContent = '✓ Saved! Refreshing…'; fb.className = 'log-feedback ok';
