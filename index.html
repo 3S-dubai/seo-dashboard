@@ -902,30 +902,19 @@ body {
       <div class="log-label">Log metrics from Clarity</div>
       <!-- Row 1: percentage metrics -->
       <div class="log-row">
-        <input id="cl-dead"       class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Dead %" title="Dead clicks %" />
-        <input id="cl-rage"       class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Rage %" title="Rage clicks %" />
-        <input id="cl-scroll"     class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Scroll %" title="Avg scroll depth %" />
-        <input id="cl-bounce"     class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Bounce %" title="Bounce rate %" />
-        <input id="cl-quickback"  class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Quick back %" title="Quick backs %" />
-      </div>
-      <!-- Row 2: other metrics -->
-      <div class="log-row">
-        <input id="cl-jserrors"   class="log-input" type="number" step="0.1" min="0" max="100" placeholder="JS err %" title="JS errors %" />
-        <input id="cl-excessive"  class="log-input" type="number" step="0.1" min="0" max="100" placeholder="Excess scroll %" title="Excessive scrolling %" />
-        <input id="cl-note"       class="log-input log-input-note" type="text" placeholder="Note (optional)" />
+        <input id="cl-clicks"    class="log-input" type="number" min="0" placeholder="Clicks" title="Total clicks" style="width:110px" />
+        <input id="cl-pageviews" class="log-input" type="number" min="0" placeholder="Page Views" title="Total page views" style="width:110px" />
+        <input id="cl-note"      class="log-input log-input-note" type="text" placeholder="Note (optional)" />
         <button class="log-save-btn" id="clarity-save-btn" onclick="window.saveClarityScore()">Save</button>
       </div>
       <div id="clarity-feedback" class="log-feedback"></div>
     </div>
 
     <div class="history-body">
-      <div class="clarity-col-labels">
+      <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:8px;padding:10px 0 6px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:.6;border-bottom:1px solid rgba(255,255,255,0.05);">
         <span>Date / Note</span>
-        <span>Dead%</span>
-        <span>Rage%</span>
-        <span>Scroll%</span>
-        <span>Bounce%</span>
-        <span>Q.Back%</span>
+        <span style="text-align:center">Clicks</span>
+        <span style="text-align:center">Page Views</span>
       </div>
       <div id="clarity-history-list"></div>
     </div>
@@ -1157,7 +1146,7 @@ body {
   async function fetchClarityHistory(domain) {
     const { data, error } = await sb
       .from('clarity_history')
-      .select('id, recorded_at, dead_clicks_pct, rage_clicks_pct, scroll_depth_pct, bounce_rate_pct, quick_backs_pct, session_count, engagement_min, js_errors_pct, excessive_scroll_pct, note')
+      .select('id, recorded_at, clicks, page_views, note')
       .eq('domain', domain)
       .order('recorded_at', { ascending: false })
       .limit(50);
@@ -1178,34 +1167,14 @@ body {
     }
 
     list.innerHTML = rows.map(r => `
-      <div>
-        <!-- Row A: main cols -->
-        <div class="clarity-row" style="padding-bottom:4px;">
-          <div>
-            <div class="row-date">${fmt(r.recorded_at)}</div>
-            ${r.note ? `<div class="row-note">${r.note}</div>` : ''}
-          </div>
-          <div><div class="score-badge sm ${scoreClassInv(r.dead_clicks_pct)}">${pct(r.dead_clicks_pct)}</div></div>
-          <div><div class="score-badge sm ${scoreClassInv(r.rage_clicks_pct)}">${pct(r.rage_clicks_pct)}</div></div>
-          <div><div class="score-badge sm ${scrollClass(r.scroll_depth_pct)}">${pct(r.scroll_depth_pct)}</div></div>
-          <div><div class="score-badge sm ${scoreClassInv(r.bounce_rate_pct)}">${pct(r.bounce_rate_pct)}</div></div>
-          <div><div class="score-badge sm ${scoreClassInv(r.quick_backs_pct)}">${pct(r.quick_backs_pct)}</div></div>
+      <div style="display:grid;grid-template-columns:1fr 80px 80px;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+        <div>
+          <div class="row-date">${fmt(r.recorded_at)}</div>
+          ${r.note ? `<div class="row-note">${r.note}</div>` : ''}
         </div>
-        <!-- Row B: secondary metrics -->
-        <div style="display:grid;grid-template-columns:1fr repeat(2,56px) 1fr;gap:6px;padding:0 0 10px;border-bottom:1px solid rgba(255,255,255,0.04);">
-          <div></div>
-          <div style="text-align:center;">
-            <div class="score-badge sm ${scoreClassInv(r.js_errors_pct)}">${pct(r.js_errors_pct)}</div>
-            <div class="metric-label">JS err</div>
-          </div>
-          <div style="text-align:center;">
-            <div class="score-badge sm ${scoreClassInv(r.excessive_scroll_pct)}">${pct(r.excessive_scroll_pct)}</div>
-            <div class="metric-label">Excess scroll</div>
-          </div>
-          <div></div>
-        </div>
-      </div>
-    `).join('');
+        <div class="metric-val">${r.clicks ?? '—'}</div>
+        <div class="metric-val">${r.page_views ?? '—'}</div>
+      </div>`).join('');
   }
 
   window.saveClarityScore = async function() {
@@ -1222,15 +1191,10 @@ body {
     };
 
     const row = {
-      domain:               _clarityDomain,
-      dead_clicks_pct:      parse('cl-dead'),
-      rage_clicks_pct:      parse('cl-rage'),
-      scroll_depth_pct:     parse('cl-scroll'),
-      bounce_rate_pct:      parse('cl-bounce'),
-      quick_backs_pct:      parse('cl-quickback'),
-      js_errors_pct:        parse('cl-jserrors'),
-      excessive_scroll_pct: parse('cl-excessive'),
-      note:                 document.getElementById('cl-note').value.trim() || null,
+      domain:     _clarityDomain,
+      clicks:     parseInt2('cl-clicks'),
+      page_views: parseInt2('cl-pageviews'),
+      note:       document.getElementById('cl-note').value.trim() || null,
     };
 
     // At least one metric must be filled
@@ -1250,8 +1214,7 @@ body {
       const { error } = await sb.from('clarity_history').insert(row);
       if (error) throw error;
 
-      ['cl-dead','cl-rage','cl-scroll','cl-bounce','cl-quickback',
-       'cl-jserrors','cl-excessive','cl-note']
+      ['cl-clicks','cl-pageviews','cl-note']
         .forEach(id => document.getElementById(id).value = '');
 
       fb.textContent = '✓ Saved! Refreshing…'; fb.className = 'log-feedback ok';
