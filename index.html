@@ -284,6 +284,8 @@ flex-shrink: 0;
 .panel-tool { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.8; }
 .panel-brand { font-size: 19px; font-weight: 600; color: var(--text); }
 .panel-domain { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.panel-domain a { color: var(--muted); text-decoration: none; border-bottom: 1px solid rgba(127,154,179,0.35); padding-bottom: 1px; transition: color 0.15s, border-color 0.15s; }
+.panel-domain a:hover { color: var(--gold-light); border-color: var(--gold); }
 
 .panel-actions { display: flex; align-items: center; gap: 8px; }
 
@@ -1058,7 +1060,7 @@ opacity: 1;
   window.openPsi = async function(brand, domain){
     _psiDomain = domain;
     document.getElementById('psi-brand').textContent  = brand;
-    document.getElementById('psi-domain').textContent = domain;
+    document.getElementById('psi-domain').innerHTML = '<a href="https://'+domain+'" target="_blank">'+domain+' &#x2197;</a>';
     document.getElementById('psi-run').href = psiUrl(domain);
     document.getElementById('psi-list').innerHTML = loadingHtml('Fetching history');
     openOverlay('psi');
@@ -1111,7 +1113,7 @@ opacity: 1;
   window.openSemrush = async function(brand, domain){
     _srDomain = domain;
     document.getElementById('semrush-brand').textContent  = brand;
-    document.getElementById('semrush-domain').textContent = domain;
+    document.getElementById('semrush-domain').innerHTML = '<a href="https://'+domain+'" target="_blank">'+domain+' &#x2197;</a>';
     document.getElementById('semrush-list').innerHTML = loadingHtml('Fetching history');
     openOverlay('semrush');
     try{ renderSemrush(await fetchSemrush(domain)); }
@@ -1168,7 +1170,7 @@ opacity: 1;
   window.openClarity = async function(brand, domain){
     _clDomain = domain;
     document.getElementById('clarity-brand').textContent  = brand;
-    document.getElementById('clarity-domain').textContent = domain;
+    document.getElementById('clarity-domain').innerHTML = '<a href="https://'+domain+'" target="_blank">'+domain+' &#x2197;</a>';
     document.getElementById('clarity-list').innerHTML = loadingHtml('Fetching history');
     openOverlay('clarity');
     try{ renderClarity(await fetchClarity(domain)); }
@@ -1216,7 +1218,7 @@ opacity: 1;
   window.openLooker = async function(brand, domain){
     _lsDomain = domain;
     document.getElementById('looker-brand').textContent  = brand;
-    document.getElementById('looker-domain').textContent = domain;
+    document.getElementById('looker-domain').innerHTML = '<a href="https://'+domain+'" target="_blank">'+domain+' &#x2197;</a>';
     document.getElementById('looker-list').innerHTML = loadingHtml('Fetching history');
     openOverlay('looker');
     try{ renderLooker(await fetchLooker(domain)); }
