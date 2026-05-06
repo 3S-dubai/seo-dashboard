@@ -11,15 +11,15 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:           #0b1825;
-  --surface:      #111f30;
-  --surface2:     #172a3e;
+  --bg:           #000000;
+  --surface:      #0f0f0f;
+  --surface2:     #181818;
   --gold:         #c9a84c;
   --gold-light:   #e8c96b;
   --gold-dim:     rgba(201, 168, 76, 0.12);
   --text:         #eaf0f7;
   --muted:        #7f9ab3;
-  --border:       rgba(255, 255, 255, 0.06);
+  --border:       rgba(255, 255, 255, 0.1);
   --border-gold:  rgba(201, 168, 76, 0.22);
   --shadow-sm:    0 2px 12px rgba(0,0,0,0.35);
   --shadow-hover: 0 10px 36px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.2);
@@ -41,9 +41,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0 24px;
-  background-image:
-    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(201,168,76,0.055) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 30% at 80% 90%, rgba(13,27,42,0.6) 0%, transparent 70%);
+  background-image: none;
 }
 
 .wrapper {
