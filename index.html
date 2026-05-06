@@ -4,443 +4,523 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3S Group - SEO Performance Stack</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --navy:         #0d1b2a;
   --bg:           #0b1825;
-  --surface:      #132539;
-  --surface2:     #1a3050;
+  --surface:      #111f30;
+  --surface2:     #172a3e;
   --gold:         #c9a84c;
   --gold-light:   #e8c96b;
-  --gold-dim:     rgba(201, 168, 76, 0.14);
+  --gold-dim:     rgba(201, 168, 76, 0.12);
   --text:         #eaf0f7;
   --muted:        #7f9ab3;
-  --border-card:  rgba(255, 255, 255, 0.06);
-  --shadow-sm:    0 2px 12px rgba(0, 0, 0, 0.35);
-  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 168, 76, 0.2);
+  --border:       rgba(255, 255, 255, 0.06);
+  --border-gold:  rgba(201, 168, 76, 0.22);
+  --shadow-sm:    0 2px 12px rgba(0,0,0,0.35);
+  --shadow-hover: 0 10px 36px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.2);
   --good:         #0cce6b;
   --average:      #ffa400;
   --poor:         #ff4e42;
+  --radius:       16px;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   line-height: 1.6;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 24px;
-  background-image: radial-gradient(ellipse 80% 45% at 50% -5%, rgba(201, 168, 76, 0.05) 0%, transparent 60%);
+  padding: 0 24px;
+  background-image:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(201,168,76,0.055) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 90%, rgba(13,27,42,0.6) 0%, transparent 70%);
 }
 
-.wrapper { width: 100%; max-width: 920px; }
+.wrapper {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 
+/* ── HEADER ── */
 .header {
   text-align: center;
-  margin-bottom: 52px;
-  animation: fadeUp 0.6s ease both;
+  margin-bottom: 28px;
+  animation: fadeUp 0.55s ease both;
 }
 
-.header .eyebrow {
-  display: inline-block;
-  font-size: 11px;
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 16px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--muted);
+  opacity: 0.35;
 }
 
 .header h1 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(30px, 5vw, 50px);
+  font-size: clamp(26px, 4vw, 42px);
   font-weight: 600;
   color: var(--text);
-  line-height: 1.1;
+  line-height: 1.08;
   letter-spacing: -0.5px;
 }
 
 .header h1 em { font-style: italic; color: var(--gold-light); }
 
 .header .sub {
-  margin-top: 12px;
-  font-size: 13px;
+  margin-top: 8px;
+  font-size: 12px;
   color: var(--muted);
-  max-width: 460px;
+  max-width: 400px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+/* ── GRID ── */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
+/* ── CARD ── */
 .card {
   background: var(--surface);
-  border: 1px solid var(--border-card);
-  border-radius: 16px;
-  padding: 32px 28px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px 18px;
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   animation: fadeUp 0.6s ease both;
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  transition: border-color 0.22s, box-shadow 0.22s, transform 0.22s;
+  cursor: default;
 }
 
 .card:hover {
-  border-color: rgba(201, 168, 76, 0.3);
+  border-color: rgba(201,168,76,0.28);
   box-shadow: var(--shadow-hover);
   transform: translateY(-3px);
 }
 
 .card:nth-child(1) { animation-delay: 0.08s; }
-.card:nth-child(2) { animation-delay: 0.16s; }
-.card:nth-child(3) { animation-delay: 0.24s; }
-.card:nth-child(4) { animation-delay: 0.32s; }
+.card:nth-child(2) { animation-delay: 0.15s; }
+.card:nth-child(3) { animation-delay: 0.22s; }
+.card:nth-child(4) { animation-delay: 0.29s; }
 
 .card-accent {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 60%, transparent 100%);
-  border-radius: 16px 16px 0 0;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 55%, transparent 100%);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 7px;
 }
 
 .card-num {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.75;
-  margin-bottom: 10px;
+  color: var(--muted);
+  opacity: 0.5;
 }
 
+/* Last-updated pill */
+.last-updated {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2px 9px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.last-updated.visible { opacity: 1; }
+
 .card-tool {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   letter-spacing: -0.1px;
 }
 
 .card-desc {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.5;
+  margin-bottom: 12px;
 }
 
-.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
 
 .tag {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
-  padding: 3px 11px;
+  padding: 2px 9px;
   border-radius: 20px;
-  background: rgba(201, 168, 76, 0.08);
-  border: 1px solid rgba(201, 168, 76, 0.22);
-  color: var(--gold-light);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--muted);
   letter-spacing: 0.2px;
 }
 
-.btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.btn-group { display: flex; flex-wrap: wrap; gap: 6px; }
 
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 13px;
-  background: transparent;
-  border: 1px solid rgba(201, 168, 76, 0.38);
+  gap: 5px;
+  padding: 6px 13px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(201,168,76,0.32);
   border-radius: 8px;
   color: var(--gold-light);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  transition: background 0.16s, border-color 0.16s, color 0.16s;
 }
 
-.btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
-.btn svg { width: 11px; height: 11px; flex-shrink: 0; opacity: 0.8; }
+.btn:hover { background: var(--gold); border-color: var(--gold); color: #0b1825; }
+.btn svg { width: 10px; height: 10px; flex-shrink: 0; opacity: 0.75; }
 
+/* ── FOOTER ── */
 .footer {
   text-align: center;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--muted);
-  opacity: 0.6;
-  margin-top: 44px;
-  animation: fadeUp 0.6s 0.4s ease both;
+  opacity: 0.45;
+  margin-top: 20px;
+  animation: fadeUp 0.6s 0.35s ease both;
 }
 
-/* Overlay */
+/* ── OVERLAY ── */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(7, 18, 30, 0.75);
-  backdrop-filter: blur(4px);
+  background: rgba(7,18,30,0.78);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 20px;
   z-index: 100;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.22s ease;
+  transition: opacity 0.2s ease;
 }
 
 .overlay.open { opacity: 1; pointer-events: all; }
 
-/* Panel */
-.history-panel {
+/* ── PANEL ── */
+.panel {
   background: var(--surface);
-  border: 1px solid rgba(201, 168, 76, 0.18);
+  border: 1px solid rgba(201,168,76,0.16);
   border-radius: 20px;
   width: 100%;
-  max-width: 700px;
-  max-height: 82vh;
+  max-width: 680px;
+  max-height: 84vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
-  transform: translateY(18px);
-  transition: transform 0.25s ease;
+  box-shadow: 0 28px 72px rgba(0,0,0,0.65);
+  transform: translateY(16px) scale(0.99);
+  transition: transform 0.24s ease;
   overflow: hidden;
 }
 
-.overlay.open .history-panel { transform: translateY(0); }
+.overlay.open .panel { transform: translateY(0) scale(1); }
 
-.panel-header {
+.panel-head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  padding: 28px 28px 0;
+  padding: 24px 26px 20px;
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
-.panel-brand {
-  font-size: 11px;
+.panel-identity { display: flex; flex-direction: column; gap: 2px; }
+.panel-tool { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.8; }
+.panel-brand { font-size: 19px; font-weight: 600; color: var(--text); }
+.panel-domain { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+
+.panel-actions { display: flex; align-items: center; gap: 8px; }
+
+.btn-ext {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border-gold);
+  border-radius: 8px;
+  color: var(--gold-light);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
   font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 4px;
-  opacity: 0.85;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.16s, color 0.16s, border-color 0.16s;
 }
 
-.panel-title { font-size: 20px; font-weight: 600; color: var(--text); }
+.btn-ext:hover { background: var(--gold); border-color: var(--gold); color: #0b1825; }
 
-.panel-close {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+.btn-close {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--muted);
-  font-size: 16px;
-  width: 34px; height: 34px;
+  font-size: 14px;
+  width: 32px; height: 32px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  flex-shrink: 0;
   transition: background 0.15s, color 0.15s;
 }
 
-.panel-close:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+.btn-close:hover { background: rgba(255,255,255,0.1); color: var(--text); }
 
-.panel-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 28px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+/* ── LOG FORM ── */
+.log-form {
+  padding: 18px 26px;
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
-  gap: 12px;
+  background: rgba(255,255,255,0.015);
 }
 
-.panel-domain { font-size: 12px; color: var(--muted); }
-
-.btn-run {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  background: var(--gold-dim);
-  border: 1px solid rgba(201, 168, 76, 0.4);
-  border-radius: 8px;
-  color: var(--gold-light);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background 0.18s, color 0.18s;
-  flex-shrink: 0;
-}
-
-.btn-run:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
-
-.history-body {
-  overflow-y: auto;
-  flex: 1;
-  padding: 12px 28px 24px;
-}
-
-.history-body::-webkit-scrollbar { width: 4px; }
-.history-body::-webkit-scrollbar-track { background: transparent; }
-.history-body::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.2); border-radius: 4px; }
-
-/* Log section */
-.log-section {
-  padding: 16px 28px;
-  flex-shrink: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-.log-label {
+.log-title {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--gold);
-  opacity: 0.75;
-  margin-bottom: 10px;
+  opacity: 0.7;
+  margin-bottom: 14px;
 }
 
-.log-row {
+.form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+
+.fields-row {
   display: flex;
   gap: 8px;
-  align-items: center;
-  margin-bottom: 8px;
   flex-wrap: wrap;
+  align-items: flex-end;
 }
 
-.log-row:last-of-type { margin-bottom: 0; }
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-.log-input {
+.field .field-label { font-size: 10px; }
+
+input.log-input {
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 8px;
   color: var(--text);
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
   padding: 7px 11px;
   outline: none;
-  transition: border-color 0.15s;
-  width: 90px;
+  transition: border-color 0.14s, background 0.14s;
+  width: 100%;
 }
 
-.log-input-wide { width: 100%; }
-.log-input-note { flex: 1; width: auto; }
-.log-input::placeholder { color: var(--muted); opacity: 0.6; }
-.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255,255,255,0.06); }
+input.log-input::placeholder { color: var(--muted); opacity: 0.5; }
+input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255,255,255,0.06); }
 
-.log-save-btn {
-  padding: 7px 16px;
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 12px;
+}
+
+.log-fb { font-size: 11px; font-weight: 500; min-height: 16px; }
+.log-fb.ok   { color: var(--good); }
+.log-fb.err  { color: var(--poor); }
+.log-fb.info { color: var(--gold-light); }
+
+.btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 18px;
   background: var(--gold-dim);
-  border: 1px solid rgba(201,168,76,0.4);
+  border: 1px solid var(--border-gold);
   border-radius: 8px;
   color: var(--gold-light);
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
   flex-shrink: 0;
 }
 
-.log-save-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--navy); }
-.log-save-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-save:hover { background: var(--gold); border-color: var(--gold); color: #0b1825; }
+.btn-save:disabled { opacity: 0.38; cursor: not-allowed; }
 
-.log-feedback { font-size: 11px; min-height: 16px; margin-top: 6px; font-weight: 500; }
-.log-feedback.ok   { color: var(--good); }
-.log-feedback.err  { color: var(--poor); }
-.log-feedback.info { color: var(--gold-light); }
+/* ── HISTORY TABLE ── */
+.history-wrap {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0 26px 22px;
+}
 
-/* Col headers shared */
-.col-labels {
-  padding: 10px 0 6px;
-  font-size: 10px;
+.history-wrap::-webkit-scrollbar { width: 3px; }
+.history-wrap::-webkit-scrollbar-track { background: transparent; }
+.history-wrap::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.18); border-radius: 4px; }
+
+.col-head {
+  display: grid;
+  padding: 12px 0 8px;
+  font-size: 9.5px;
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--muted);
-  opacity: 0.6;
+  opacity: 0.55;
   border-bottom: 1px solid rgba(255,255,255,0.05);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 2;
+}
+
+.col-head span:not(:first-child) { text-align: center; }
+
+.data-row {
   display: grid;
+  align-items: center;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.035);
   gap: 8px;
 }
 
-.col-labels span:not(:first-child) { text-align: center; }
+.row-date { font-size: 13px; font-weight: 500; color: var(--text); }
+.row-note { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.metric-val { text-align: center; font-size: 12.5px; font-weight: 500; color: var(--text); }
 
-/* Score badges */
-.score-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px; height: 40px;
+/* Score badge */
+.sbadge {
+  width: 38px; height: 38px;
   border-radius: 50%;
-  font-size: 13px;
-  font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
   margin: 0 auto;
+  font-size: 12px;
+  font-weight: 600;
   border: 2px solid;
 }
 
-.score-badge.sm { width: 34px; height: 34px; font-size: 11px; }
-.score-badge.good    { color: var(--good);    border-color: var(--good);    background: rgba(12,206,107,0.08); }
-.score-badge.average { color: var(--average); border-color: var(--average); background: rgba(255,164,0,0.08); }
-.score-badge.poor    { color: var(--poor);    border-color: var(--poor);    background: rgba(255,78,66,0.08); }
+.sbadge.sm { width: 32px; height: 32px; font-size: 11px; }
+.sbadge.good    { color: var(--good);    border-color: var(--good);    background: rgba(12,206,107,0.08); }
+.sbadge.average { color: var(--average); border-color: var(--average); background: rgba(255,164,0,0.08); }
+.sbadge.poor    { color: var(--poor);    border-color: var(--poor);    background: rgba(255,78,66,0.08); }
 
-.metric-val { text-align: center; font-size: 12px; font-weight: 500; color: var(--text); }
-.row-date { font-size: 13px; font-weight: 500; color: var(--text); }
-.row-note { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .row-link { text-align: center; }
-.row-link a { font-size: 11px; font-weight: 600; color: var(--gold); text-decoration: none; opacity: 0.85; transition: opacity 0.15s; }
+.row-link a { font-size: 11px; font-weight: 600; color: var(--gold); text-decoration: none; opacity: 0.8; transition: opacity 0.14s; }
 .row-link a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
 
-.history-loading {
-  text-align: center; padding: 48px 0;
-  color: var(--muted); font-size: 13px;
+/* States */
+.state-msg {
+  text-align: center;
+  padding: 44px 0;
+  color: var(--muted);
+  font-size: 13px;
 }
 
-.history-loading::after {
-  content: '';
+.state-msg strong { display: block; font-size: 14.5px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+.state-msg.err strong { color: var(--poor); }
+
+.loading-dot {
   display: inline-block;
-  width: 16px; height: 16px;
-  border: 2px solid rgba(201,168,76,0.2);
+  width: 14px; height: 14px;
+  border: 2px solid rgba(201,168,76,0.18);
   border-top-color: var(--gold);
   border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+  animation: spin 0.65s linear infinite;
   vertical-align: middle;
-  margin-left: 8px;
+  margin-left: 7px;
 }
 
-.history-error { text-align: center; padding: 48px 0; color: var(--poor); font-size: 13px; }
-.history-error strong { display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-.history-empty { text-align: center; padding: 48px 0; color: var(--muted); font-size: 13px; }
-.history-empty strong { display: block; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-
+/* ── KEYFRAMES ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-@media (max-width: 620px) {
-  .grid { grid-template-columns: 1fr; }
-  .header h1 { font-size: 30px; }
-  .history-panel { max-height: 90vh; }
-  .panel-header, .panel-toolbar, .log-section, .history-body { padding-left: 16px; padding-right: 16px; }
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  body { height: auto; overflow-y: auto; align-items: flex-start; padding: 32px 16px 48px; }
+  .grid { grid-template-columns: 1fr; gap: 12px; }
+  .header { margin-bottom: 20px; }
+  .header h1 { font-size: 26px; }
+  .panel { max-height: 92vh; }
+  .panel-head, .log-form, .history-wrap { padding-left: 16px; padding-right: 16px; }
+  .fields-row { gap: 6px; }
 }
 
 </style>
@@ -451,115 +531,124 @@ body {
   <div class="header">
     <div class="eyebrow">3S Group of Companies</div>
     <h1>SEO Performance <em>Stack</em></h1>
-    <p class="sub">Tools we use to track, measure, and grow digital presence across all three brands.</p>
+    <p class="sub">One place to track, measure, and grow digital presence across all three brands.</p>
   </div>
 
   <div class="grid">
 
     <!-- 01 PageSpeed -->
-    <div class="card">
+    <div class="card" id="card-psi">
       <div class="card-accent"></div>
-      <div class="card-num">01</div>
+      <div class="card-top">
+        <div class="card-num">01</div>
+        <div class="last-updated" id="lu-psi"></div>
+      </div>
       <div class="card-tool">PageSpeed Insights</div>
-      <div class="card-desc">How fast each site loads on mobile and desktop. Flags anything slowing visitors down before they leave.</div>
+      <div class="card-desc">Site speed scores on mobile and desktop - with a direct link to the full report.</div>
       <div class="tags">
-        <span class="tag">Speed</span>
-        <span class="tag">Core Web Vitals</span>
         <span class="tag">Mobile Score</span>
+        <span class="tag">Desktop Score</span>
       </div>
       <div class="btn-group">
         <button class="btn" onclick="openPsi('3S Business','3sbusinessme.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           3S Business
         </button>
         <button class="btn" onclick="openPsi('BizCity','bizcitygroup.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           BizCity
         </button>
         <button class="btn" onclick="openPsi('3S HR','3shrconsulting.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           3S HR
         </button>
       </div>
     </div>
 
     <!-- 02 SEMrush -->
-    <div class="card">
+    <div class="card" id="card-semrush">
       <div class="card-accent"></div>
-      <div class="card-num">02</div>
+      <div class="card-top">
+        <div class="card-num">02</div>
+        <div class="last-updated" id="lu-semrush"></div>
+      </div>
       <div class="card-tool">SEMrush</div>
-      <div class="card-desc">Where we rank on Google, what keywords we are missing, and what competitors are doing better.</div>
+      <div class="card-desc">Organic keywords ranked, estimated traffic, authority score, and site health.</div>
       <div class="tags">
-        <span class="tag">Rankings</span>
-        <span class="tag">Keyword Gaps</span>
-        <span class="tag">Site Audit</span>
+        <span class="tag">Keywords Ranked</span>
+        <span class="tag">Organic Traffic</span>
+        <span class="tag">Authority Score</span>
+        <span class="tag">Site Health</span>
       </div>
       <div class="btn-group">
         <button class="btn" onclick="openSemrush('3S Business','3sbusinessme.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           3S Business
         </button>
         <button class="btn" onclick="openSemrush('BizCity','bizcitygroup.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           BizCity
         </button>
         <button class="btn" onclick="openSemrush('3S HR','3shrconsulting.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           3S HR
         </button>
       </div>
     </div>
 
     <!-- 03 Clarity -->
-    <div class="card">
+    <div class="card" id="card-clarity">
       <div class="card-accent"></div>
-      <div class="card-num">03</div>
+      <div class="card-top">
+        <div class="card-num">03</div>
+        <div class="last-updated" id="lu-clarity"></div>
+      </div>
       <div class="card-tool">Microsoft Clarity</div>
-      <div class="card-desc">Records how real visitors move through each site - where they click, where they pause, and where they leave.</div>
+      <div class="card-desc">Daily session counts per site - how many real visitors are coming through.</div>
       <div class="tags">
         <span class="tag">Sessions</span>
-        <span class="tag">Clicks</span>
-        <span class="tag">Page Views</span>
       </div>
       <div class="btn-group">
         <button class="btn" onclick="openClarity('3S Business','3sbusinessme.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           3S Business
         </button>
         <button class="btn" onclick="openClarity('BizCity','bizcitygroup.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           BizCity
         </button>
         <button class="btn" onclick="openClarity('3S HR','3shrconsulting.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           3S HR
         </button>
       </div>
     </div>
 
     <!-- 04 Looker Studio -->
-    <div class="card">
+    <div class="card" id="card-looker">
       <div class="card-accent"></div>
-      <div class="card-num">04</div>
+      <div class="card-top">
+        <div class="card-num">04</div>
+        <div class="last-updated" id="lu-looker"></div>
+      </div>
       <div class="card-tool">Looker Studio</div>
-      <div class="card-desc">One live dashboard pulling data from Search Console, Analytics, and Google Ads - all in one place.</div>
+      <div class="card-desc">Live data from Search Console and Analytics - clicks, impressions, and conversions at a glance.</div>
       <div class="tags">
         <span class="tag">GSC Clicks</span>
         <span class="tag">Impressions</span>
-        <span class="tag">Avg Position</span>
         <span class="tag">Conversions</span>
       </div>
       <div class="btn-group">
         <button class="btn" onclick="openLooker('3S Business','3sbusinessme.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           3S Business
         </button>
         <button class="btn" onclick="openLooker('BizCity','bizcitygroup.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           BizCity
         </button>
         <button class="btn" onclick="openLooker('3S HR','3shrconsulting.com')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           3S HR
         </button>
       </div>
@@ -567,39 +656,52 @@ body {
 
   </div>
 
-  <div class="footer">Prepared by Mufeed &nbsp;&middot;&nbsp; SEO &amp; Digital Marketing &nbsp;&middot;&nbsp; 3S Group</div>
-
+  <div class="footer">Last updated &nbsp;&middot;&nbsp; <span id="footer-last-updated">-</span></div>
 </div>
 
-<!-- PSI Panel -->
+<!-- ── PSI PANEL ── -->
 <div id="psi-overlay" class="overlay" onclick="closePanel('psi',event)">
-  <div class="history-panel">
-    <div class="panel-header">
-      <div>
-        <div class="panel-brand">PageSpeed Insights</div>
-        <div class="panel-title" id="psi-title"></div>
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-identity">
+        <div class="panel-tool">PageSpeed Insights</div>
+        <div class="panel-brand" id="psi-brand"></div>
+        <div class="panel-domain" id="psi-domain"></div>
       </div>
-      <button class="panel-close" onclick="closePanel('psi')">&#x2715;</button>
-    </div>
-    <div class="panel-toolbar">
-      <span class="panel-domain" id="psi-domain"></span>
-      <a id="psi-run" class="btn-run" href="#" target="_blank">Run New Test &#x2197;</a>
-    </div>
-    <div class="log-section">
-      <div class="log-label">Log a new score</div>
-      <div class="log-row">
-        <input id="psi-url" class="log-input log-input-wide" type="url" placeholder="Paste PageSpeed report URL (optional)" />
+      <div class="panel-actions">
+        <a id="psi-run" class="btn-ext" href="#" target="_blank">Run Test &#x2197;</a>
+        <button class="btn-close" onclick="closePanel('psi')">&#x2715;</button>
       </div>
-      <div class="log-row">
-        <input id="psi-mobile"  class="log-input" type="number" min="0" max="100" placeholder="Mobile" />
-        <input id="psi-desktop" class="log-input" type="number" min="0" max="100" placeholder="Desktop" />
-        <input id="psi-note"    class="log-input log-input-note" type="text" placeholder="Note (optional)" />
-        <button class="log-save-btn" id="psi-save" onclick="savePsi()">Save</button>
-      </div>
-      <div id="psi-fb" class="log-feedback"></div>
     </div>
-    <div class="history-body">
-      <div class="col-labels" style="grid-template-columns:1fr 72px 72px 80px;">
+
+    <div class="log-form">
+      <div class="log-title">Log a new score</div>
+      <div class="fields-row">
+        <div class="field" style="flex:0 0 90px">
+          <div class="field-label">Mobile</div>
+          <input id="psi-mobile" class="log-input" type="number" min="0" max="100" placeholder="0-100" />
+        </div>
+        <div class="field" style="flex:0 0 90px">
+          <div class="field-label">Desktop</div>
+          <input id="psi-desktop" class="log-input" type="number" min="0" max="100" placeholder="0-100" />
+        </div>
+        <div class="field" style="flex:1; min-width:120px">
+          <div class="field-label">Note (optional)</div>
+          <input id="psi-note" class="log-input" type="text" placeholder="e.g. after image compression" />
+        </div>
+        <div class="field" style="flex:1; min-width:160px">
+          <div class="field-label">Report URL (optional)</div>
+          <input id="psi-url" class="log-input" type="url" placeholder="Paste PageSpeed URL" />
+        </div>
+      </div>
+      <div class="form-footer">
+        <div id="psi-fb" class="log-fb"></div>
+        <button id="psi-save" class="btn-save" onclick="savePsi()">Save Score</button>
+      </div>
+    </div>
+
+    <div class="history-wrap">
+      <div class="col-head" style="grid-template-columns:1fr 72px 72px 70px;">
         <span>Date</span><span>Mobile</span><span>Desktop</span><span>Report</span>
       </div>
       <div id="psi-list"></div>
@@ -607,106 +709,150 @@ body {
   </div>
 </div>
 
-<!-- SEMrush Panel -->
+<!-- ── SEMRUSH PANEL ── -->
 <div id="semrush-overlay" class="overlay" onclick="closePanel('semrush',event)">
-  <div class="history-panel" style="max-width:760px;">
-    <div class="panel-header">
-      <div>
-        <div class="panel-brand">SEMrush</div>
-        <div class="panel-title" id="semrush-title"></div>
+  <div class="panel" style="max-width:740px">
+    <div class="panel-head">
+      <div class="panel-identity">
+        <div class="panel-tool">SEMrush</div>
+        <div class="panel-brand" id="semrush-brand"></div>
+        <div class="panel-domain" id="semrush-domain"></div>
       </div>
-      <button class="panel-close" onclick="closePanel('semrush')">&#x2715;</button>
-    </div>
-    <div class="panel-toolbar">
-      <span class="panel-domain" id="semrush-domain"></span>
-      <a class="btn-run" href="https://www.semrush.com/login/" target="_blank">Open SEMrush &#x2197;</a>
-    </div>
-    <div class="log-section">
-      <div class="log-label">Log weekly snapshot from SEMrush</div>
-      <div class="log-row">
-        <input id="sr-keywords"    class="log-input" type="number" min="0" placeholder="Keywords" title="Total keywords tracked" />
-        <input id="sr-top-kw"      class="log-input" type="text" style="width:140px" placeholder="Top Keyword" title="Best performing keyword" />
-        <input id="sr-top-pos"     class="log-input" type="number" min="1" placeholder="Position" title="Position of top keyword" style="width:90px" />
-        <input id="sr-da"          class="log-input" type="number" min="0" max="100" placeholder="DA Score" title="Domain Authority score" />
-        <input id="sr-audit"       class="log-input" type="number" min="0" max="100" placeholder="Audit Score" title="Site Audit score" />
-        <input id="sr-note"        class="log-input log-input-note" type="text" placeholder="Note (optional)" />
-        <button class="log-save-btn" id="semrush-save" onclick="saveSemrush()">Save</button>
+      <div class="panel-actions">
+        <a class="btn-ext" href="https://www.semrush.com/login/" target="_blank">Open SEMrush &#x2197;</a>
+        <button class="btn-close" onclick="closePanel('semrush')">&#x2715;</button>
       </div>
-      <div id="semrush-fb" class="log-feedback"></div>
     </div>
-    <div class="history-body">
-      <div class="col-labels" style="grid-template-columns:1fr 80px 160px 64px 72px;">
-        <span>Date</span><span>Keywords</span><span>Top Keyword</span><span>DA</span><span>Audit</span>
+
+    <div class="log-form">
+      <div class="log-title">Log weekly snapshot</div>
+      <div class="fields-row">
+        <div class="field" style="flex:1">
+          <div class="field-label">Keywords Ranked</div>
+          <input id="sr-keywords" class="log-input" type="number" min="0" placeholder="e.g. 142" />
+        </div>
+        <div class="field" style="flex:1">
+          <div class="field-label">Organic Traffic</div>
+          <input id="sr-traffic" class="log-input" type="number" min="0" placeholder="Est. monthly" />
+        </div>
+        <div class="field" style="flex:0 0 90px">
+          <div class="field-label">Authority Score</div>
+          <input id="sr-as" class="log-input" type="number" min="0" max="100" placeholder="0-100" />
+        </div>
+        <div class="field" style="flex:0 0 82px">
+          <div class="field-label">Site Health</div>
+          <input id="sr-audit" class="log-input" type="number" min="0" max="100" placeholder="0-100" />
+        </div>
+        <div class="field" style="flex:1; min-width:110px">
+          <div class="field-label">Note (optional)</div>
+          <input id="sr-note" class="log-input" type="text" placeholder="Note" />
+        </div>
+      </div>
+      <div class="form-footer">
+        <div id="semrush-fb" class="log-fb"></div>
+        <button id="semrush-save" class="btn-save" onclick="saveSemrush()">Save Snapshot</button>
+      </div>
+    </div>
+
+    <div class="history-wrap">
+      <div class="col-head" style="grid-template-columns:1fr 80px 90px 70px 68px;">
+        <span>Date</span><span>Keywords</span><span>Org. Traffic</span><span>Authority</span><span>Health</span>
       </div>
       <div id="semrush-list"></div>
     </div>
   </div>
 </div>
 
-<!-- Clarity Panel -->
+<!-- ── CLARITY PANEL ── -->
 <div id="clarity-overlay" class="overlay" onclick="closePanel('clarity',event)">
-  <div class="history-panel">
-    <div class="panel-header">
-      <div>
-        <div class="panel-brand">Microsoft Clarity</div>
-        <div class="panel-title" id="clarity-title"></div>
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-identity">
+        <div class="panel-tool">Microsoft Clarity</div>
+        <div class="panel-brand" id="clarity-brand"></div>
+        <div class="panel-domain" id="clarity-domain"></div>
       </div>
-      <button class="panel-close" onclick="closePanel('clarity')">&#x2715;</button>
-    </div>
-    <div class="panel-toolbar">
-      <span class="panel-domain" id="clarity-domain"></span>
-      <a class="btn-run" href="https://clarity.microsoft.com/" target="_blank">Open Clarity &#x2197;</a>
-    </div>
-    <div class="log-section">
-      <div class="log-label">Log metrics from Clarity</div>
-      <div class="log-row">
-        <input id="cl-sessions"  class="log-input" type="number" min="0" placeholder="Sessions" />
-        <input id="cl-clicks"    class="log-input" type="number" min="0" placeholder="Clicks" />
-        <input id="cl-pageviews" class="log-input" type="number" min="0" placeholder="Page Views" />
-        <input id="cl-note"      class="log-input log-input-note" type="text" placeholder="Note (optional)" />
-        <button class="log-save-btn" id="clarity-save" onclick="saveClarity()">Save</button>
+      <div class="panel-actions">
+        <a class="btn-ext" href="https://clarity.microsoft.com/" target="_blank">Open Clarity &#x2197;</a>
+        <button class="btn-close" onclick="closePanel('clarity')">&#x2715;</button>
       </div>
-      <div id="clarity-fb" class="log-feedback"></div>
     </div>
-    <div class="history-body">
-      <div class="col-labels" style="grid-template-columns:1fr 72px 72px 80px;">
-        <span>Date</span><span>Sessions</span><span>Clicks</span><span>Page Views</span>
+
+    <div class="log-form">
+      <div class="log-title">Log daily sessions</div>
+      <div class="fields-row">
+        <div class="field" style="flex:0 0 110px">
+          <div class="field-label">Sessions</div>
+          <input id="cl-sessions" class="log-input" type="number" min="0" placeholder="e.g. 340" />
+        </div>
+        <div class="field" style="flex:1; min-width:140px">
+          <div class="field-label">Note (optional)</div>
+          <input id="cl-note" class="log-input" type="text" placeholder="e.g. post-campaign week" />
+        </div>
+      </div>
+      <div class="form-footer">
+        <div id="clarity-fb" class="log-fb"></div>
+        <button id="clarity-save" class="btn-save" onclick="saveClarity()">Save</button>
+      </div>
+    </div>
+
+    <div class="history-wrap">
+      <div class="col-head" style="grid-template-columns:1fr 90px;">
+        <span>Date</span><span>Sessions</span>
       </div>
       <div id="clarity-list"></div>
     </div>
   </div>
 </div>
 
-<!-- Looker Studio Panel -->
+<!-- ── LOOKER STUDIO PANEL ── -->
 <div id="looker-overlay" class="overlay" onclick="closePanel('looker',event)">
-  <div class="history-panel" style="max-width:760px;">
-    <div class="panel-header">
-      <div>
-        <div class="panel-brand">Looker Studio</div>
-        <div class="panel-title" id="looker-title"></div>
+  <div class="panel" style="max-width:760px">
+    <div class="panel-head">
+      <div class="panel-identity">
+        <div class="panel-tool">Looker Studio</div>
+        <div class="panel-brand" id="looker-brand"></div>
+        <div class="panel-domain" id="looker-domain"></div>
       </div>
-      <button class="panel-close" onclick="closePanel('looker')">&#x2715;</button>
-    </div>
-    <div class="panel-toolbar">
-      <span class="panel-domain" id="looker-domain"></span>
-      <a class="btn-run" href="https://lookerstudio.google.com/" target="_blank">Open Looker Studio &#x2197;</a>
-    </div>
-    <div class="log-section">
-      <div class="log-label">Log metrics from Looker Studio</div>
-      <div class="log-row">
-        <input id="ls-clicks"       class="log-input" type="number" min="0" placeholder="Clicks" />
-        <input id="ls-impressions"  class="log-input" type="number" min="0" placeholder="Impressions" style="width:110px" />
-        <input id="ls-position"     class="log-input" type="number" step="0.1" min="0" placeholder="Avg Position" style="width:110px" />
-        <input id="ls-adspend"      class="log-input" type="number" min="0" placeholder="Ad Spend (AED)" style="width:130px" />
-        <input id="ls-conversions"  class="log-input" type="number" min="0" placeholder="Conversions" style="width:110px" />
-        <input id="ls-note"         class="log-input log-input-note" type="text" placeholder="Period / Note" />
-        <button class="log-save-btn" id="looker-save" onclick="saveLooker()">Save</button>
+      <div class="panel-actions">
+        <a class="btn-ext" href="https://lookerstudio.google.com/" target="_blank">Open Looker &#x2197;</a>
+        <button class="btn-close" onclick="closePanel('looker')">&#x2715;</button>
       </div>
-      <div id="looker-fb" class="log-feedback"></div>
     </div>
-    <div class="history-body">
-      <div class="col-labels" style="grid-template-columns:1fr 64px 90px 80px 100px 90px;">
-        <span>Period</span><span>Clicks</span><span>Impressions</span><span>Avg Pos</span><span>Ad Spend</span><span>Conversions</span>
+
+    <div class="log-form">
+      <div class="log-title">Log metrics from Looker Studio</div>
+      <div class="fields-row">
+        <div class="field" style="flex:1">
+          <div class="field-label">Clicks</div>
+          <input id="ls-clicks" class="log-input" type="number" min="0" placeholder="GSC clicks" />
+        </div>
+        <div class="field" style="flex:1">
+          <div class="field-label">Impressions</div>
+          <input id="ls-impressions" class="log-input" type="number" min="0" placeholder="GSC impressions" />
+        </div>
+        <div class="field" style="flex:1">
+          <div class="field-label">Conversions</div>
+          <input id="ls-conversions" class="log-input" type="number" min="0" placeholder="e.g. 24" />
+        </div>
+        <div class="field" style="flex:1; min-width:110px">
+          <div class="field-label">Period / Note</div>
+          <input id="ls-note" class="log-input" type="text" placeholder="e.g. Apr 2025" />
+        </div>
+        <div class="field" style="flex:2; min-width:160px">
+          <div class="field-label">Report URL (optional)</div>
+          <input id="ls-report-url" class="log-input" type="url" placeholder="Paste Looker report link" />
+        </div>
+      </div>
+      <div class="form-footer">
+        <div id="looker-fb" class="log-fb"></div>
+        <button id="looker-save" class="btn-save" onclick="saveLooker()">Save</button>
+      </div>
+    </div>
+
+    <div class="history-wrap">
+      <div class="col-head" style="grid-template-columns:1fr 70px 100px 90px 70px;">
+        <span>Period</span><span>Clicks</span><span>Impressions</span><span>Conversions</span><span>Report</span>
       </div>
       <div id="looker-list"></div>
     </div>
@@ -720,34 +866,67 @@ body {
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inptb3l0a2N1aW9meWJxa3FsanRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTgwNDIsImV4cCI6MjA5MzUzNDA0Mn0.9lrZHkIF9fGdK7qsElLfFaV2aeuQh2sDOFID1MR543Q';
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  // State
-  let _psiDomain = '', _semrushDomain = '', _clarityDomain = '', _lookerDomain = '';
+  let _psiDomain='', _srDomain='', _clDomain='', _lsDomain='';
 
-  // Helpers
+  /* ── Helpers ── */
   function sc(n){ return n>=90?'good':n>=50?'average':'poor'; }
-  function fmt(iso){
+
+  function fmtDate(iso){
     const d = new Date(iso);
     return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})
       + ', ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
   }
+
+  function fmtRelative(iso){
+    const diff = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diff/60000);
+    if(mins < 60)   return `${mins}m ago`;
+    const hrs = Math.floor(mins/60);
+    if(hrs  < 24)   return `${hrs}h ago`;
+    const days = Math.floor(hrs/24);
+    if(days < 7)    return `${days}d ago`;
+    const wks = Math.floor(days/7);
+    if(wks  < 5)    return `${wks}w ago`;
+    return new Date(iso).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  }
+
   function psiUrl(domain){ return `https://pagespeed.web.dev/report?url=https://${domain}`; }
   function val(id){ return document.getElementById(id).value.trim(); }
   function numVal(id){ const v=val(id); return v===''?null:parseFloat(v); }
   function intVal(id){ const v=val(id); return v===''?null:parseInt(v,10); }
-  function clear(...ids){ ids.forEach(id=>document.getElementById(id).value=''); }
-  function fb(id,msg,cls){ const el=document.getElementById(id); el.textContent=msg; el.className='log-feedback '+(cls||''); }
-  function rowLine(row){ return `<div class="row-date">${fmt(row.recorded_at||row.tested_at)}</div>${row.note?`<div class="row-note">${row.note}</div>`:''}`; }
+  function clr(...ids){ ids.forEach(id=>{ document.getElementById(id).value=''; }); }
+  function fb(id,msg,cls){ const el=document.getElementById(id); el.textContent=msg; el.className='log-fb '+(cls||''); }
 
-  // Panel open/close
+  function rowMeta(r){
+    const ts = r.recorded_at || r.tested_at;
+    return `<div class="row-date">${fmtDate(ts)}</div>${r.note?`<div class="row-note">${r.note}</div>`:''}`;
+  }
+
+  function setLastUpdated(elId, ts){
+    const el = document.getElementById(elId);
+    if(!el) return;
+    if(ts){ el.textContent = fmtRelative(ts); el.classList.add('visible'); }
+    else   { el.classList.remove('visible'); }
+  }
+
+  function stateHtml(type, msg1, msg2){
+    return `<div class="state-msg ${type||''}"><strong>${msg1}</strong>${msg2||''}</div>`;
+  }
+
+  function loadingHtml(label){
+    return `<div class="state-msg">${label||'Loading'}<span class="loading-dot"></span></div>`;
+  }
+
+  /* ── Panel open / close ── */
   window.closePanel = function(name, e){
     if(e && e.target !== document.getElementById(name+'-overlay')) return;
     document.getElementById(name+'-overlay').classList.remove('open');
-    document.body.style.overflow='';
+    document.body.style.overflow = '';
   };
 
   function openOverlay(name){
     document.getElementById(name+'-overlay').classList.add('open');
-    document.body.style.overflow='hidden';
+    document.body.style.overflow = 'hidden';
   }
 
   document.addEventListener('keydown', e=>{
@@ -755,21 +934,47 @@ body {
       ['psi','semrush','clarity','looker'].forEach(n=>{
         document.getElementById(n+'-overlay').classList.remove('open');
       });
-      document.body.style.overflow='';
+      document.body.style.overflow = '';
     }
   });
 
-  // ── PSI ──────────────────────────────────────────────────────
+  /* ── Load last-updated on page load ── */
+  async function loadLastUpdated(){
+    const tools = [
+      { table:'pagespeed_history', tsCol:'tested_at',   luEl:'lu-psi' },
+      { table:'semrush_history',   tsCol:'recorded_at', luEl:'lu-semrush' },
+      { table:'clarity_history',   tsCol:'recorded_at', luEl:'lu-clarity' },
+      { table:'looker_history',    tsCol:'recorded_at', luEl:'lu-looker' },
+    ];
+    let latestTs = null;
+    for(const t of tools){
+      try{
+        const {data} = await sb.from(t.table).select(t.tsCol).order(t.tsCol,{ascending:false}).limit(1);
+        if(data && data[0]){
+          const ts = data[0][t.tsCol];
+          setLastUpdated(t.luEl, ts);
+          if(!latestTs || new Date(ts) > new Date(latestTs)) latestTs = ts;
+        }
+      }catch(_){}
+    }
+    const footerEl = document.getElementById('footer-last-updated');
+    if(footerEl && latestTs){
+      footerEl.textContent = new Date(latestTs).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+    }
+  }
 
+  loadLastUpdated();
+
+  /* ── PSI ── */
   window.openPsi = async function(brand, domain){
     _psiDomain = domain;
-    document.getElementById('psi-title').textContent = brand;
+    document.getElementById('psi-brand').textContent  = brand;
     document.getElementById('psi-domain').textContent = domain;
     document.getElementById('psi-run').href = psiUrl(domain);
-    document.getElementById('psi-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    document.getElementById('psi-list').innerHTML = loadingHtml('Fetching history');
     openOverlay('psi');
-    try { renderPsi(await fetchPsi(domain), domain); }
-    catch(err){ document.getElementById('psi-list').innerHTML=`<div class="history-error"><strong>Could not load</strong>${err.message}</div>`; }
+    try{ renderPsi(await fetchPsi(domain), domain); }
+    catch(err){ document.getElementById('psi-list').innerHTML = stateHtml('err','Could not load',err.message); }
   };
 
   async function fetchPsi(domain){
@@ -782,12 +987,12 @@ body {
 
   function renderPsi(rows, domain){
     const el = document.getElementById('psi-list');
-    if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Run a test and save scores to build history.</div>`; return; }
+    if(!rows.length){ el.innerHTML = stateHtml('','No records yet','Run a test and save scores to start tracking.'); return; }
     el.innerHTML = rows.map(r=>`
-      <div style="display:grid;grid-template-columns:1fr 72px 72px 80px;gap:8px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-        <div>${rowLine(r)}</div>
-        <div><div class="score-badge ${sc(r.mobile_score)}">${r.mobile_score}</div></div>
-        <div><div class="score-badge ${sc(r.desktop_score)}">${r.desktop_score}</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 72px 72px 70px;">
+        <div>${rowMeta(r)}</div>
+        <div><div class="sbadge ${sc(r.mobile_score)}">${r.mobile_score??'-'}</div></div>
+        <div><div class="sbadge ${sc(r.desktop_score)}">${r.desktop_score??'-'}</div></div>
         <div class="row-link"><a href="${r.report_url||psiUrl(domain)}" target="_blank">View &#x2197;</a></div>
       </div>`).join('');
   }
@@ -795,7 +1000,7 @@ body {
   window.savePsi = async function(){
     const mobile=intVal('psi-mobile'), desktop=intVal('psi-desktop');
     if(mobile===null||desktop===null){ fb('psi-fb','Enter both mobile and desktop scores.','err'); return; }
-    if(mobile<0||mobile>100||desktop<0||desktop>100){ fb('psi-fb','Scores must be 0-100.','err'); return; }
+    if(mobile<0||mobile>100||desktop<0||desktop>100){ fb('psi-fb','Scores must be between 0 and 100.','err'); return; }
     const btn=document.getElementById('psi-save'); btn.disabled=true;
     fb('psi-fb','Saving...','info');
     try{
@@ -804,29 +1009,29 @@ body {
         note:val('psi-note')||null, report_url:val('psi-url')||null
       });
       if(error) throw error;
-      clear('psi-mobile','psi-desktop','psi-note','psi-url');
-      fb('psi-fb','Saved! Refreshing...','ok');
+      clr('psi-mobile','psi-desktop','psi-note','psi-url');
+      fb('psi-fb','Saved.','ok');
       renderPsi(await fetchPsi(_psiDomain), _psiDomain);
+      setLastUpdated('lu-psi', new Date().toISOString());
       setTimeout(()=>fb('psi-fb','',''),3000);
     }catch(err){ fb('psi-fb','Error: '+(err.message||'Could not save.'),'err'); }
     finally{ btn.disabled=false; }
   };
 
-  // ── SEMRUSH ──────────────────────────────────────────────────
-
+  /* ── SEMrush ── */
   window.openSemrush = async function(brand, domain){
-    _semrushDomain = domain;
-    document.getElementById('semrush-title').textContent = brand;
+    _srDomain = domain;
+    document.getElementById('semrush-brand').textContent  = brand;
     document.getElementById('semrush-domain').textContent = domain;
-    document.getElementById('semrush-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    document.getElementById('semrush-list').innerHTML = loadingHtml('Fetching history');
     openOverlay('semrush');
-    try { renderSemrush(await fetchSemrush(domain)); }
-    catch(err){ document.getElementById('semrush-list').innerHTML=`<div class="history-error"><strong>Could not load</strong>${err.message}</div>`; }
+    try{ renderSemrush(await fetchSemrush(domain)); }
+    catch(err){ document.getElementById('semrush-list').innerHTML = stateHtml('err','Could not load',err.message); }
   };
 
   async function fetchSemrush(domain){
     const {data,error} = await sb.from('semrush_history')
-      .select('id,recorded_at,keyword_count,top_keyword,top_position,da_score,audit_score,note')
+      .select('id,recorded_at,keyword_count,organic_traffic,authority_score,audit_score,note')
       .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
     if(error) throw error;
     return data??[];
@@ -834,17 +1039,14 @@ body {
 
   function renderSemrush(rows){
     const el = document.getElementById('semrush-list');
-    if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Log your first SEMrush snapshot to start tracking.</div>`; return; }
+    if(!rows.length){ el.innerHTML = stateHtml('','No records yet','Log your first SEMrush snapshot to start tracking.'); return; }
     el.innerHTML = rows.map(r=>`
-      <div style="display:grid;grid-template-columns:1fr 80px 160px 64px 72px;gap:8px;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-        <div>${rowLine(r)}</div>
-        <div class="metric-val">${r.keyword_count??'—'}</div>
-        <div style="text-align:center;">
-          <div style="font-size:12px;font-weight:500;color:var(--text)">${r.top_keyword??'—'}</div>
-          ${r.top_position!=null?`<div style="font-size:11px;color:var(--gold)">#${r.top_position}</div>`:''}
-        </div>
-        <div><div class="score-badge sm ${sc(r.da_score)}">${r.da_score??'—'}</div></div>
-        <div><div class="score-badge sm ${sc(r.audit_score)}">${r.audit_score??'—'}</div></div>
+      <div class="data-row" style="grid-template-columns:1fr 80px 90px 70px 68px;">
+        <div>${rowMeta(r)}</div>
+        <div class="metric-val">${r.keyword_count??'-'}</div>
+        <div class="metric-val">${r.organic_traffic!=null?r.organic_traffic.toLocaleString():'-'}</div>
+        <div><div class="sbadge sm ${sc(r.authority_score)}">${r.authority_score??'-'}</div></div>
+        <div><div class="sbadge sm ${sc(r.audit_score)}">${r.audit_score??'-'}</div></div>
       </div>`).join('');
   }
 
@@ -852,42 +1054,41 @@ body {
     const btn=document.getElementById('semrush-save'); btn.disabled=true;
     fb('semrush-fb','Saving...','info');
     const row={
-      domain:_semrushDomain,
+      domain:_srDomain,
       keyword_count:intVal('sr-keywords'),
-      top_keyword:val('sr-top-kw')||null,
-      top_position:intVal('sr-top-pos'),
-      da_score:intVal('sr-da'),
+      organic_traffic:intVal('sr-traffic'),
+      authority_score:intVal('sr-as'),
       audit_score:intVal('sr-audit'),
       note:val('sr-note')||null
     };
-    const hasData = ['keyword_count','top_keyword','top_position','da_score','audit_score'].some(k=>row[k]!==null&&row[k]!=='');
+    const hasData = ['keyword_count','organic_traffic','authority_score','audit_score'].some(k=>row[k]!==null);
     if(!hasData){ fb('semrush-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
     try{
       const {error} = await sb.from('semrush_history').insert(row);
       if(error) throw error;
-      clear('sr-keywords','sr-top-kw','sr-top-pos','sr-da','sr-audit','sr-note');
-      fb('semrush-fb','Saved! Refreshing...','ok');
-      renderSemrush(await fetchSemrush(_semrushDomain));
+      clr('sr-keywords','sr-traffic','sr-as','sr-audit','sr-note');
+      fb('semrush-fb','Saved.','ok');
+      renderSemrush(await fetchSemrush(_srDomain));
+      setLastUpdated('lu-semrush', new Date().toISOString());
       setTimeout(()=>fb('semrush-fb','',''),3000);
     }catch(err){ fb('semrush-fb','Error: '+(err.message||'Could not save.'),'err'); }
     finally{ btn.disabled=false; }
   };
 
-  // ── CLARITY ──────────────────────────────────────────────────
-
+  /* ── Clarity ── */
   window.openClarity = async function(brand, domain){
-    _clarityDomain = domain;
-    document.getElementById('clarity-title').textContent = brand;
+    _clDomain = domain;
+    document.getElementById('clarity-brand').textContent  = brand;
     document.getElementById('clarity-domain').textContent = domain;
-    document.getElementById('clarity-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    document.getElementById('clarity-list').innerHTML = loadingHtml('Fetching history');
     openOverlay('clarity');
-    try { renderClarity(await fetchClarity(domain)); }
-    catch(err){ document.getElementById('clarity-list').innerHTML=`<div class="history-error"><strong>Could not load</strong>${err.message}</div>`; }
+    try{ renderClarity(await fetchClarity(domain)); }
+    catch(err){ document.getElementById('clarity-list').innerHTML = stateHtml('err','Could not load',err.message); }
   };
 
   async function fetchClarity(domain){
     const {data,error} = await sb.from('clarity_history')
-      .select('id,recorded_at,session_count,clicks,page_views,note')
+      .select('id,recorded_at,session_count,note')
       .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
     if(error) throw error;
     return data??[];
@@ -895,54 +1096,47 @@ body {
 
   function renderClarity(rows){
     const el = document.getElementById('clarity-list');
-    if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Copy numbers from Clarity and hit Save to start tracking.</div>`; return; }
+    if(!rows.length){ el.innerHTML = stateHtml('','No records yet','Log daily sessions from Clarity to start tracking.'); return; }
     el.innerHTML = rows.map(r=>`
-      <div style="display:grid;grid-template-columns:1fr 72px 72px 80px;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-        <div>${rowLine(r)}</div>
-        <div class="metric-val">${r.session_count??'—'}</div>
-        <div class="metric-val">${r.clicks??'—'}</div>
-        <div class="metric-val">${r.page_views??'—'}</div>
+      <div class="data-row" style="grid-template-columns:1fr 90px;">
+        <div>${rowMeta(r)}</div>
+        <div class="metric-val">${r.session_count??'-'}</div>
       </div>`).join('');
   }
 
   window.saveClarity = async function(){
     const btn=document.getElementById('clarity-save'); btn.disabled=true;
     fb('clarity-fb','Saving...','info');
-    const row={
-      domain:_clarityDomain,
-      session_count:intVal('cl-sessions'),
-      clicks:intVal('cl-clicks'),
-      page_views:intVal('cl-pageviews'),
-      note:val('cl-note')||null
-    };
-    const hasData = ['session_count','clicks','page_views'].some(k=>row[k]!==null&&row[k]!=='');
-    if(!hasData){ fb('clarity-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
+    const sessions = intVal('cl-sessions');
+    if(sessions===null){ fb('clarity-fb','Enter a session count before saving.','err'); btn.disabled=false; return; }
     try{
-      const {error} = await sb.from('clarity_history').insert(row);
+      const {error} = await sb.from('clarity_history').insert({
+        domain:_clDomain, session_count:sessions, note:val('cl-note')||null
+      });
       if(error) throw error;
-      clear('cl-sessions','cl-clicks','cl-pageviews','cl-note');
-      fb('clarity-fb','Saved! Refreshing...','ok');
-      renderClarity(await fetchClarity(_clarityDomain));
+      clr('cl-sessions','cl-note');
+      fb('clarity-fb','Saved.','ok');
+      renderClarity(await fetchClarity(_clDomain));
+      setLastUpdated('lu-clarity', new Date().toISOString());
       setTimeout(()=>fb('clarity-fb','',''),3000);
     }catch(err){ fb('clarity-fb','Error: '+(err.message||'Could not save.'),'err'); }
     finally{ btn.disabled=false; }
   };
 
-  // ── LOOKER STUDIO ────────────────────────────────────────────
-
+  /* ── Looker Studio ── */
   window.openLooker = async function(brand, domain){
-    _lookerDomain = domain;
-    document.getElementById('looker-title').textContent = brand;
+    _lsDomain = domain;
+    document.getElementById('looker-brand').textContent  = brand;
     document.getElementById('looker-domain').textContent = domain;
-    document.getElementById('looker-list').innerHTML = '<div class="history-loading">Fetching history</div>';
+    document.getElementById('looker-list').innerHTML = loadingHtml('Fetching history');
     openOverlay('looker');
-    try { renderLooker(await fetchLooker(domain)); }
-    catch(err){ document.getElementById('looker-list').innerHTML=`<div class="history-error"><strong>Could not load</strong>${err.message}</div>`; }
+    try{ renderLooker(await fetchLooker(domain)); }
+    catch(err){ document.getElementById('looker-list').innerHTML = stateHtml('err','Could not load',err.message); }
   };
 
   async function fetchLooker(domain){
     const {data,error} = await sb.from('looker_history')
-      .select('id,recorded_at,gsc_clicks,gsc_impressions,gsc_avg_position,ad_spend_aed,conversions,note')
+      .select('id,recorded_at,gsc_clicks,gsc_impressions,conversions,report_url,note')
       .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
     if(error) throw error;
     return data??[];
@@ -950,15 +1144,14 @@ body {
 
   function renderLooker(rows){
     const el = document.getElementById('looker-list');
-    if(!rows.length){ el.innerHTML=`<div class="history-empty"><strong>No records yet</strong>Copy numbers from Looker Studio and hit Save to start tracking.</div>`; return; }
+    if(!rows.length){ el.innerHTML = stateHtml('','No records yet','Copy numbers from Looker Studio and hit Save to start.'); return; }
     el.innerHTML = rows.map(r=>`
-      <div style="display:grid;grid-template-columns:1fr 64px 90px 80px 100px 90px;gap:6px;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-        <div>${rowLine(r)}</div>
-        <div class="metric-val">${r.gsc_clicks??'—'}</div>
-        <div class="metric-val">${r.gsc_impressions??'—'}</div>
-        <div class="metric-val">${r.gsc_avg_position??'—'}</div>
-        <div class="metric-val">${r.ad_spend_aed!=null?'AED '+r.ad_spend_aed:'—'}</div>
-        <div class="metric-val">${r.conversions??'—'}</div>
+      <div class="data-row" style="grid-template-columns:1fr 70px 100px 90px 70px;">
+        <div>${rowMeta(r)}</div>
+        <div class="metric-val">${r.gsc_clicks??'-'}</div>
+        <div class="metric-val">${r.gsc_impressions!=null?r.gsc_impressions.toLocaleString():'-'}</div>
+        <div class="metric-val">${r.conversions??'-'}</div>
+        <div class="row-link">${r.report_url?`<a href="${r.report_url}" target="_blank">Open &#x2197;</a>`:'-'}</div>
       </div>`).join('');
   }
 
@@ -966,22 +1159,22 @@ body {
     const btn=document.getElementById('looker-save'); btn.disabled=true;
     fb('looker-fb','Saving...','info');
     const row={
-      domain:_lookerDomain,
+      domain:_lsDomain,
       gsc_clicks:intVal('ls-clicks'),
       gsc_impressions:intVal('ls-impressions'),
-      gsc_avg_position:numVal('ls-position'),
-      ad_spend_aed:numVal('ls-adspend'),
       conversions:intVal('ls-conversions'),
+      report_url:val('ls-report-url')||null,
       note:val('ls-note')||null
     };
-    const hasData = ['gsc_clicks','gsc_impressions','gsc_avg_position','ad_spend_aed','conversions'].some(k=>row[k]!==null);
+    const hasData = ['gsc_clicks','gsc_impressions','conversions'].some(k=>row[k]!==null);
     if(!hasData){ fb('looker-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
     try{
       const {error} = await sb.from('looker_history').insert(row);
       if(error) throw error;
-      clear('ls-clicks','ls-impressions','ls-position','ls-adspend','ls-conversions','ls-note');
-      fb('looker-fb','Saved! Refreshing...','ok');
-      renderLooker(await fetchLooker(_lookerDomain));
+      clr('ls-clicks','ls-impressions','ls-conversions','ls-note','ls-report-url');
+      fb('looker-fb','Saved.','ok');
+      renderLooker(await fetchLooker(_lsDomain));
+      setLastUpdated('lu-looker', new Date().toISOString());
       setTimeout(()=>fb('looker-fb','',''),3000);
     }catch(err){ fb('looker-fb','Error: '+(err.message||'Could not save.'),'err'); }
     finally{ btn.disabled=false; }
