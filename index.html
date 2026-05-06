@@ -128,6 +128,7 @@ body {
 .card:nth-child(2) { animation-delay: 0.15s; }
 .card:nth-child(3) { animation-delay: 0.22s; }
 .card:nth-child(4) { animation-delay: 0.29s; }
+.card:nth-child(5) { animation-delay: 0.36s; grid-column: 1 / -1; }
 
 .card-accent {
   position: absolute;
@@ -168,6 +169,14 @@ body {
 }
 
 .last-updated.visible { opacity: 1; }
+
+.tool-sub {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  opacity: 0.75;
+  letter-spacing: 0;
+}
 
 .card-tool {
   font-size: 16px;
@@ -557,7 +566,7 @@ input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255
         <div class="card-num">01</div>
         <div class="last-updated" id="lu-psi"></div>
       </div>
-      <div class="card-tool">PageSpeed Insights</div>
+      <div class="card-tool">Site Speed <span class="tool-sub">(PageSpeed Insights)</span></div>
       <div class="card-desc">Site speed scores on mobile and desktop - with a direct link to the full report.</div>
       <div class="tags">
         <span class="tag">Mobile Score</span>
@@ -586,7 +595,7 @@ input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255
         <div class="card-num">02</div>
         <div class="last-updated" id="lu-semrush"></div>
       </div>
-      <div class="card-tool">SEMrush</div>
+      <div class="card-tool">Organic Performance <span class="tool-sub">(SEMrush)</span></div>
       <div class="card-desc">Organic keywords ranked, estimated traffic, authority score, and site health.</div>
       <div class="tags">
         <span class="tag">Keywords Ranked</span>
@@ -617,7 +626,7 @@ input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255
         <div class="card-num">03</div>
         <div class="last-updated" id="lu-clarity"></div>
       </div>
-      <div class="card-tool">Microsoft Clarity</div>
+      <div class="card-tool">Visitor Behaviour <span class="tool-sub">(Clarity)</span></div>
       <div class="card-desc">Daily session counts per site - how many real visitors are coming through.</div>
       <div class="tags">
         <span class="tag">Sessions</span>
@@ -645,7 +654,7 @@ input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255
         <div class="card-num">04</div>
         <div class="last-updated" id="lu-looker"></div>
       </div>
-      <div class="card-tool">Looker Studio</div>
+      <div class="card-tool">Traffic &amp; Conversions <span class="tool-sub">(Looker Studio)</span></div>
       <div class="card-desc">Live data from Search Console and Analytics - clicks, impressions, and conversions at a glance.</div>
       <div class="tags">
         <span class="tag">GSC Clicks</span>
@@ -668,9 +677,85 @@ input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255
       </div>
     </div>
 
+    <!-- Content Pipeline -->
+    <div class="card" id="card-content">
+      <div class="card-accent"></div>
+      <div class="card-top">
+        <div class="card-num">05</div>
+        <div class="last-updated" id="lu-content"></div>
+      </div>
+      <div class="card-tool">Content Pipeline <span class="tool-sub">(Blogs &amp; FAQs)</span></div>
+      <div class="card-desc">Track blog posts and FAQ entries published across all three brands.</div>
+      <div class="tags">
+        <span class="tag">Blog Posts</span>
+        <span class="tag">FAQs</span>
+        <span class="tag">Editorial</span>
+      </div>
+      <div class="btn-group">
+        <button class="btn" onclick="openContent('3S Business','3sbusinessme.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          3S Business
+        </button>
+        <button class="btn" onclick="openContent('BizCity','bizcitygroup.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          BizCity
+        </button>
+        <button class="btn" onclick="openContent('3S HR','3shrconsulting.com')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          3S HR
+        </button>
+      </div>
+    </div>
+
   </div>
 
   <div class="footer">Last updated &nbsp;&middot;&nbsp; <span id="footer-last-updated">-</span></div>
+</div>
+
+
+<!-- ── CONTENT PIPELINE PANEL ── -->
+<div id="content-overlay" class="overlay" onclick="closePanel('content',event)">
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-identity">
+        <div class="panel-tool">Content Pipeline</div>
+        <div class="panel-brand" id="content-brand"></div>
+        <div class="panel-domain" id="content-domain"></div>
+      </div>
+      <div class="panel-actions">
+        <button class="btn-close" onclick="closePanel('content')">&#x2715;</button>
+      </div>
+    </div>
+
+    <div class="log-form">
+      <div class="log-title">Log published content</div>
+      <div class="fields-row">
+        <div class="field" style="flex:0 0 110px">
+          <div class="field-label">Blogs Published</div>
+          <input id="ct-blogs" class="log-input" type="number" min="0" placeholder="e.g. 4" />
+        </div>
+        <div class="field" style="flex:0 0 110px">
+          <div class="field-label">FAQs Published</div>
+          <input id="ct-faqs" class="log-input" type="number" min="0" placeholder="e.g. 10" />
+        </div>
+        <div class="field" style="flex:1; min-width:140px">
+          <div class="field-label">Note (optional)</div>
+          <input id="ct-note" class="log-input" type="text" placeholder="e.g. April batch" />
+        </div>
+      </div>
+      <div class="form-footer">
+        <div id="content-fb" class="log-fb"></div>
+        <button id="content-save" class="btn-save" onclick="saveContent()">Save</button>
+      </div>
+    </div>
+
+    <div class="history-wrap">
+      <div class="col-head" style="grid-template-columns:1fr 90px 90px;">
+        <span>Date</span><span>Blogs</span><span>FAQs</span>
+      </div>
+      <div id="content-list"></div>
+    </div>
+  </div>
 </div>
 
 <!-- ── PSI PANEL ── -->
@@ -880,7 +965,7 @@ input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inptb3l0a2N1aW9meWJxa3FsanRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5NTgwNDIsImV4cCI6MjA5MzUzNDA0Mn0.9lrZHkIF9fGdK7qsElLfFaV2aeuQh2sDOFID1MR543Q';
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-  let _psiDomain='', _srDomain='', _clDomain='', _lsDomain='';
+  let _psiDomain='', _srDomain='', _clDomain='', _lsDomain='', _ctDomain='';
 
   /* ── Helpers ── */
   function sc(n){ return n>=90?'good':n>=50?'average':'poor'; }
@@ -959,6 +1044,7 @@ input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255
       { table:'semrush_history',   tsCol:'recorded_at', luEl:'lu-semrush' },
       { table:'clarity_history',   tsCol:'recorded_at', luEl:'lu-clarity' },
       { table:'looker_history',    tsCol:'recorded_at', luEl:'lu-looker' },
+      { table:'content_pipeline',  tsCol:'recorded_at', luEl:'lu-content' },
     ];
     let latestTs = null;
     for(const t of tools){
@@ -1191,6 +1277,56 @@ input.log-input:focus { border-color: rgba(201,168,76,0.5); background: rgba(255
       setLastUpdated('lu-looker', new Date().toISOString());
       setTimeout(()=>fb('looker-fb','',''),3000);
     }catch(err){ fb('looker-fb','Error: '+(err.message||'Could not save.'),'err'); }
+    finally{ btn.disabled=false; }
+  };
+
+
+  /* ── Content Pipeline ── */
+  window.openContent = async function(brand, domain){
+    _ctDomain = domain;
+    document.getElementById('content-brand').textContent  = brand;
+    document.getElementById('content-domain').textContent = domain;
+    document.getElementById('content-list').innerHTML = loadingHtml('Fetching history');
+    openOverlay('content');
+    try{ renderContent(await fetchContent(domain)); }
+    catch(err){ document.getElementById('content-list').innerHTML = stateHtml('err','Could not load',err.message); }
+  };
+
+  async function fetchContent(domain){
+    const {data,error} = await sb.from('content_pipeline')
+      .select('id,recorded_at,blogs_count,faqs_count,note')
+      .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
+    if(error) throw error;
+    return data??[];
+  }
+
+  function renderContent(rows){
+    const el = document.getElementById('content-list');
+    if(!rows.length){ el.innerHTML = stateHtml('','No records yet','Log your first content entry to start tracking.'); return; }
+    el.innerHTML = rows.map(r=>`
+      <div class="data-row" style="grid-template-columns:1fr 90px 90px;">
+        <div>${rowMeta(r)}</div>
+        <div class="metric-val">${r.blogs_count??'-'}</div>
+        <div class="metric-val">${r.faqs_count??'-'}</div>
+      </div>`).join('');
+  }
+
+  window.saveContent = async function(){
+    const btn=document.getElementById('content-save'); btn.disabled=true;
+    fb('content-fb','Saving...','info');
+    const blogs=intVal('ct-blogs'), faqs=intVal('ct-faqs');
+    if(blogs===null && faqs===null){ fb('content-fb','Enter at least one count before saving.','err'); btn.disabled=false; return; }
+    try{
+      const {error} = await sb.from('content_pipeline').insert({
+        domain:_ctDomain, blogs_count:blogs, faqs_count:faqs, note:val('ct-note')||null
+      });
+      if(error) throw error;
+      clr('ct-blogs','ct-faqs','ct-note');
+      fb('content-fb','Saved.','ok');
+      renderContent(await fetchContent(_ctDomain));
+      setLastUpdated('lu-content', new Date().toISOString());
+      setTimeout(()=>fb('content-fb','',''),3000);
+    }catch(err){ fb('content-fb','Error: '+(err.message||'Could not save.'),'err'); }
     finally{ btn.disabled=false; }
   };
 
