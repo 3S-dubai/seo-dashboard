@@ -679,14 +679,14 @@ opacity: 1;
   </div>
 </div>
 
-<!-- 04 Looker Studio -->
-<div class="card" id="card-looker">
+<!-- 04 Google Ads -->
+<div class="card" id="card-ads">
   <div class="card-accent"></div>
   <div class="card-top">
     <div class="card-num">04</div>
-    <div class="last-updated" id="lu-looker"></div>
+    <div class="last-updated" id="lu-ads"></div>
   </div>
-  <div class="card-tool">Traffic &amp; Conversions <span class="tool-sub">(Looker Studio)</span></div>
+  <div class="card-tool">Traffic &amp; Conversions <span class="tool-sub">(Google Ads)</span></div>
   <div class="card-desc">Live data from Search Console and Analytics - clicks, impressions, and conversions at a glance.</div>
   <div class="tags">
     <span class="tag">GSC Clicks</span>
@@ -694,15 +694,15 @@ opacity: 1;
     <span class="tag">Conversions</span>
   </div>
   <div class="btn-group">
-    <button class="btn" onclick="openLooker('3S Business','3sbusinessme.com')">
+    <button class="btn" onclick="openAds('3S Business','3sbusinessme.com')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       3S Business
     </button>
-    <button class="btn" onclick="openLooker('BizCity','bizcitygroup.com')">
+    <button class="btn" onclick="openAds('BizCity','bizcitygroup.com')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       BizCity
     </button>
-    <button class="btn" onclick="openLooker('3S HR','3shrconsulting.com')">
+    <button class="btn" onclick="openAds('3S HR','3shrconsulting.com')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       3S HR
     </button>
@@ -893,24 +893,24 @@ opacity: 1;
   </div>
 </div>
 
-<!-- ── LOOKER STUDIO PANEL ── -->
+<!-- ── GOOGLE ADS PANEL ── -->
 
-<div id="looker-overlay" class="overlay" onclick="closePanel('looker',event)">
+<div id="ads-overlay" class="overlay" onclick="closePanel('ads',event)">
   <div class="panel" style="max-width:760px">
     <div class="panel-head">
       <div class="panel-identity">
-        <div class="panel-tool">Looker Studio</div>
-        <div class="panel-brand" id="looker-brand"></div>
-        <div class="panel-domain" id="looker-domain"></div>
+        <div class="panel-tool">Google Ads</div>
+        <div class="panel-brand" id="ads-brand"></div>
+        <div class="panel-domain" id="ads-domain"></div>
       </div>
       <div class="panel-actions">
-        <a class="btn-ext" href="https://lookerstudio.google.com/" target="_blank">Open Looker &#x2197;</a>
-        <button class="btn-close" onclick="closePanel('looker')">&#x2715;</button>
+        <a class="btn-ext" href="https://ads.google.com/" target="_blank">Open Google Ads &#x2197;</a>
+        <button class="btn-close" onclick="closePanel('ads')">&#x2715;</button>
       </div>
     </div>
 
 <div class="log-form">
-  <div class="log-title">Log metrics from Looker Studio</div>
+  <div class="log-title">Log metrics from Google Ads</div>
   <div class="fields-row">
     <div class="field" style="flex:1">
       <div class="field-label">Clicks</div>
@@ -930,12 +930,12 @@ opacity: 1;
     </div>
     <div class="field" style="flex:2; min-width:160px">
       <div class="field-label">Report URL (optional)</div>
-      <input id="ls-report-url" class="log-input" type="url" placeholder="Paste Looker report link" />
+      <input id="ls-report-url" class="log-input" type="url" placeholder="Paste Google Ads report link" />
     </div>
   </div>
   <div class="form-footer">
-    <div id="looker-fb" class="log-fb"></div>
-    <button id="looker-save" class="btn-save" onclick="saveLooker()">Save</button>
+    <div id="ads-fb" class="log-fb"></div>
+    <button id="ads-save" class="btn-save" onclick="saveAds()">Save</button>
   </div>
 </div>
 
@@ -943,7 +943,7 @@ opacity: 1;
   <div class="col-head" style="grid-template-columns:1fr 70px 100px 90px 70px;">
     <span>Period</span><span>Clicks</span><span>Impressions</span><span>Conversions</span><span>Report</span>
   </div>
-  <div id="looker-list"></div>
+  <div id="ads-list"></div>
 </div>
 
   </div>
@@ -1021,7 +1021,7 @@ opacity: 1;
 
   document.addEventListener('keydown', e=>{
     if(e.key==='Escape'){
-      ['psi','semrush','clarity','looker','content'].forEach(n=>{
+      ['psi','semrush','clarity','ads','content'].forEach(n=>{
         document.getElementById(n+'-overlay').classList.remove('open');
       });
       document.body.style.overflow = '';
@@ -1034,7 +1034,7 @@ opacity: 1;
       { table:'pagespeed_history', tsCol:'tested_at',   luEl:'lu-psi' },
       { table:'semrush_history',   tsCol:'recorded_at', luEl:'lu-semrush' },
       { table:'clarity_history',   tsCol:'recorded_at', luEl:'lu-clarity' },
-      { table:'looker_history',    tsCol:'recorded_at', luEl:'lu-looker' },
+      { table:'looker_history',    tsCol:'recorded_at', luEl:'lu-ads' },
       { table:'blog_entries',      tsCol:'recorded_at', luEl:'lu-content' },
     ];
     let latestTs = null;
@@ -1214,18 +1214,18 @@ opacity: 1;
     finally{ btn.disabled=false; }
   };
 
-  /* ── Looker Studio ── */
-  window.openLooker = async function(brand, domain){
+  /* ── Google Ads ── */
+  window.openAds = async function(brand, domain){
     _lsDomain = domain;
-    document.getElementById('looker-brand').textContent  = brand;
-    document.getElementById('looker-domain').innerHTML = '<a href="https://'+domain+'" target="_blank">'+domain+' &#x2197;</a>';
-    document.getElementById('looker-list').innerHTML = loadingHtml('Fetching history');
-    openOverlay('looker');
-    try{ renderLooker(await fetchLooker(domain)); }
-    catch(err){ document.getElementById('looker-list').innerHTML = stateHtml('err','Could not load',err.message); }
+    document.getElementById('ads-brand').textContent  = brand;
+    document.getElementById('ads-domain').innerHTML = '<a href="https://'+domain+'" target="_blank">'+domain+' &#x2197;</a>';
+    document.getElementById('ads-list').innerHTML = loadingHtml('Fetching history');
+    openOverlay('ads');
+    try{ renderAds(await fetchAds(domain)); }
+    catch(err){ document.getElementById('ads-list').innerHTML = stateHtml('err','Could not load',err.message); }
   };
 
-  async function fetchLooker(domain){
+  async function fetchAds(domain){
     const {data,error} = await sb.from('looker_history')
       .select('id,recorded_at,gsc_clicks,gsc_impressions,conversions,report_url,note')
       .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
@@ -1233,9 +1233,9 @@ opacity: 1;
     return data??[];
   }
 
-  function renderLooker(rows){
-    const el = document.getElementById('looker-list');
-    if(!rows.length){ el.innerHTML = stateHtml('','No records yet','Copy numbers from Looker Studio and hit Save to start.'); return; }
+  function renderAds(rows){
+    const el = document.getElementById('ads-list');
+    if(!rows.length){ el.innerHTML = stateHtml('','No records yet','Copy numbers from Google Ads and hit Save to start.'); return; }
     el.innerHTML = rows.map(r=>`
       <div class="data-row" style="grid-template-columns:1fr 70px 100px 90px 70px;">
         <div>${rowMeta(r)}</div>
@@ -1246,9 +1246,9 @@ opacity: 1;
       </div>`).join('');
   }
 
-  window.saveLooker = async function(){
-    const btn=document.getElementById('looker-save'); btn.disabled=true;
-    fb('looker-fb','Saving...','info');
+  window.saveAds = async function(){
+    const btn=document.getElementById('ads-save'); btn.disabled=true;
+    fb('ads-fb','Saving...','info');
     const row={
       domain:_lsDomain,
       gsc_clicks:intVal('ls-clicks'),
@@ -1258,16 +1258,16 @@ opacity: 1;
       note:val('ls-note')||null
     };
     const hasData = ['gsc_clicks','gsc_impressions','conversions'].some(k=>row[k]!==null);
-    if(!hasData){ fb('looker-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
+    if(!hasData){ fb('ads-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
     try{
       const {error} = await sb.from('looker_history').insert(row);
       if(error) throw error;
       clr('ls-clicks','ls-impressions','ls-conversions','ls-note','ls-report-url');
-      fb('looker-fb','Saved.','ok');
-      renderLooker(await fetchLooker(_lsDomain));
-      setLastUpdated('lu-looker', new Date().toISOString());
-      setTimeout(()=>fb('looker-fb','',''),3000);
-    }catch(err){ fb('looker-fb','Error: '+(err.message||'Could not save.'),'err'); }
+      fb('ads-fb','Saved.','ok');
+      renderAds(await fetchAds(_lsDomain));
+      setLastUpdated('lu-ads', new Date().toISOString());
+      setTimeout(()=>fb('ads-fb','',''),3000);
+    }catch(err){ fb('ads-fb','Error: '+(err.message||'Could not save.'),'err'); }
     finally{ btn.disabled=false; }
   };
 
