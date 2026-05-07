@@ -550,65 +550,46 @@ to   { opacity: 1; transform: translateY(0); }
   .fields-row { gap: 8px; }
   .field { flex: 1 1 100% !important; min-width: 100% !important; }
 
-  /* ── History table — remove forced min-width, let panels control columns ── */
-  .history-wrap { padding: 0 16px 16px; overflow-x: unset; }
+  /* ── History table — mobile column overrides ── */
+  .history-wrap { padding: 0 16px 16px; }
   .col-head, .data-row { min-width: unset; }
+  .m-hide { display: none !important; }
 
-  /* PSI: 4 cols → keep all, compress widths */
+  /* PSI: 4 cols → compress widths to fit */
   #psi-overlay .col-head,
   #psi-overlay .data-row {
-    grid-template-columns: 1fr 52px 52px 52px !important;
+    grid-template-columns: 1fr 52px 52px 50px !important;
   }
 
-  /* SEMrush: 5 cols → show Date, Keywords, Authority; hide Traffic(3rd) & Health(5th) */
+  /* SEMrush: hide Traffic + Health → Date / Keywords / Authority */
   #semrush-overlay .col-head,
   #semrush-overlay .data-row {
-    grid-template-columns: 1fr 68px 68px !important;
+    grid-template-columns: 1fr 72px 62px !important;
   }
-  #semrush-overlay .col-head > *:nth-child(3),
-  #semrush-overlay .data-row > *:nth-child(3),
-  #semrush-overlay .col-head > *:nth-child(5),
-  #semrush-overlay .data-row > *:nth-child(5) { display: none !important; }
 
-  /* Clarity: 2 cols — already fine, just ensure no overflow */
+  /* Clarity: 2 cols — fits naturally */
   #clarity-overlay .col-head,
   #clarity-overlay .data-row {
     grid-template-columns: 1fr 90px !important;
   }
 
-  /* Ads: 5 cols → show Period, Clicks, Conversions; hide Impressions(3rd) & Report(5th) */
+  /* Ads: hide Impressions + Report → Period / Clicks / Conversions */
   #ads-overlay .col-head,
   #ads-overlay .data-row {
-    grid-template-columns: 1fr 60px 72px !important;
+    grid-template-columns: 1fr 60px 80px !important;
   }
-  #ads-overlay .col-head > *:nth-child(3),
-  #ads-overlay .data-row > *:nth-child(3),
-  #ads-overlay .col-head > *:nth-child(5),
-  #ads-overlay .data-row > *:nth-child(5) { display: none !important; }
 
-  /* Blogs: 5 cols → show Title, Status; hide Brand(1st), Added(4th), URL(5th) */
+  /* Blogs: hide Brand + Added + URL → Title / Status */
   #content-blogs-section .col-head,
   #content-blogs-section .data-row {
     grid-template-columns: 1fr 90px !important;
   }
-  #content-blogs-section .col-head > *:nth-child(1),
-  #content-blogs-section .data-row > *:nth-child(1),
-  #content-blogs-section .col-head > *:nth-child(4),
-  #content-blogs-section .data-row > *:nth-child(4),
-  #content-blogs-section .col-head > *:nth-child(5),
-  #content-blogs-section .data-row > *:nth-child(5) { display: none !important; }
 
-  /* FAQs: 5 cols → show Question, Status; hide Brand(1st), Page(3rd), Added(5th) */
+  /* FAQs: hide Brand + Page + Added → Question / Status */
   #content-faqs-section .col-head,
   #content-faqs-section .data-row {
     grid-template-columns: 1fr 80px !important;
   }
-  #content-faqs-section .col-head > *:nth-child(1),
-  #content-faqs-section .data-row > *:nth-child(1),
-  #content-faqs-section .col-head > *:nth-child(3),
-  #content-faqs-section .data-row > *:nth-child(3),
-  #content-faqs-section .col-head > *:nth-child(5),
-  #content-faqs-section .data-row > *:nth-child(5) { display: none !important; }
 
   /* ── Footer ── */
   .footer { font-size: 9px; letter-spacing: 1.5px; }
@@ -929,7 +910,7 @@ opacity: 1;
 
 <div class="history-wrap">
   <div class="col-head" style="grid-template-columns:1fr 80px 90px 70px 68px;">
-    <span>Date</span><span>Keywords</span><span>Org. Traffic</span><span>Authority</span><span>Health</span>
+    <span>Date</span><span>Keywords</span><span class="m-hide">Org. Traffic</span><span>Authority</span><span class="m-hide">Health</span>
   </div>
   <div id="semrush-list"></div>
 </div>
@@ -1029,7 +1010,7 @@ opacity: 1;
 
 <div class="history-wrap">
   <div class="col-head" style="grid-template-columns:1fr 70px 100px 90px 70px;">
-    <span>Period</span><span>Clicks</span><span>Impressions</span><span>Conversions</span><span>Report</span>
+    <span>Period</span><span>Clicks</span><span class="m-hide">Impressions</span><span>Conversions</span><span class="m-hide">Report</span>
   </div>
   <div id="ads-list"></div>
 </div>
@@ -1223,9 +1204,9 @@ opacity: 1;
       <div class="data-row" style="grid-template-columns:1fr 80px 90px 70px 68px;">
         <div>${rowMeta(r)}</div>
         <div class="metric-val">${r.keyword_count??'-'}</div>
-        <div class="metric-val">${r.organic_traffic!=null?r.organic_traffic.toLocaleString():'-'}</div>
+        <div class="metric-val m-hide">${r.organic_traffic!=null?r.organic_traffic.toLocaleString():'-'}</div>
         <div><div class="sbadge sm ${sc(r.authority_score)}">${r.authority_score??'-'}</div></div>
-        <div><div class="sbadge sm ${sc(r.audit_score)}">${r.audit_score??'-'}</div></div>
+        <div class="m-hide"><div class="sbadge sm ${sc(r.audit_score)}">${r.audit_score??'-'}</div></div>
       </div>`).join('');
   }
 
@@ -1328,9 +1309,9 @@ opacity: 1;
       <div class="data-row" style="grid-template-columns:1fr 70px 100px 90px 70px;">
         <div>${rowMeta(r)}</div>
         <div class="metric-val">${r.gsc_clicks??'-'}</div>
-        <div class="metric-val">${r.gsc_impressions!=null?r.gsc_impressions.toLocaleString():'-'}</div>
+        <div class="metric-val m-hide">${r.gsc_impressions!=null?r.gsc_impressions.toLocaleString():'-'}</div>
         <div class="metric-val">${r.conversions??'-'}</div>
-        <div class="row-link">${r.report_url?`<a href="${r.report_url}" target="_blank">Open &#x2197;</a>`:'-'}</div>
+        <div class="row-link m-hide">${r.report_url?`<a href="${r.report_url}" target="_blank">Open &#x2197;</a>`:'-'}</div>
       </div>`).join('');
   }
 
@@ -1395,13 +1376,13 @@ opacity: 1;
     if(!rows.length){ el.innerHTML = stateHtml('','No blogs yet','Add your first blog entry above.'); return; }
     el.innerHTML = rows.map(r=>`
       <div class="data-row" style="grid-template-columns:80px 1fr 120px 80px 70px;">
-        <div class="metric-val" style="text-align:left;font-size:11px;color:var(--gold)">${r.brand}</div>
+        <div class="metric-val m-hide" style="text-align:left;font-size:11px;color:var(--gold)">${r.brand}</div>
         <div>
           <div class="row-date">${r.title}</div>
         </div>
         <div class="metric-val"><span class="status-badge ${r.status?.toLowerCase().replace(' ','-')}">${r.status??'-'}</span></div>
-        <div class="row-date" style="font-size:11px;color:var(--muted);text-align:center">${fmtRelative(r.recorded_at)}</div>
-        <div class="row-link">${r.url?`<a href="${r.url}" target="_blank">Open &#x2197;</a>`:'-'}</div>
+        <div class="row-date m-hide" style="font-size:11px;color:var(--muted);text-align:center">${fmtRelative(r.recorded_at)}</div>
+        <div class="row-link m-hide">${r.url?`<a href="${r.url}" target="_blank">Open &#x2197;</a>`:'-'}</div>
       </div>`).join('');
   }
 
@@ -1443,13 +1424,13 @@ opacity: 1;
     if(!rows.length){ el.innerHTML = stateHtml('','No FAQs yet','Add your first FAQ entry above.'); return; }
     el.innerHTML = rows.map(r=>`
       <div class="data-row" style="grid-template-columns:80px 1fr 110px 90px 90px;">
-        <div class="metric-val" style="text-align:left;font-size:11px;color:var(--gold)">${r.brand}</div>
+        <div class="metric-val m-hide" style="text-align:left;font-size:11px;color:var(--gold)">${r.brand}</div>
         <div>
           <div class="row-date">${r.question}</div>
         </div>
-        <div class="metric-val" style="font-size:11px;color:var(--muted)">${r.page??'-'}</div>
+        <div class="metric-val m-hide" style="font-size:11px;color:var(--muted)">${r.page??'-'}</div>
         <div class="metric-val"><span class="status-badge ${r.status?.toLowerCase()}">${r.status??'-'}</span></div>
-        <div class="row-date" style="font-size:11px;color:var(--muted);text-align:center">${fmtRelative(r.recorded_at)}</div>
+        <div class="row-date m-hide" style="font-size:11px;color:var(--muted);text-align:center">${fmtRelative(r.recorded_at)}</div>
       </div>`).join('');
   }
 
@@ -1494,7 +1475,7 @@ opacity: 1;
     </div>
 
 <!-- Tab switcher -->
-<div style="display:flex;gap:8px;padding:14px 26px;border-bottom:1px solid var(--border);flex-shrink:0;">
+<div style="display:flex;gap:8px;padding:14px 26px;border-bottom:1px solid var(--border);flex-shrink:0;justify-content:center;">
   <button id="tab-blogs" class="tab-btn tab-active" onclick="switchContentTab('blogs')">Blogs</button>
   <button id="tab-faqs"  class="tab-btn"            onclick="switchContentTab('faqs')">FAQs</button>
 </div>
@@ -1537,7 +1518,7 @@ opacity: 1;
   </div>
   <div class="history-wrap">
     <div class="col-head" style="grid-template-columns:80px 1fr 120px 80px 70px;">
-      <span>Brand</span><span>Title</span><span>Status</span><span>Added</span><span>URL</span>
+      <span class="m-hide">Brand</span><span>Title</span><span>Status</span><span class="m-hide">Added</span><span class="m-hide">URL</span>
     </div>
     <div id="blog-list"></div>
   </div>
@@ -1580,7 +1561,7 @@ opacity: 1;
   </div>
   <div class="history-wrap">
     <div class="col-head" style="grid-template-columns:80px 1fr 110px 90px 90px;">
-      <span>Brand</span><span>Question</span><span>Page</span><span>Status</span><span>Added</span>
+      <span class="m-hide">Brand</span><span>Question</span><span class="m-hide">Page</span><span>Status</span><span class="m-hide">Added</span>
     </div>
     <div id="faq-list"></div>
   </div>
