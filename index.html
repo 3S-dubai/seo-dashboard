@@ -1311,7 +1311,7 @@ opacity: 1;
         <div>
           <div class="row-date">${r.title}</div>
         </div>
-        <div class="metric-val"><span class="status-badge ${r.status?.toLowerCase().replace(' ','-'}">${r.status??'-'}</span></div>
+        <div class="metric-val"><span class="status-badge ${r.status?.toLowerCase().replace(' ','-')}">${r.status??'-'}</span></div>
         <div class="row-date" style="font-size:11px;color:var(--muted);text-align:center">${fmtRelative(r.recorded_at)}</div>
         <div class="row-link">${r.url?`<a href="${r.url}" target="_blank">Open &#x2197;</a>`:'-'}</div>
       </div>`).join('');
