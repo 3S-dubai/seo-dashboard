@@ -1034,7 +1034,7 @@ opacity: 1;
       { table:'pagespeed_history', tsCol:'tested_at',   luEl:'lu-psi' },
       { table:'semrush_history',   tsCol:'recorded_at', luEl:'lu-semrush' },
       { table:'clarity_history',   tsCol:'recorded_at', luEl:'lu-clarity' },
-      { table:'looker_history',    tsCol:'recorded_at', luEl:'lu-ads' },
+      { table:'ads_history',    tsCol:'recorded_at', luEl:'lu-ads' },
       { table:'blog_entries',      tsCol:'recorded_at', luEl:'lu-content' },
     ];
     let latestTs = null;
@@ -1226,7 +1226,7 @@ opacity: 1;
   };
 
   async function fetchAds(domain){
-    const {data,error} = await sb.from('looker_history')
+    const {data,error} = await sb.from('ads_history')
       .select('id,recorded_at,gsc_clicks,gsc_impressions,conversions,report_url,note')
       .eq('domain',domain).order('recorded_at',{ascending:false}).limit(50);
     if(error) throw error;
@@ -1260,7 +1260,7 @@ opacity: 1;
     const hasData = ['gsc_clicks','gsc_impressions','conversions'].some(k=>row[k]!==null);
     if(!hasData){ fb('ads-fb','Enter at least one metric before saving.','err'); btn.disabled=false; return; }
     try{
-      const {error} = await sb.from('looker_history').insert(row);
+      const {error} = await sb.from('ads_history').insert(row);
       if(error) throw error;
       clr('ls-clicks','ls-impressions','ls-conversions','ls-note','ls-report-url');
       fb('ads-fb','Saved.','ok');
