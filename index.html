@@ -1340,8 +1340,8 @@ opacity: 1;
     _contentTab = tab;
     document.getElementById('tab-blogs').classList.toggle('tab-active', tab==='blogs');
     document.getElementById('tab-faqs').classList.toggle('tab-active', tab==='faqs');
-    document.getElementById('content-blogs-section').style.display = tab==='blogs'?'block':'none';
-    document.getElementById('content-faqs-section').style.display  = tab==='faqs'?'block':'none';
+    document.getElementById('content-blogs-section').style.display = tab==='blogs'?'flex':'none';
+    document.getElementById('content-faqs-section').style.display  = tab==='faqs'?'flex':'none';
     if(tab==='blogs') loadBlogs();
     else loadFaqs();
   }
@@ -1472,7 +1472,7 @@ opacity: 1;
 </div>
 
 <!-- BLOGS SECTION -->
-<div id="content-blogs-section">
+<div id="content-blogs-section" style="display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;">
   <div class="log-form">
     <div class="log-title">Add a blog</div>
     <div class="fields-row">
