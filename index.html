@@ -550,9 +550,65 @@ to   { opacity: 1; transform: translateY(0); }
   .fields-row { gap: 8px; }
   .field { flex: 1 1 100% !important; min-width: 100% !important; }
 
-  /* ── History table — horizontal scroll ── */
-  .history-wrap { padding: 0 16px 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .col-head, .data-row { min-width: 420px; }
+  /* ── History table — remove forced min-width, let panels control columns ── */
+  .history-wrap { padding: 0 16px 16px; overflow-x: unset; }
+  .col-head, .data-row { min-width: unset; }
+
+  /* PSI: 4 cols → keep all, compress widths */
+  #psi-overlay .col-head,
+  #psi-overlay .data-row {
+    grid-template-columns: 1fr 52px 52px 52px !important;
+  }
+
+  /* SEMrush: 5 cols → show Date, Keywords, Authority; hide Traffic(3rd) & Health(5th) */
+  #semrush-overlay .col-head,
+  #semrush-overlay .data-row {
+    grid-template-columns: 1fr 68px 68px !important;
+  }
+  #semrush-overlay .col-head > *:nth-child(3),
+  #semrush-overlay .data-row > *:nth-child(3),
+  #semrush-overlay .col-head > *:nth-child(5),
+  #semrush-overlay .data-row > *:nth-child(5) { display: none !important; }
+
+  /* Clarity: 2 cols — already fine, just ensure no overflow */
+  #clarity-overlay .col-head,
+  #clarity-overlay .data-row {
+    grid-template-columns: 1fr 90px !important;
+  }
+
+  /* Ads: 5 cols → show Period, Clicks, Conversions; hide Impressions(3rd) & Report(5th) */
+  #ads-overlay .col-head,
+  #ads-overlay .data-row {
+    grid-template-columns: 1fr 60px 72px !important;
+  }
+  #ads-overlay .col-head > *:nth-child(3),
+  #ads-overlay .data-row > *:nth-child(3),
+  #ads-overlay .col-head > *:nth-child(5),
+  #ads-overlay .data-row > *:nth-child(5) { display: none !important; }
+
+  /* Blogs: 5 cols → show Title, Status; hide Brand(1st), Added(4th), URL(5th) */
+  #content-blogs-section .col-head,
+  #content-blogs-section .data-row {
+    grid-template-columns: 1fr 90px !important;
+  }
+  #content-blogs-section .col-head > *:nth-child(1),
+  #content-blogs-section .data-row > *:nth-child(1),
+  #content-blogs-section .col-head > *:nth-child(4),
+  #content-blogs-section .data-row > *:nth-child(4),
+  #content-blogs-section .col-head > *:nth-child(5),
+  #content-blogs-section .data-row > *:nth-child(5) { display: none !important; }
+
+  /* FAQs: 5 cols → show Question, Status; hide Brand(1st), Page(3rd), Added(5th) */
+  #content-faqs-section .col-head,
+  #content-faqs-section .data-row {
+    grid-template-columns: 1fr 80px !important;
+  }
+  #content-faqs-section .col-head > *:nth-child(1),
+  #content-faqs-section .data-row > *:nth-child(1),
+  #content-faqs-section .col-head > *:nth-child(3),
+  #content-faqs-section .data-row > *:nth-child(3),
+  #content-faqs-section .col-head > *:nth-child(5),
+  #content-faqs-section .data-row > *:nth-child(5) { display: none !important; }
 
   /* ── Footer ── */
   .footer { font-size: 9px; letter-spacing: 1.5px; }
