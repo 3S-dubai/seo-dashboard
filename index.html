@@ -1295,7 +1295,7 @@ opacity: 1;
     document.getElementById('blog-list').innerHTML = loadingHtml('Fetching blogs');
     try{
       const {data,error} = await sb.from('blog_entries')
-        .select('id,brand,title,target_keyword,status,url,recorded_at')
+        .select('id,brand,title,status,url,recorded_at')
         .order('recorded_at',{ascending:false}).limit(100);
       if(error) throw error;
       renderBlogs(data??[]);
@@ -1310,9 +1310,8 @@ opacity: 1;
         <div class="metric-val" style="text-align:left;font-size:11px;color:var(--gold)">${r.brand}</div>
         <div>
           <div class="row-date">${r.title}</div>
-          ${r.target_keyword?`<div class="row-note">&#x1F50D; ${r.target_keyword}</div>`:''}
         </div>
-        <div class="metric-val"><span class="status-badge ${r.status?.toLowerCase().replace(' ','-')}">${r.status??'-'}</span></div>
+        <div class="metric-val"><span class="status-badge ${r.status?.toLowerCase().replace(' ','-'}">${r.status??'-'}</span></div>
         <div class="row-date" style="font-size:11px;color:var(--muted);text-align:center">${fmtRelative(r.recorded_at)}</div>
         <div class="row-link">${r.url?`<a href="${r.url}" target="_blank">Open &#x2197;</a>`:'-'}</div>
       </div>`).join('');
@@ -1324,7 +1323,6 @@ opacity: 1;
     const row={
       brand:val('blog-brand'),
       title:val('blog-title'),
-      target_keyword:val('blog-keyword')||null,
       status:val('blog-status')||'Planned',
       url:val('blog-url')||null
     };
@@ -1332,7 +1330,7 @@ opacity: 1;
     try{
       const {error} = await sb.from('blog_entries').insert(row);
       if(error) throw error;
-      clr('blog-title','blog-keyword','blog-url');
+      clr('blog-title','blog-url');
       fb('blog-fb','Saved.','ok');
       loadBlogs();
       setLastUpdated('lu-content', new Date().toISOString());
@@ -1345,7 +1343,7 @@ opacity: 1;
     document.getElementById('faq-list').innerHTML = loadingHtml('Fetching FAQs');
     try{
       const {data,error} = await sb.from('faq_entries')
-        .select('id,brand,question,target_keyword,page,status,recorded_at')
+        .select('id,brand,question,page,status,recorded_at')
         .order('recorded_at',{ascending:false}).limit(100);
       if(error) throw error;
       renderFaqs(data??[]);
@@ -1360,7 +1358,6 @@ opacity: 1;
         <div class="metric-val" style="text-align:left;font-size:11px;color:var(--gold)">${r.brand}</div>
         <div>
           <div class="row-date">${r.question}</div>
-          ${r.target_keyword?`<div class="row-note">&#x1F50D; ${r.target_keyword}</div>`:''}
         </div>
         <div class="metric-val" style="font-size:11px;color:var(--muted)">${r.page??'-'}</div>
         <div class="metric-val"><span class="status-badge ${r.status?.toLowerCase()}">${r.status??'-'}</span></div>
@@ -1374,7 +1371,6 @@ opacity: 1;
     const row={
       brand:val('faq-brand'),
       question:val('faq-question'),
-      target_keyword:val('faq-keyword')||null,
       page:val('faq-page')||null,
       status:val('faq-status')||'Pending'
     };
@@ -1382,7 +1378,7 @@ opacity: 1;
     try{
       const {error} = await sb.from('faq_entries').insert(row);
       if(error) throw error;
-      clr('faq-question','faq-keyword','faq-page');
+      clr('faq-question','faq-page');
       fb('faq-fb','Saved.','ok');
       loadFaqs();
       setLastUpdated('lu-content', new Date().toISOString());
@@ -1433,10 +1429,6 @@ opacity: 1;
         <div class="field-label">Blog title</div>
         <input id="blog-title" class="log-input" type="text" placeholder="e.g. How to set up a business in Dubai" />
       </div>
-      <div class="field" style="flex:1;min-width:120px">
-        <div class="field-label">Target keyword</div>
-        <input id="blog-keyword" class="log-input" type="text" placeholder="e.g. business setup Dubai" />
-      </div>
       <div class="field" style="flex:0 0 120px">
         <div class="field-label">Status</div>
         <select id="blog-status" class="log-input">
@@ -1480,10 +1472,6 @@ opacity: 1;
       <div class="field" style="flex:2;min-width:160px">
         <div class="field-label">Question</div>
         <input id="faq-question" class="log-input" type="text" placeholder="e.g. How long does business setup take?" />
-      </div>
-      <div class="field" style="flex:1;min-width:120px">
-        <div class="field-label">Target keyword</div>
-        <input id="faq-keyword" class="log-input" type="text" placeholder="e.g. business setup time UAE" />
       </div>
       <div class="field" style="flex:1;min-width:110px">
         <div class="field-label">Page it lives on</div>
