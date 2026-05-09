@@ -265,9 +265,8 @@
       <h3>Get Your Free Cost Estimate</h3>
       <p>Tell us about your business and we will reach out with a full consultation.</p>
       <div class="form-group"><label>Full Name</label><input type="text" id="f-name" placeholder="Your name"></div>
-      <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" id="f-phone" placeholder="+971 XX XXX XXXX"></div>
       <div class="form-group">
-        <label>Setup Type</label>
+        <label>Type of Licence</label>
         <select id="f-type">
           <option value="">Select an option</option>
           <option>Freezone - starting from AED 4,999</option>
@@ -286,10 +285,9 @@
 <script>
 function sendToWhatsApp() {
   var name = document.getElementById('f-name').value.trim();
-  var phone = document.getElementById('f-phone').value.trim();
   var type = document.getElementById('f-type').value.trim();
-  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
-  var msg = 'Hi, I am interested in business setup in Dubai.\n\nName: ' + name + '\nPhone: ' + phone + '\nSetup Type: ' + (type || 'Not specified');
+  if (!name) { alert('Please enter your name.'); return; }
+  var msg = 'Hi, I am interested in business setup consultation in Dubai.\n\nName: ' + name + '\nLicence Type: ' + (type || 'Not specified');
   window.open('https://wa.me/97143955747?text=' + encodeURIComponent(msg), '_blank');
 }
 </script>
@@ -524,7 +522,7 @@ function sendToWhatsApp() {
       <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.736 5.471 2.027 7.773L0 32l8.476-2.001A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm8.27 22.388c-.344.969-2.01 1.856-2.77 1.976-.71.112-1.607.16-2.59-.163a23.7 23.7 0 0 1-2.348-.869c-4.13-1.785-6.832-5.98-7.036-6.254-.204-.274-1.668-2.217-1.668-4.228s1.054-3.003 1.428-3.414c.374-.411.816-.514 1.088-.514.272 0 .544.003.782.014.25.012.587-.095.918.7.344.831 1.168 2.842 1.27 3.047.102.204.17.443.034.716-.136.272-.204.443-.408.68-.204.238-.43.532-.613.714-.204.204-.416.425-.179.834.238.408 1.056 1.742 2.267 2.822 1.558 1.389 2.872 1.818 3.28 2.022.408.204.646.17.884-.102.238-.272 1.02-1.19 1.293-1.598.272-.408.544-.34.918-.204.374.136 2.38 1.122 2.788 1.326.408.204.68.306.782.476.102.17.102.986-.242 1.956z"/></svg>
       Get Cost Estimate
     </a>
-    <a href="#contact" class="btn-outline">Speak To A Consultant</a>
+    <a href="tel:+97143955747" class="btn-outline">Speak To A Consultant</a>
   </div>
 </section>
 <footer>
